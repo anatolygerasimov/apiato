@@ -6,17 +6,16 @@ use Illuminate\Http\JsonResponse;
 use Throwable;
 
 /**
- * Class ExceptionBuilder
+ * Class ExceptionBuilder.
  *
  * @author Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class ExceptionBuilder
 {
-
     /**
      * @param \Exception $e
      *
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public static function make(Throwable $e)
     {

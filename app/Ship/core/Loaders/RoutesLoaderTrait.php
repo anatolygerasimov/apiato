@@ -2,8 +2,8 @@
 
 namespace Apiato\Core\Loaders;
 
-use Illuminate\Support\Arr;
 use Apiato\Core\Foundation\Facades\Apiato;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -16,13 +16,12 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 trait RoutesLoaderTrait
 {
-
     /**
-     * Register all the containers routes files in the framework
+     * Register all the containers routes files in the framework.
      */
     public function runRoutesAutoLoader()
     {
-        $containersPaths = Apiato::getContainersPaths();
+        $containersPaths     = Apiato::getContainersPaths();
         $containersNamespace = Apiato::getContainersNamespace();
 
         foreach ($containersPaths as $containerPath) {
@@ -32,7 +31,7 @@ trait RoutesLoaderTrait
     }
 
     /**
-     * Register the Containers API routes files
+     * Register the Containers API routes files.
      *
      * @param $containerPath
      * @param $containersNamespace
@@ -56,7 +55,7 @@ trait RoutesLoaderTrait
     }
 
     /**
-     * Register the Containers WEB routes files
+     * Register the Containers WEB routes files.
      *
      * @param $containerPath
      * @param $containersNamespace
@@ -110,7 +109,7 @@ trait RoutesLoaderTrait
      * @param      $endpointFileOrPrefixString
      * @param null $controllerNamespace
      *
-     * @return  array
+     * @return array
      */
     public function getRouteGroup($endpointFileOrPrefixString, $controllerNamespace = null)
     {
@@ -119,12 +118,12 @@ trait RoutesLoaderTrait
             'middleware' => $this->getMiddlewares(),
             'domain'     => $this->getApiUrl(),
             // if $endpointFileOrPrefixString is a file then get the version name from the file name, else if string use that string as prefix
-            'prefix'     =>  is_string($endpointFileOrPrefixString) ? $endpointFileOrPrefixString :  $this->getApiVersionPrefix($endpointFileOrPrefixString),
+            'prefix'     => is_string($endpointFileOrPrefixString) ? $endpointFileOrPrefixString : $this->getApiVersionPrefix($endpointFileOrPrefixString),
         ];
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     private function getApiUrl()
     {
@@ -134,7 +133,7 @@ trait RoutesLoaderTrait
     /**
      * @param $file
      *
-     * @return  string
+     * @return string
      */
     private function getApiVersionPrefix($file)
     {
@@ -142,7 +141,7 @@ trait RoutesLoaderTrait
     }
 
     /**
-     * @return  array
+     * @return array
      */
     private function getMiddlewares()
     {
@@ -153,7 +152,7 @@ trait RoutesLoaderTrait
     }
 
     /**
-     * @return  null|string
+     * @return null|string
      */
     private function getRateLimitMiddleware()
     {
@@ -169,7 +168,7 @@ trait RoutesLoaderTrait
     /**
      * @param $file
      *
-     * @return  mixed
+     * @return mixed
      */
     private function getRouteFileVersionFromFileName($file)
     {
@@ -192,7 +191,7 @@ trait RoutesLoaderTrait
     /**
      * @param \Symfony\Component\Finder\SplFileInfo $file
      *
-     * @return  mixed
+     * @return mixed
      */
     private function getRouteFileNameWithoutExtension(SplFileInfo $file)
     {
@@ -200,5 +199,4 @@ trait RoutesLoaderTrait
 
         return $fileInfo['filename'];
     }
-
 }

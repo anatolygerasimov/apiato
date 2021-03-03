@@ -5,17 +5,16 @@ namespace App\Containers\Stripe\UI\API\Requests;
 use App\Ship\Parents\Requests\Request;
 
 /**
- * Class UpdateStripeAccountRequest
+ * Class UpdateStripeAccountRequest.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class UpdateStripeAccountRequest extends Request
 {
-
     /**
      * Define which Roles and/or Permissions has access to this request.
      *
-     * @var  array
+     * @var array
      */
     protected $access = [
         'roles'       => '',
@@ -25,7 +24,7 @@ class UpdateStripeAccountRequest extends Request
     /**
      * Id's that needs decoding before applying the validation rules.
      *
-     * @var  array
+     * @var array
      */
     protected $decode = [
         'id',
@@ -35,7 +34,7 @@ class UpdateStripeAccountRequest extends Request
      * Defining the URL parameters (`/stores/999/items`) allows applying
      * validation rules on them and allows accessing them like request data.
      *
-     * @var  array
+     * @var array
      */
     protected $urlParameters = [
         'id',

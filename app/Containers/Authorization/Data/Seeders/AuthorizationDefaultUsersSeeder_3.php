@@ -6,13 +6,12 @@ use Apiato\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Seeders\Seeder;
 
 /**
- * Class AuthorizationDefaultUsersSeeder_3
+ * Class AuthorizationDefaultUsersSeeder_3.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class AuthorizationDefaultUsersSeeder_3 extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -29,6 +28,5 @@ class AuthorizationDefaultUsersSeeder_3 extends Seeder
         ])->assignRole(Apiato::call('Authorization@FindRoleTask', ['admin']));
 
         // ...
-
     }
 }

@@ -7,13 +7,12 @@ use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
 use Illuminate\Support\Str;
 
 /**
- * Class TestUnitTestGenerator
+ * Class TestUnitTestGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class TestUnitTestGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -38,21 +37,21 @@ class TestUnitTestGenerator extends GeneratorCommand implements ComponentsGenera
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Tests/Unit/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'tests/unit/general.stub';
 
@@ -60,7 +59,7 @@ class TestUnitTestGenerator extends GeneratorCommand implements ComponentsGenera
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
     ];
@@ -73,8 +72,8 @@ class TestUnitTestGenerator extends GeneratorCommand implements ComponentsGenera
         // we need to generate the TestCase class before
         $this->call('apiato:generate:test:testcase', [
             '--container' => $this->containerName,
-            '--file' => 'TestCase',
-            '--ui' => 'generic',
+            '--file'      => 'TestCase',
+            '--ui'        => 'generic',
         ]);
 
         return [
@@ -96,6 +95,4 @@ class TestUnitTestGenerator extends GeneratorCommand implements ComponentsGenera
     {
         return 'DefaultUnitTest';
     }
-
 }
-

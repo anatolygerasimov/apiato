@@ -7,13 +7,12 @@ use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Tasks\Task;
 
 /**
- * Class FindSettingsByKeyTask
+ * Class FindSettingsByKeyTask.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class FindSettingByKeyTask extends Task
 {
-
     protected $repository;
 
     public function __construct(SettingRepository $repository)
@@ -25,6 +24,7 @@ class FindSettingByKeyTask extends Task
      * @param $key
      *
      * @return mixed
+     *
      * @throws NotFoundException
      */
     public function run($key)

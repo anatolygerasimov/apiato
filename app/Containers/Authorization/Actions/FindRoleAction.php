@@ -15,12 +15,12 @@ use App\Ship\Transporters\DataTransporter;
  */
 class FindRoleAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\Authorization\Models\Role
-     * @throws  RoleNotFoundException
+     * @return \App\Containers\Authorization\Models\Role
+     *
+     * @throws RoleNotFoundException
      */
     public function run(DataTransporter $data): Role
     {
@@ -32,5 +32,4 @@ class FindRoleAction extends Action
 
         return $role;
     }
-
 }

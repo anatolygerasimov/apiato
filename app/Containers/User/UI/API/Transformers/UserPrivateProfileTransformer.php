@@ -13,16 +13,15 @@ use App\Ship\Parents\Transformers\Transformer;
  */
 class UserPrivateProfileTransformer extends Transformer
 {
-
     /**
-     * @var  array
+     * @var array
      */
     protected $availableIncludes = [
         'roles',
     ];
 
     /**
-     * @var  array
+     * @var array
      */
     protected $defaultIncludes = [
 
@@ -58,17 +57,14 @@ class UserPrivateProfileTransformer extends Transformer
             'readable_updated_at'  => $user->updated_at->diffForHumans(),
         ];
 
-        $response = $this->ifAdmin([
+        return $this->ifAdmin([
             'real_id'    => $user->id,
             'deleted_at' => $user->deleted_at,
         ], $response);
-
-        return $response;
     }
 
     public function includeRoles(User $user)
     {
         return $this->collection($user->roles, new RoleTransformer());
     }
-
 }

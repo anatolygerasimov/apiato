@@ -15,20 +15,19 @@ use Laravel\Socialite\SocialiteServiceProvider;
  */
 class MainServiceProvider extends MainProvider
 {
-
     /**
      * Container Service Providers.
      *
      * @var array
      */
     public $serviceProviders = [
-        SocialiteServiceProvider::class
+        SocialiteServiceProvider::class,
     ];
 
     /**
-     * Container Aliases
+     * Container Aliases.
      *
-     * @var  array
+     * @var array
      */
     public $aliases = [
         'Socialite' => Socialite::class,

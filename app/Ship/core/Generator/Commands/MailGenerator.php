@@ -8,13 +8,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class MailGenerator
+ * Class MailGenerator.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class MailGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -39,21 +38,21 @@ class MailGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Mails/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'mail.stub';
 
@@ -61,7 +60,7 @@ class MailGenerator extends GeneratorCommand implements ComponentsGenerator
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['view', null, InputOption::VALUE_OPTIONAL, 'The name of the view (blade template) to be loaded.'],
@@ -94,6 +93,4 @@ class MailGenerator extends GeneratorCommand implements ComponentsGenerator
     {
         return 'DefaultMail';
     }
-
 }
-

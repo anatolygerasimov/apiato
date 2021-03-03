@@ -48,7 +48,6 @@ return [
         */
         'enable_version_prefix'   => true,
 
-
         /*
         |--------------------------------------------------------------------------
         | Access Token Expiration
@@ -100,7 +99,7 @@ return [
             'enabled'  => env('API_RATE_LIMIT_ENABLED', true),
             'attempts' => env('API_RATE_LIMIT_ATTEMPTS', '30'),
             'expires'  => env('API_RATE_LIMIT_EXPIRES', '1'),
-        ]
+        ],
 
     ],
 
@@ -196,6 +195,6 @@ return [
         */
         'log-wrong-apiato-caller-style' => true,
 
-    ]
+    ],
 
 ];

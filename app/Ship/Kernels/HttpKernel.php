@@ -9,7 +9,7 @@ use App\Ship\Middlewares\Http\ValidateJsonContent;
 use Illuminate\Foundation\Http\Kernel as LaravelHttpKernel;
 
 /**
- * Class HttpKernel
+ * Class HttpKernel.
  *
  * A.K.A (app/Http/Kernel.php)
  *
@@ -17,7 +17,6 @@ use Illuminate\Foundation\Http\Kernel as LaravelHttpKernel;
  */
 class HttpKernel extends LaravelHttpKernel
 {
-
     /**
      * The application's global HTTP middleware stack.
      *
@@ -33,7 +32,7 @@ class HttpKernel extends LaravelHttpKernel
         \App\Ship\Middlewares\Http\TrustProxies::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
 
-      // CORS package middleware
+        // CORS package middleware
         \Fruitcake\Cors\HandleCors::class,
     ];
 
@@ -54,11 +53,11 @@ class HttpKernel extends LaravelHttpKernel
         ],
 
         'api' => [
-          // Note: The throttle Middleware is registered by the RoutesLoaderTrait in the Core
-          ValidateJsonContent::class,
-          'bindings',
-          ProcessETagHeadersMiddleware::class,
-          ProfilerMiddleware::class,
+            // Note: The throttle Middleware is registered by the RoutesLoaderTrait in the Core
+            ValidateJsonContent::class,
+            'bindings',
+            ProcessETagHeadersMiddleware::class,
+            ProfilerMiddleware::class,
         ],
     ];
 
@@ -70,14 +69,14 @@ class HttpKernel extends LaravelHttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'can'      => \Illuminate\Auth\Middleware\Authorize::class,
-        'auth'     => Authenticate::class,
-        'signed'   => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
+        'auth'             => Authenticate::class,
+        'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // 'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         // 'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
     ];
@@ -90,12 +89,12 @@ class HttpKernel extends LaravelHttpKernel
      * @var array
      */
     protected $middlewarePriority = [
-      \Illuminate\Session\Middleware\StartSession::class,
-      \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-      \App\Ship\Middlewares\Http\Authenticate::class,
-      \Illuminate\Routing\Middleware\ThrottleRequests::class,
-      \Illuminate\Session\Middleware\AuthenticateSession::class,
-      \Illuminate\Routing\Middleware\SubstituteBindings::class,
-      \Illuminate\Auth\Middleware\Authorize::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Ship\Middlewares\Http\Authenticate::class,
+        \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \Illuminate\Auth\Middleware\Authorize::class,
     ];
 }

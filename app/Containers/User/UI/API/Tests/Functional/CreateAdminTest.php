@@ -15,7 +15,6 @@ use App\Containers\User\Tests\ApiTestCase;
  */
 class CreateAdminTest extends ApiTestCase
 {
-
     protected $endpoint = 'post@v1/admins';
 
     protected $access = [
@@ -26,7 +25,7 @@ class CreateAdminTest extends ApiTestCase
     /**
      * @test
      */
-    public function testCreateAdmin_()
+    public function testCreateAdmin()
     {
         $data = [
             'email'    => 'apiato@admin.test',
@@ -55,5 +54,4 @@ class CreateAdminTest extends ApiTestCase
 
         $this->assertEquals($user->is_client, false);
     }
-
 }

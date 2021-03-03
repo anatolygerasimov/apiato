@@ -12,11 +12,10 @@
  *
  * @apiUse             UserSuccessSingleResponse
  */
-
 $router->get('user/profile', [
-    'as' => 'api_user_get_authenticated_user',
-    'uses'  => 'Controller@getAuthenticatedUser',
+    'as'         => 'api_user_get_authenticated_user',
+    'uses'       => 'Controller@getAuthenticatedUser',
     'middleware' => [
-      'auth:api',
+        'auth:api',
     ],
 ]);

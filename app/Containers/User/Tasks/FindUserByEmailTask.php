@@ -9,13 +9,12 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
- * Class FindUserByEmailTask
+ * Class FindUserByEmailTask.
  *
  * @author  Sebastian Weckend
  */
 class FindUserByEmailTask extends Task
 {
-
     protected $repository;
 
     public function __construct(UserRepository $repository)
@@ -27,6 +26,7 @@ class FindUserByEmailTask extends Task
      * @param string $email
      *
      * @return User
+     *
      * @throws NotFoundException
      */
     public function run(string $email): User

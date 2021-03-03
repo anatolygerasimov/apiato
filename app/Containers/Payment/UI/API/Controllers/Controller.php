@@ -12,14 +12,13 @@ use App\Ship\Parents\Controllers\ApiController;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class Controller
+ * Class Controller.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Controller extends ApiController
 {
-
     /**
      * @param GetAllPaymentAccountsRequest $request
      *

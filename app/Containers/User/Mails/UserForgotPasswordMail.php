@@ -8,17 +8,16 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 /**
- * Class UserForgotPasswordMail
+ * Class UserForgotPasswordMail.
  *
  * @author  Sebastian Weckend
  */
 class UserForgotPasswordMail extends Mail implements ShouldQueue
 {
-
     use Queueable;
 
     /**
-     * @var  \App\Containers\User\Models\User
+     * @var \App\Containers\User\Models\User
      */
     protected $recipient;
 
@@ -42,12 +41,12 @@ class UserForgotPasswordMail extends Mail implements ShouldQueue
     public function __construct(User $recipient, $token, $reseturl)
     {
         $this->recipient = $recipient;
-        $this->token = $token;
-        $this->reseturl = $reseturl;
+        $this->token     = $token;
+        $this->reseturl  = $reseturl;
     }
 
     /**
-     * @return  $this
+     * @return $this
      */
     public function build()
     {

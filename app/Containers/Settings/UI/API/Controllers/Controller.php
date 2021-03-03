@@ -12,15 +12,14 @@ use App\Ship\Parents\Controllers\ApiController;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class Controller
+ * Class Controller.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Controller extends ApiController
 {
-
     /**
-     * Get All application settings
+     * Get All application settings.
      *
      * @param GetAllSettingsRequest $request
      *
@@ -34,7 +33,7 @@ class Controller extends ApiController
     }
 
     /**
-     * create a new setting
+     * create a new setting.
      *
      * @param CreateSettingRequest $request
      *
@@ -48,7 +47,7 @@ class Controller extends ApiController
     }
 
     /**
-     * Updates an existing setting
+     * Updates an existing setting.
      *
      * @param UpdateSettingRequest $request
      *
@@ -62,7 +61,7 @@ class Controller extends ApiController
     }
 
     /**
-     * Removes a setting
+     * Removes a setting.
      *
      * @param DeleteSettingRequest $request
      *

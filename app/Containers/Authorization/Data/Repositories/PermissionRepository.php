@@ -11,11 +11,10 @@ use App\Ship\Parents\Repositories\Repository;
  */
 class PermissionRepository extends Repository
 {
-
     /**
-     * the container name. Must be set when the model has different name than the container
+     * the container name. Must be set when the model has different name than the container.
      *
-     * @var  string
+     * @var string
      */
     protected $container = 'Authorization';
 
@@ -27,5 +26,4 @@ class PermissionRepository extends Repository
         'display_name' => 'like',
         'description'  => 'like',
     ];
-
 }

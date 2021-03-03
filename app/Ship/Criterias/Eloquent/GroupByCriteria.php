@@ -6,13 +6,12 @@ use App\Ship\Parents\Criterias\Criteria;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
- * Class GroupByCriteria
+ * Class GroupByCriteria.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class GroupByCriteria extends Criteria
 {
-
     /**
      * @var
      */
@@ -32,11 +31,10 @@ class GroupByCriteria extends Criteria
      * @param                                                   $model
      * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
      *
-     * @return  mixed
+     * @return mixed
      */
     public function apply($model, PrettusRepositoryInterface $repository)
     {
         return $model->groupBy($this->field);
     }
-
 }

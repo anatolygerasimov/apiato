@@ -2,10 +2,7 @@
 
 namespace Apiato\Core\Traits\TestsTraits\PhpUnit;
 
-use App;
-use App\Containers\Authentication\Tasks\ApiLoginThisUserObjectTask;
 use App\Containers\User\Models\User;
-use Artisan;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -17,7 +14,6 @@ use Illuminate\Support\Facades\Hash;
  */
 trait TestsAuthHelperTrait
 {
-
     /**
      * Logged in user object.
      *
@@ -26,7 +22,7 @@ trait TestsAuthHelperTrait
     protected $testingUser;
 
     /**
-     * Roles and permissions, to be attached on the user
+     * Roles and permissions, to be attached on the user.
      *
      * @var array
      */
@@ -47,7 +43,7 @@ trait TestsAuthHelperTrait
      * @param null $access      roles and permissions you'd like to provide this user with
      * @param null $userDetails what to be attached on the User object
      *
-     * @return  \App\Containers\User\Models\User
+     * @return \App\Containers\User\Models\User
      */
     public function getTestingUser($userDetails = null, $access = null)
     {
@@ -62,7 +58,7 @@ trait TestsAuthHelperTrait
      *
      * @param null $userDetails
      *
-     * @return  \App\Containers\User\Models\User
+     * @return \App\Containers\User\Models\User
      */
     public function getTestingUserWithoutAccess($userDetails = null)
     {
@@ -73,23 +69,23 @@ trait TestsAuthHelperTrait
      * @param $userDetails
      * @param $access
      *
-     * @return  \App\Containers\User\Models\User
+     * @return \App\Containers\User\Models\User
      */
     private function findOrCreateTestingUser($userDetails, $access)
     {
-        return $this->testingUser ? : $this->createTestingUser($userDetails, $access);
+        return $this->testingUser ?: $this->createTestingUser($userDetails, $access);
     }
 
     /**
      * @param null $access
      * @param null $userDetails
      *
-     * @return  User
+     * @return User
      */
     private function createTestingUser($userDetails = null, $access = null)
     {
         // "inject" the confirmed status, if userdetails are submitted
-        if(is_array($userDetails)) {
+        if (is_array($userDetails)) {
             $defaults = [
                 'confirmed' => true,
             ];
@@ -113,7 +109,7 @@ trait TestsAuthHelperTrait
     /**
      * @param null $userDetails
      *
-     * @return  User
+     * @return User
      */
     private function factoryCreateUser($userDetails = null)
     {
@@ -123,7 +119,7 @@ trait TestsAuthHelperTrait
     /**
      * @param null $userDetails
      *
-     * @return  array
+     * @return array
      */
     private function prepareUserDetails($userDetails = null)
     {
@@ -134,13 +130,13 @@ trait TestsAuthHelperTrait
         ];
 
         // if no user detail provided, use the default details, to find the password or generate one before encoding it
-        return $this->prepareUserPassword($userDetails ? : $defaultUserDetails);;
+        return $this->prepareUserPassword($userDetails ?: $defaultUserDetails);
     }
 
     /**
      * @param $userDetails
      *
-     * @return  null
+     * @return null
      */
     private function prepareUserPassword($userDetails)
     {
@@ -153,9 +149,8 @@ trait TestsAuthHelperTrait
         return $userDetails;
     }
 
-
     /**
-     * @return  array|null
+     * @return array|null
      */
     private function getAccess()
     {
@@ -166,23 +161,22 @@ trait TestsAuthHelperTrait
      * @param $user
      * @param $access
      *
-     * @return  mixed
+     * @return mixed
      */
     private function setupTestingUserAccess($user, $access = null)
     {
-        $access = $access ? : $this->getAccess();
+        $access = $access ?: $this->getAccess();
 
         $user = $this->setupTestingUserPermissions($user, $access);
-        $user = $this->setupTestingUserRoles($user, $access);
 
-        return $user;
+        return $this->setupTestingUserRoles($user, $access);
     }
 
     /**
      * @param $user
      * @param $access
      *
-     * @return  mixed
+     * @return mixed
      */
     private function setupTestingUserRoles($user, $access)
     {
@@ -200,7 +194,7 @@ trait TestsAuthHelperTrait
      * @param $user
      * @param $access
      *
-     * @return  mixed
+     * @return mixed
      */
     private function setupTestingUserPermissions($user, $access)
     {
@@ -212,16 +206,14 @@ trait TestsAuthHelperTrait
         return $user;
     }
 
-
     /**
-     * @return  array
+     * @return array
      */
     private function getNullAccess()
     {
         return [
             'permissions' => null,
-            'roles'       => null
+            'roles'       => null,
         ];
     }
-
 }

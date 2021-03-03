@@ -9,14 +9,13 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
- * Class FindPaymentAccountByIdTask
+ * Class FindPaymentAccountByIdTask.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class FindPaymentAccountByIdTask extends Task
 {
-
     protected $repository;
 
     public function __construct(PaymentAccountRepository $repository)
@@ -27,8 +26,9 @@ class FindPaymentAccountByIdTask extends Task
     /**
      * @param $id
      *
-     * @return  mixed
-     * @throws  NotFoundException
+     * @return mixed
+     *
+     * @throws NotFoundException
      */
     public function run($id): PaymentAccount
     {

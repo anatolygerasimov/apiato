@@ -5,7 +5,7 @@ namespace App\Ship\Parents\Providers;
 use Apiato\Core\Abstracts\Providers\AuthProvider as AbstractAuthProvider;
 
 /**
- * Class ShipAuthServiceProvider
+ * Class ShipAuthServiceProvider.
  *
  * This class is provided by Laravel as default provider,
  * to register authorization policies.
@@ -16,7 +16,6 @@ use Apiato\Core\Abstracts\Providers\AuthProvider as AbstractAuthProvider;
  */
 class AuthProvider extends AbstractAuthProvider
 {
-
     /**
      * The policy mappings for the application.
      *
@@ -33,5 +32,4 @@ class AuthProvider extends AbstractAuthProvider
     {
         parent::boot();
     }
-
 }

@@ -16,7 +16,6 @@ use App\Containers\Authorization\Tests\ApiTestCase;
  */
 class AttachPermissionsToRoleTest extends ApiTestCase
 {
-
     protected $endpoint = 'post@v1/permissions/attach';
 
     protected $access = [
@@ -27,9 +26,9 @@ class AttachPermissionsToRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testAttachSinglePermissionToRole_()
+    public function testAttachSinglePermissionToRole()
     {
-        $roleA = factory(Role::class)->create();
+        $roleA       = factory(Role::class)->create();
         $permissionA = factory(Permission::class)->create();
 
         $data = [
@@ -49,11 +48,11 @@ class AttachPermissionsToRoleTest extends ApiTestCase
 
         $this->assertDatabaseHas('role_has_permissions', [
             'permission_id' => $permissionA->id,
-            'role_id'       => $roleA->id
+            'role_id'       => $roleA->id,
         ]);
     }
 
-    public function testAttachMultiplePermissionToRole_()
+    public function testAttachMultiplePermissionToRole()
     {
         $roleA = factory(Role::class)->create();
 
@@ -62,7 +61,7 @@ class AttachPermissionsToRoleTest extends ApiTestCase
 
         $data = [
             'role_id'         => $roleA->getHashedKey(),
-            'permissions_ids' => [$permissionA->getHashedKey(), $permissionB->getHashedKey()]
+            'permissions_ids' => [$permissionA->getHashedKey(), $permissionB->getHashedKey()],
         ];
 
         // send the HTTP request
@@ -74,9 +73,7 @@ class AttachPermissionsToRoleTest extends ApiTestCase
         $this->assertDatabaseHas('role_has_permissions', [
             'permission_id' => $permissionA->id,
             'permission_id' => $permissionB->id,
-            'role_id'       => $roleA->id
+            'role_id'       => $roleA->id,
         ]);
-
     }
-
 }

@@ -15,7 +15,6 @@ use App\Containers\User\Tests\ApiTestCase;
  */
 class GetAllUsersTest extends ApiTestCase
 {
-
     protected $endpoint = 'get@v1/users';
 
     protected $access = [
@@ -26,7 +25,7 @@ class GetAllUsersTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllUsersByAdmin_()
+    public function testGetAllUsersByAdmin()
     {
         // create some non-admin users who are clients
         factory(User::class, 2)->create();
@@ -47,7 +46,7 @@ class GetAllUsersTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllUsersByNonAdmin_()
+    public function testGetAllUsersByNonAdmin()
     {
         $this->getTestingUserWithoutAccess();
 
@@ -71,14 +70,14 @@ class GetAllUsersTest extends ApiTestCase
     public function testSearchUsersByName()
     {
         $user = $this->getTestingUser([
-            'name' => 'mahmoudzzz'
+            'name' => 'mahmoudzzz',
         ]);
 
         // 3 random users
         factory(User::class, 3)->create();
 
         // send the HTTP request
-        $response = $this->endpoint($this->endpoint. '?search=name:mahmoudzzz')->makeCall();
+        $response = $this->endpoint($this->endpoint . '?search=name:mahmoudzzz')->makeCall();
 
         // assert response status is correct
         $response->assertStatus(200);
@@ -90,5 +89,4 @@ class GetAllUsersTest extends ApiTestCase
         // assert only single user was returned
         $this->assertCount(1, $responseArray['data']);
     }
-
 }

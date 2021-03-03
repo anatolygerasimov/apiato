@@ -17,12 +17,10 @@ use Spatie\Permission\Traits\HasRoles;
  */
 abstract class UserModel extends AbstractUserModel
 {
-
+    use HasApiTokens;
+    use HashIdTrait;
+    use HasResourceKeyTrait;
+    use HasRoles;
     use Notifiable;
     use SoftDeletes;
-    use HashIdTrait;
-    use HasRoles;
-    use HasApiTokens;
-    use HasResourceKeyTrait;
-
 }

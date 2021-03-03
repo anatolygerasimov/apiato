@@ -12,7 +12,6 @@ use App\Ship\Parents\Tasks\Task;
  */
 class GetAllRolesTask extends Task
 {
-
     protected $repository;
 
     public function __construct(RoleRepository $repository)
@@ -23,11 +22,10 @@ class GetAllRolesTask extends Task
     /**
      * @param bool $skipPagination
      *
-     * @return  mixed
+     * @return mixed
      */
     public function run($skipPagination = false)
     {
         return $skipPagination ? $this->repository->all() : $this->repository->paginate();
     }
-
 }

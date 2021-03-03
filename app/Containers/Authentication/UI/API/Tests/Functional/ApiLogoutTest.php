@@ -5,7 +5,7 @@ namespace App\Containers\Authentication\UI\API\Tests\Functional;
 use App\Containers\Authentication\Tests\ApiTestCase;
 
 /**
- * Class ApiLogoutTest
+ * Class ApiLogoutTest.
  *
  * @group authorization
  * @group api
@@ -14,7 +14,6 @@ use App\Containers\Authentication\Tests\ApiTestCase;
  */
 class ApiLogoutTest extends ApiTestCase
 {
-
     protected $endpoint = 'delete@v1/logout';
 
     protected $access = [
@@ -38,7 +37,7 @@ class ApiLogoutTest extends ApiTestCase
            mI1ajopXwcTTo0K8ymDDCAgB8JbGQTcGGSZe2VHJCXXaQJvesIlvke6ZvsoKwUqphpe99Qi67e3TA0_uDK8_u-Bv4lew95lg3IXBMKvfXvi1
            7rEDvO23uClDWnZUhHKgqtPhO8oG7A1hFR8arLN1lEKrP44zO5470cD6_Pw7Ngi1coJeG5jXmtRb9gCpksdYQBB5csURioYSZuHNZQBGVWZV
            zlURPWvgtSd_aL646KmMmy64L4MA1QXsqXzzuLULGbcSntB8N-2XcogdTFe0ZG6RL8UzcArZx0Xur8CCi01UuPkBCnv5R4hxIjsQDkmFIDmr
-           Cyo2VuoVyrlxWIgsTm04'
+           Cyo2VuoVyrlxWIgsTm04',
         ]);
 
         $response->assertStatus(202);
@@ -46,7 +45,5 @@ class ApiLogoutTest extends ApiTestCase
         $this->assertResponseContainKeyValue([
             'message' => 'Token revoked successfully.',
         ]);
-
     }
-
 }

@@ -5,13 +5,12 @@ namespace App\Ship\Seeders;
 use App\Ship\Parents\Seeders\Seeder;
 
 /**
- * Class SeedDeploymentData
+ * Class SeedDeploymentData.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class SeedDeploymentData extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -21,5 +20,4 @@ class SeedDeploymentData extends Seeder
     {
         // Create data for live deployment here
     }
-
 }

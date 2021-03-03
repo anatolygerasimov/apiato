@@ -2,7 +2,6 @@
 
 namespace Apiato\Core\Abstracts\Requests;
 
-use Illuminate\Support\Arr;
 use Apiato\Core\Abstracts\Transporters\Transporter;
 use Apiato\Core\Exceptions\UndefinedTransporterException;
 use Apiato\Core\Traits\HashIdTrait;
@@ -12,10 +11,11 @@ use App;
 use App\Containers\Authentication\Tasks\GetAuthenticatedUserTask;
 use App\Containers\User\Models\User;
 use Illuminate\Foundation\Http\FormRequest as LaravelRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 
 /**
- * Class Request
+ * Class Request.
  *
  * A.K.A (app/Http/Requests/Request.php)
  *
@@ -23,13 +23,12 @@ use Illuminate\Support\Facades\Config;
  */
 abstract class Request extends LaravelRequest
 {
-
     use HashIdTrait;
-    use StateKeeperTrait;
     use SanitizerTrait;
+    use StateKeeperTrait;
 
     /**
-     * The transporter to be "casted" to
+     * The transporter to be "casted" to.
      *
      * @var null
      */
@@ -41,7 +40,7 @@ abstract class Request extends LaravelRequest
      *
      * @param null $keys
      *
-     * @return  array
+     * @return array
      */
     public function all($keys = null)
     {
@@ -49,9 +48,7 @@ abstract class Request extends LaravelRequest
 
         $requestData = $this->mergeUrlParametersWithRequestData($requestData);
 
-        $requestData = $this->decodeHashedIdsBeforeValidation($requestData);
-
-        return $requestData;
+        return $this->decodeHashedIdsBeforeValidation($requestData);
     }
 
     /**
@@ -61,18 +58,19 @@ abstract class Request extends LaravelRequest
      *
      * @param \App\Containers\User\Models\User|null $user
      *
-     * @return  bool
+     * @return bool
      */
     public function hasAccess(User $user = null)
     {
         // if not in parameters, take from the request object {$this}
-        $user = $user ? : $this->user();
+        $user = $user ?: $this->user();
 
         if ($user) {
             $autoAccessRoles = Config::get('apiato.requests.allow-roles-to-access-all-routes');
             // there are some roles defined that will automatically grant access
             if (!empty($autoAccessRoles)) {
                 $hasAutoAccessByRole = $user->hasAnyRole($autoAccessRoles);
+
                 if ($hasAutoAccessByRole) {
                     return true;
                 }
@@ -93,11 +91,11 @@ abstract class Request extends LaravelRequest
      * Check if the submitted ID (mainly URL ID's) is the same as
      * the authenticated user ID (based on the user Token).
      *
-     * @return  bool
+     * @return bool
      */
     public function isOwner()
     {
-        return App::make(GetAuthenticatedUserTask::class)->run()->id == $this->id;
+        return App::make(GetAuthenticatedUserTask::class)->run()->id === $this->id;
     }
 
     /**
@@ -109,7 +107,7 @@ abstract class Request extends LaravelRequest
      * @param array                                 $files
      * @param array                                 $server
      *
-     * @return  static
+     * @return static
      */
     public static function injectData($parameters = [], User $user = null, $cookies = [], $files = [], $server = [])
     {
@@ -129,7 +127,6 @@ abstract class Request extends LaravelRequest
 
         return $request;
     }
-
 
     /**
      * Maps Keys in the Request.
@@ -166,12 +163,12 @@ abstract class Request extends LaravelRequest
      *
      * @param array $functions
      *
-     * @return  bool
+     * @return bool
      */
     protected function check(array $functions)
     {
         $orIndicator = '|';
-        $returns = [];
+        $returns     = [];
 
         // iterate all functions in the array
         foreach ($functions as $function) {
@@ -211,9 +208,9 @@ abstract class Request extends LaravelRequest
      *
      * @param array $requestData
      *
-     * @return  array
+     * @return array
      */
-    private function mergeUrlParametersWithRequestData(Array $requestData)
+    private function mergeUrlParametersWithRequestData(array $requestData)
     {
         if (isset($this->urlParameters) && !empty($this->urlParameters)) {
             foreach ($this->urlParameters as $param) {
@@ -227,7 +224,7 @@ abstract class Request extends LaravelRequest
     /**
      * @param $user
      *
-     * @return  array
+     * @return array
      */
     private function hasAnyPermissionAccess($user)
     {
@@ -238,18 +235,16 @@ abstract class Request extends LaravelRequest
         $permissions = is_array($this->access['permissions']) ? $this->access['permissions'] :
             explode('|', $this->access['permissions']);
 
-        $hasAccess = array_map(function ($permission) use ($user) {
+        return array_map(function ($permission) use ($user) {
             // Note: internal return
             return $user->hasPermissionTo($permission);
         }, $permissions);
-
-        return $hasAccess;
     }
 
     /**
      * @param $user
      *
-     * @return  array
+     * @return array
      */
     private function hasAnyRoleAccess($user)
     {
@@ -260,16 +255,14 @@ abstract class Request extends LaravelRequest
         $roles = is_array($this->access['roles']) ? $this->access['roles'] :
             explode('|', $this->access['roles']);
 
-        $hasAccess = array_map(function ($role) use ($user) {
+        return array_map(function ($role) use ($user) {
             // Note: internal return
             return $user->hasRole($role);
         }, $roles);
-
-        return $hasAccess;
     }
 
     /**
-     * This method mimics the $request->input() method but works on the "decoded" values
+     * This method mimics the $request->input() method but works on the "decoded" values.
      *
      * @param $key
      * @param $default
@@ -282,14 +275,15 @@ abstract class Request extends LaravelRequest
     }
 
     /**
-     * Returns the Transporter (if correctly set)
+     * Returns the Transporter (if correctly set).
      *
      * @return string
+     *
      * @throws UndefinedTransporterException
      */
     public function getTransporter()
     {
-        if ($this->transporter == null) {
+        if ($this->transporter === null) {
             throw new UndefinedTransporterException();
         }
 
@@ -311,5 +305,4 @@ abstract class Request extends LaravelRequest
 
         return $transporter;
     }
-
 }

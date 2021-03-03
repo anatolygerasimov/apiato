@@ -13,7 +13,6 @@ use App\Ship\Transporters\DataTransporter;
  */
 class DeleteUserAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      */

@@ -11,7 +11,7 @@ use Laravel\Passport\RouteRegistrar;
 use Route;
 
 /**
- * Class ShipAuthServiceProvider
+ * Class ShipAuthServiceProvider.
  *
  * This class is provided by Laravel as default provider,
  * to register authorization policies.
@@ -56,7 +56,7 @@ class AuthProvider extends ParentAuthProvider
 
     /**
      * Register password.
-     * 
+     *
      * @return void
      */
     private function registerPassport()
@@ -72,12 +72,12 @@ class AuthProvider extends ParentAuthProvider
 
     /**
      * Register password api routes.
-     * 
+     *
      * @return void
      */
     private function registerPassportApiRoutes()
     {
-        $prefix = Config::get('apiato.api.prefix');
+        $prefix          = Config::get('apiato.api.prefix');
         $routeGroupArray = $this->getRouteGroup("/{$prefix}v1");
 
         Route::group($routeGroupArray, function () {
@@ -92,7 +92,7 @@ class AuthProvider extends ParentAuthProvider
 
     /**
      * Register password web routes.
-     * 
+     *
      * @return void
      */
     private function registerPassportWebRoutes()

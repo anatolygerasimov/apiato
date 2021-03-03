@@ -6,7 +6,7 @@ use App\Containers\Payment\Contracts\PaymentGatewayAccountInterface;
 use App\Ship\Parents\Models\Model;
 
 /**
- * Class AbstractPaymentAccount
+ * Class AbstractPaymentAccount.
  *
  * This class must be extended by all the payments classes. Such as StripeAccount, PaypalAccount...
  *
@@ -15,11 +15,10 @@ use App\Ship\Parents\Models\Model;
  */
 abstract class AbstractPaymentAccount extends Model implements PaymentGatewayAccountInterface
 {
-
     /**
      * @param array $fields
      *
-     * @return  bool
+     * @return bool
      */
     public function checkIfPaymentDataIsSet(array $fields)
     {
@@ -33,16 +32,13 @@ abstract class AbstractPaymentAccount extends Model implements PaymentGatewayAcc
     }
 
     /**
-     * @return  array
+     * @return array
      */
     public function getDetailAttributes()
     {
         $attributes = $this->toArray();
 
-        unset($attributes['id']);
-        unset($attributes['created_at']);
-        unset($attributes['updated_at']);
-        unset($attributes['deleted_at']);
+        unset($attributes['id'], $attributes['created_at'], $attributes['updated_at'], $attributes['deleted_at']);
 
         return $attributes;
     }

@@ -44,14 +44,14 @@ return [
     'types' => [
 
         'public' => [
-            'url' => 'api/documentation',
+            'url'    => 'api/documentation',
             'routes' => [
                 'public',
             ],
         ],
 
         'private' => [
-            'url' => 'api/private/documentation',
+            'url'    => 'api/private/documentation',
             'routes' => [
                 'private',
                 'public',
@@ -68,5 +68,5 @@ return [
     |
     */
 
-    'html_files' => 'public/'
+    'html_files' => 'public/',
 ];

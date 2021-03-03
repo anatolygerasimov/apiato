@@ -16,7 +16,6 @@ use Jenssegers\Agent\Facades\Agent;
  */
 class MainServiceProvider extends MainProvider
 {
-
     /**
      * Container Service Providers.
      *
@@ -28,9 +27,9 @@ class MainServiceProvider extends MainProvider
     ];
 
     /**
-     * Container Aliases
+     * Container Aliases.
      *
-     * @var  array
+     * @var array
      */
     public $aliases = [
         'Agent' => Agent::class,
@@ -43,6 +42,6 @@ class MainServiceProvider extends MainProvider
     {
         parent::register();
 
-        (new QueryDebuggerTask)->run();
+        (new QueryDebuggerTask())->run();
     }
 }

@@ -6,13 +6,12 @@ use DateTime;
 use Illuminate\Support\Facades\Config;
 
 /**
- * Class DocsGeneratorTrait
+ * Class DocsGeneratorTrait.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 trait DocsGeneratorTrait
 {
-
     /**
      * @param $type
      *
@@ -24,7 +23,7 @@ trait DocsGeneratorTrait
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     private function getAppUrl()
     {
@@ -32,7 +31,7 @@ trait DocsGeneratorTrait
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     private function getHtmlPath()
     {
@@ -62,7 +61,7 @@ trait DocsGeneratorTrait
     }
 
     /**
-     * @return  string
+     * @return string
      */
     private function getConfigFile()
     {
@@ -70,7 +69,7 @@ trait DocsGeneratorTrait
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     private function getTypeConfig()
     {
@@ -78,7 +77,7 @@ trait DocsGeneratorTrait
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     private function getExecutable()
     {
@@ -86,7 +85,7 @@ trait DocsGeneratorTrait
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     private function getSwaggerConverter()
     {
@@ -96,7 +95,7 @@ trait DocsGeneratorTrait
     /**
      * @param $type
      *
-     * @return  mixed
+     * @return mixed
      */
     private function getUrl($type)
     {
@@ -108,7 +107,7 @@ trait DocsGeneratorTrait
     /**
      * @param $type
      *
-     * @return  array
+     * @return array
      */
     private function getEndpointFiles($type)
     {
@@ -116,16 +115,15 @@ trait DocsGeneratorTrait
 
         // what files types needs to be included
         $routeFilesCommand = [];
-        $routes = $configs[$type]['routes'];
+        $routes            = $configs[$type]['routes'];
 
         foreach ($routes as $route) {
-          $routeFilesCommand[] = '-f';
-          $routeFilesCommand[] = $route . '.php';
+            $routeFilesCommand[] = '-f';
+            $routeFilesCommand[] = $route . '.php';
         }
 
         return $routeFilesCommand;
     }
-
 
     /**
      * @param $templateKey
@@ -139,7 +137,7 @@ trait DocsGeneratorTrait
     /**
      * @param $minutes
      *
-     * @return  string
+     * @return string
      */
     private function minutesToTimeDisplay($minutes)
     {
@@ -150,5 +148,4 @@ trait DocsGeneratorTrait
 
         return $dtF->diff($dtT)->format('%a days, %h hours, %i minutes and %s seconds');
     }
-
 }

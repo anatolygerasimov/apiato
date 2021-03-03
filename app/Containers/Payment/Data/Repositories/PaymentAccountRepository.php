@@ -5,11 +5,10 @@ namespace App\Containers\Payment\Data\Repositories;
 use App\Ship\Parents\Repositories\Repository;
 
 /**
- * Class PaymentAccountRepository
+ * Class PaymentAccountRepository.
  */
 class PaymentAccountRepository extends Repository
 {
-
     /**
      * @var array
      */
@@ -17,5 +16,4 @@ class PaymentAccountRepository extends Repository
         'id'    => '=',
         'name'  => 'like',
     ];
-
 }

@@ -6,7 +6,7 @@ use App\Containers\Settings\Models\Setting;
 use App\Ship\Parents\Repositories\Repository;
 
 /**
- * Class SettingsRepository
+ * Class SettingsRepository.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
@@ -16,7 +16,7 @@ class SettingRepository extends Repository
      * @var array
      */
     protected $fieldSearchable = [
-        'id' => '=',
+        'id'  => '=',
         'key' => '=',
     ];
 
@@ -27,7 +27,7 @@ class SettingRepository extends Repository
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function model()
     {

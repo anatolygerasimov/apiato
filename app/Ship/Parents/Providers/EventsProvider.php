@@ -5,7 +5,7 @@ namespace App\Ship\Parents\Providers;
 use Apiato\Core\Abstracts\Providers\EventsProvider as AbstractEventsProvider;
 
 /**
- * Class EventsProvider
+ * Class EventsProvider.
  *
  * A.K.A app/Providers/EventsServiceProvider.php
  *
@@ -13,7 +13,6 @@ use Apiato\Core\Abstracts\Providers\EventsProvider as AbstractEventsProvider;
  */
 class EventsProvider extends AbstractEventsProvider
 {
-
     /**
      * The event listener mappings for the application.
      *
@@ -22,7 +21,6 @@ class EventsProvider extends AbstractEventsProvider
     protected $listen = [
 
     ];
-
 
     /**
      * Register any other events for your application.
@@ -33,5 +31,4 @@ class EventsProvider extends AbstractEventsProvider
     {
         parent::boot();
     }
-
 }

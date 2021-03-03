@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Config;
  */
 class RenderTemplatesTask extends Task
 {
-
     use DocsGeneratorTrait;
 
     protected $headerMarkdownContent;
 
-    const TEMPLATE_PATH = 'Containers/Documentation/ApiDocJs/shared/';
-    const OUTPUT_PATH = 'api-rendered-markdowns/';
+    public const TEMPLATE_PATH = 'Containers/Documentation/ApiDocJs/shared/';
+
+    public const OUTPUT_PATH = 'api-rendered-markdowns/';
 
     /**
      * Read the markdown header template and fill it with some real data from the .env file.
@@ -47,5 +47,4 @@ class RenderTemplatesTask extends Task
 
         return $path;
     }
-
 }

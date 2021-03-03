@@ -12,7 +12,7 @@ class UserRegisteredMail extends Mail implements ShouldQueue
     use Queueable;
 
     /**
-     * @var  \App\Containers\User\Models\User
+     * @var \App\Containers\User\Models\User
      */
     protected $user;
 

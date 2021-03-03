@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
  */
 class UpdateUserTask extends Task
 {
-
     protected $repository;
 
     public function __construct(UserRepository $repository)
@@ -31,11 +30,12 @@ class UpdateUserTask extends Task
      * @param $userId
      *
      * @return mixed
+     *
      * @throws InternalErrorException
      * @throws NotFoundException
      * @throws UpdateResourceFailedException
      *
-     * @return  \App\Containers\User\Models\User
+     * @return \App\Containers\User\Models\User
      */
     public function run($userData, $userId): User
     {
@@ -53,5 +53,4 @@ class UpdateUserTask extends Task
 
         return $user;
     }
-
 }

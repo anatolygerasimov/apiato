@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Hash;
  */
 class CreateUserByCredentialsTask extends Task
 {
-
     protected $repository;
 
     public function __construct(UserRepository $repository)
@@ -32,8 +31,9 @@ class CreateUserByCredentialsTask extends Task
      * @param string|null $gender
      * @param string|null $birth
      *
-     * @return  mixed
-     * @throws  CreateResourceFailedException
+     * @return mixed
+     *
+     * @throws CreateResourceFailedException
      */
     public function run(
         bool $isClient = true,
@@ -43,7 +43,6 @@ class CreateUserByCredentialsTask extends Task
         string $gender = null,
         string $birth = null
     ): User {
-
         try {
             // create new user
             $user = $this->repository->create([
@@ -54,12 +53,10 @@ class CreateUserByCredentialsTask extends Task
                 'birth'     => $birth,
                 'is_client' => $isClient,
             ]);
-
         } catch (Exception $e) {
             throw (new CreateResourceFailedException())->debug($e);
         }
 
         return $user;
     }
-
 }

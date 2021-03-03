@@ -2,7 +2,6 @@
 
 namespace App\Containers\Debugger\Tasks;
 
-use App;
 use App\Ship\Parents\Tasks\Task;
 use DateTimeInterface;
 use DB;
@@ -16,7 +15,6 @@ use Log;
  */
 class QueryDebuggerTask extends Task
 {
-
     /**
      * Write the DB queries in the Log and Display them in the
      * terminal (in case you want to see them while executing the tests).
@@ -26,13 +24,12 @@ class QueryDebuggerTask extends Task
         $debuggerEnabled = Config::get('debugger.queries.debug');
 
         if ($debuggerEnabled) {
-
             $consoleOutputEnabled = Config::get('debugger.queries.output.console');
-            $logOutputEnabled = Config::get('debugger.queries.output.log');
+            $logOutputEnabled     = Config::get('debugger.queries.output.log');
 
             DB::listen(function ($event) use ($consoleOutputEnabled, $logOutputEnabled) {
                 $bindings = $event->bindings;
-                // We need to transform all bindings to a readable value the same fashion 
+                // We need to transform all bindings to a readable value the same fashion
                 // as the one used in \Illuminate\Database\Connection::prepareBindings(array $bindings)
                 foreach ($bindings as $key => $value) {
                     if ($value instanceof DateTimeInterface) {
@@ -55,5 +52,4 @@ class QueryDebuggerTask extends Task
             });
         }
     }
-
 }

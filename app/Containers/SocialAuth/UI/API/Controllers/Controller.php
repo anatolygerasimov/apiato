@@ -15,16 +15,15 @@ use App\Ship\Transporters\DataTransporter;
  */
 class Controller extends ApiController
 {
-
     /**
      * @param \App\Containers\SocialAuth\UI\API\Requests\ApiAuthenticateRequest $request
      * @param                                                                   $providerUrlInput
      *
-     * @return  array
+     * @return array
      */
     public function authenticateAll(ApiAuthenticateRequest $request, $providerUrlInput)
     {
-        $dataTransporter = new DataTransporter($request);
+        $dataTransporter           = new DataTransporter($request);
         $dataTransporter->provider = $providerUrlInput;
 
         $data = Apiato::call('SocialAuth@SocialLoginAction', [$dataTransporter]);
@@ -34,5 +33,4 @@ class Controller extends ApiController
             'access_token' => $data['token']->accessToken,
         ]);
     }
-
 }

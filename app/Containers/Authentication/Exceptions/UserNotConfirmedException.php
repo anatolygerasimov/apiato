@@ -6,7 +6,7 @@ use App\Ship\Parents\Exceptions\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class UserNotConfirmedException
+ * Class UserNotConfirmedException.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */

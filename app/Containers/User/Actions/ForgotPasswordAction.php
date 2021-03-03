@@ -10,14 +10,13 @@ use App\Ship\Transporters\DataTransporter;
 use Illuminate\Support\Facades\Mail;
 
 /**
- * Class ForgotPasswordAction
+ * Class ForgotPasswordAction.
  *
  * @author  Sebastian Weckend
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class ForgotPasswordAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      */
@@ -29,8 +28,8 @@ class ForgotPasswordAction extends Action
         $token = Apiato::call('User@CreatePasswordResetTask', [$user]);
 
         // get last segment of the URL
-        $resetUrl = $data->reseturl;
-        $url = explode('/', $resetUrl);
+        $resetUrl    = $data->reseturl;
+        $url         = explode('/', $resetUrl);
         $lastSegment = $url[count($url) - 1];
 
         // validate the allowed endpoint is being used

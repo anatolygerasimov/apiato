@@ -12,7 +12,7 @@ class CreatePermissionTables extends Migration
      */
     public function up()
     {
-        $tableNames = config('permission.table_names');
+        $tableNames  = config('permission.table_names');
         $foreignKeys = config('permission.foreign_keys');
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
@@ -33,7 +33,7 @@ class CreatePermissionTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $foreignKeys) {
+        Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames) {
             $table->integer('permission_id')->unsigned();
             $table->morphs('model');
 
@@ -45,7 +45,7 @@ class CreatePermissionTables extends Migration
             $table->primary(['model_type', 'model_id', 'permission_id']);
         });
 
-        Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $foreignKeys) {
+        Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames) {
             $table->integer('role_id')->unsigned();
             $table->morphs('model');
 

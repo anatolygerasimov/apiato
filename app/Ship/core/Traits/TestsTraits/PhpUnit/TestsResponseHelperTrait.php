@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Str as LaravelStr;
 
 /**
- * Class TestsResponseHelperTrait
+ * Class TestsResponseHelperTrait.
  *
  * Tests helper for making formatting and asserting http responses.
  *
@@ -15,7 +15,6 @@ use Illuminate\Support\Str as LaravelStr;
  */
 trait TestsResponseHelperTrait
 {
-
     /**
      * @param $keys
      */
@@ -79,7 +78,7 @@ trait TestsResponseHelperTrait
      * @param $key
      * @param $value
      *
-     * @return  string
+     * @return string
      */
     private function formatToExpectedJson($key, $value)
     {
@@ -99,7 +98,7 @@ trait TestsResponseHelperTrait
     /**
      * @param array $responseContent
      *
-     * @return  array|mixed
+     * @return array|mixed
      */
     private function removeDataKeyFromResponse(array $responseContent)
     {
@@ -109,5 +108,4 @@ trait TestsResponseHelperTrait
 
         return $responseContent;
     }
-
 }

@@ -7,15 +7,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Class ThisBetweenDatesCriteria
- * 
+ * Class ThisBetweenDatesCriteria.
+ *
  * @author Fabian Widmann <fabian.widmann@gmail.com>
  *
  * Retrieves all entities whose date $field's value is between $start and $end.
  */
 class ThisBetweenDatesCriteria extends Criteria
 {
-
     /**
      * @var Carbon
      */
@@ -31,21 +30,20 @@ class ThisBetweenDatesCriteria extends Criteria
      */
     private $field;
 
-
     public function __construct($field, Carbon $start, Carbon $end)
     {
         $this->start = $start;
-        $this->end = $end;
+        $this->end   = $end;
         $this->field = $field;
     }
 
     /**
-     * Applies the criteria
-     * 
+     * Applies the criteria.
+     *
      * @param Builder $model
      * @param         $repository
-     * 
-     * @return        mixed
+     *
+     * @return mixed
      */
     public function apply($model, $repository)
     {

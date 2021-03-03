@@ -21,7 +21,6 @@ use Spatie\Fractalistic\ArraySerializer;
  */
 class ListContainerDependenciesCommand extends ConsoleCommand
 {
-
     protected $signature = 'apiato:list:dependencies {containerPath}';
 
     protected $description = 'Lists all dependencies from the given container to other containers.';
@@ -39,17 +38,20 @@ class ListContainerDependenciesCommand extends ConsoleCommand
         $input = $this->ask('Remove own container from listings? (y/n)');
 
         $filterOwnContainer = false;
-        if (isset($input) && $input == 'y') {
+
+        if (isset($input) && $input === 'y') {
             $filterOwnContainer = true;
         }
 
         $fileContainerMatch = $this->getDependencies($containerPath, $filterOwnContainer);
+
         if (count($fileContainerMatch) > 0) {
             $this->info('Found dependencies:');
             $this->info($this->prettyPrintArray($fileContainerMatch));
 
             $input = $this->ask('Display Container author and description from the composer.json?(y/n)');
-            if (isset($input) && $input == 'y') {
+
+            if (isset($input) && $input === 'y') {
                 // $fileContainerMatch structure:
                 // imports
                 //    containerName(s)
@@ -72,6 +74,7 @@ class ListContainerDependenciesCommand extends ConsoleCommand
      * @param int $indentModifier
      *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     private function prettyPrintArray($arr, $indent = 0, $indentModifier = 4)
@@ -80,20 +83,20 @@ class ListContainerDependenciesCommand extends ConsoleCommand
             return $arr;
         }
 
-        $string = "";
+        $string = '';
 
         foreach ($arr as $key => $value) {
-            $string = $string . str_repeat(" ", $indent) . "[" . $key . "]" . ": ";
+            $string = $string . str_repeat(' ', $indent) . '[' . $key . ']' . ': ';
 
             if (is_array($value)) {
                 $string .= PHP_EOL . $this->prettyPrintArray($value, $indent + $indentModifier) . PHP_EOL;
-            } else if (is_string($value) || settype($item, 'string') !== false || (is_object($value) && method_exists($value, '__toString'))){
+            } elseif (is_string($value) || settype($item, 'string') !== false || (is_object($value) && method_exists($value, '__toString'))) {
                 $string .= $value . PHP_EOL;
-            }
-            else {
+            } else {
                 throw new \InvalidArgumentException('Current value cannot be converted to string: value=' . $value);
             }
         }
+
         return $string;
     }
 
@@ -101,6 +104,7 @@ class ListContainerDependenciesCommand extends ConsoleCommand
      * Get composer information by decoding the json and applying the ComposerTransformer.
      *
      * @param $containerName
+     *
      * @return array|string
      */
     private function getComposerInformation($containerName)
@@ -112,6 +116,7 @@ class ListContainerDependenciesCommand extends ConsoleCommand
 
             if (isset($content)) {
                 $json = \GuzzleHttp\json_decode($content);
+
                 return Fractal::create($json, ComposerTransformer::class, ArraySerializer::class)->toArray();
             }
         } catch (Exception $e) {
@@ -120,9 +125,10 @@ class ListContainerDependenciesCommand extends ConsoleCommand
     }
 
     /**
-     * Extracts the content of a file  and find all containers by finding all containers in App\Containers\$containerName\*
+     * Extracts the content of a file  and find all containers by finding all containers in App\Containers\$containerName\*.
      *
      * @param $filePath string - path to the file
+     *
      * @return null | array of containers
      */
     private function getContainerFromUseStatement($filePath)
@@ -141,9 +147,10 @@ class ListContainerDependenciesCommand extends ConsoleCommand
     }
 
     /**
-     * Extracts the content of a file  and find all containers by finding all containers in App\Containers\$containerName\*
+     * Extracts the content of a file  and find all containers by finding all containers in App\Containers\$containerName\*.
      *
      * @param $filePath string - path to the file
+     *
      * @return null | array of containers
      */
     private function getContainerFromApiatoCall($filePath)
@@ -171,10 +178,11 @@ class ListContainerDependenciesCommand extends ConsoleCommand
      *  1) all used containers of the given container
      *  2) an array that contains the containers as keys and all files using it as value.
      *
-     * @param      $path - to the container
+     * @param      $path               - to the container
      * @param bool $filterOwnContainer
      *
      * @return array - [$usedContainers, $filesInContainers]
+     *
      * @throws InvalidPathException
      */
     private function getDependencies($path, $filterOwnContainer = false)
@@ -186,13 +194,13 @@ class ListContainerDependenciesCommand extends ConsoleCommand
         }
 
         $recursiveIteratorIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-        $useStatements = [];
-        $filesInContainers = [];
+        $useStatements             = [];
+        $filesInContainers         = [];
 
         foreach ($recursiveIteratorIterator as $file) {
             if (!$file->isDir()) {
                 $apiatoCalls = $this->getContainerFromApiatoCall($file->getPathName());
-                $imports = $this->getContainerFromUseStatement($file->getPathName());
+                $imports     = $this->getContainerFromUseStatement($file->getPathName());
 
                 if (isset($apiatoCalls['containers'])) {
                     if ($filterOwnContainer) {
@@ -218,5 +226,4 @@ class ListContainerDependenciesCommand extends ConsoleCommand
 
         return $filesInContainers;
     }
-
 }

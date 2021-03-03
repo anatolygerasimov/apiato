@@ -9,13 +9,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class ControllerGenerator
+ * Class ControllerGenerator.
  *
  * @author  Johannes Schobel  <johannes.schobel@googlemail.com>
  */
 class ControllerGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -40,21 +39,21 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/UI/{user-interface}/Controllers/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'controllers/generic.stub';
 
@@ -63,7 +62,7 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
      * "--container" and "--file" options, as they are globally handled. Just use the options which are specific to
      * this generator.
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['ui', null, InputOption::VALUE_OPTIONAL, 'The user-interface to generate the Controller for.'],
@@ -71,7 +70,7 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
     ];
 
     /**
-     * @return  array
+     * @return array
      */
     public function getUserInputs()
     {
@@ -90,10 +89,10 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
         $basecontroller = Str::ucfirst($ui) . 'Controller';
 
         // name of the model (singular and plural)
-        $model = $this->containerName;
+        $model  = $this->containerName;
         $models = Pluralizer::plural($model);
 
-        $entity = Str::lower($model);
+        $entity   = Str::lower($model);
         $entities = Pluralizer::plural($entity);
 
         return [
@@ -103,14 +102,14 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
             ],
             'stub-parameters' => [
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'user-interface' => Str::upper($ui),
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
+                'user-interface'  => Str::upper($ui),
                 'base-controller' => $basecontroller,
 
-                'model' => $model,
-                'models' => $models,
-                'entity' => $entity,
+                'model'    => $model,
+                'models'   => $models,
+                'entity'   => $entity,
                 'entities' => $entities,
             ],
             'file-parameters' => [
@@ -123,5 +122,4 @@ class ControllerGenerator extends GeneratorCommand implements ComponentsGenerato
     {
         return 'Controller';
     }
-
 }

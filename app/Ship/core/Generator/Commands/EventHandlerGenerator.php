@@ -7,13 +7,12 @@ use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class EventHandlerGenerator
+ * Class EventHandlerGenerator.
  *
  * @author  Johannes Schobel  <johannes.schobel@googlemail.com>
  */
 class EventHandlerGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -38,21 +37,21 @@ class EventHandlerGenerator extends GeneratorCommand implements ComponentsGenera
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Events/Handlers/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'events/eventhandler.stub';
 
@@ -60,7 +59,7 @@ class EventHandlerGenerator extends GeneratorCommand implements ComponentsGenera
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['event', null, InputOption::VALUE_OPTIONAL, 'The Event to generate this Handler for'],
@@ -81,13 +80,12 @@ class EventHandlerGenerator extends GeneratorCommand implements ComponentsGenera
             ],
             'stub-parameters' => [
                 'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'model' => $event,
+                'class-name'     => $this->fileName,
+                'model'          => $event,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
             ],
         ];
     }
-
 }

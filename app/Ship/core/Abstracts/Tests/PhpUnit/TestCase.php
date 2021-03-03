@@ -15,21 +15,20 @@ use Illuminate\Foundation\Testing\RefreshDatabaseState;
 use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
 
 /**
- * Class TestCase
+ * Class TestCase.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 abstract class TestCase extends LaravelTestCase
 {
-
-    use TestCaseTrait,
-        TestsRequestHelperTrait,
-        TestsResponseHelperTrait,
-        TestsMockHelperTrait,
-        TestsAuthHelperTrait,
-        TestsUploadHelperTrait,
-        HashIdTrait,
-        RefreshDatabase;
+    use HashIdTrait;
+    use RefreshDatabase;
+    use TestCaseTrait;
+    use TestsAuthHelperTrait;
+    use TestsMockHelperTrait;
+    use TestsRequestHelperTrait;
+    use TestsResponseHelperTrait;
+    use TestsUploadHelperTrait;
 
     /**
      * The base URL to use while testing the application.
@@ -43,7 +42,7 @@ abstract class TestCase extends LaravelTestCase
      *
      * @return void
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }
@@ -51,14 +50,14 @@ abstract class TestCase extends LaravelTestCase
     /**
      * Reset the test environment, after each test.
      */
-    public function tearDown() : void
+    public function tearDown(): void
     {
         parent::tearDown();
     }
 
     /**
      * Refresh the in-memory database.
-     * Overridden refreshTestDatabase Trait
+     * Overridden refreshTestDatabase Trait.
      *
      * @return void
      */
@@ -78,14 +77,13 @@ abstract class TestCase extends LaravelTestCase
 
     /**
      * Refresh a conventional test database.
-     * Overridden refreshTestDatabase Trait
+     * Overridden refreshTestDatabase Trait.
      *
      * @return void
      */
     protected function refreshTestDatabase()
     {
         if (! RefreshDatabaseState::$migrated) {
-
             $this->artisan('migrate:fresh');
             $this->seed();
             $this->setupPassportOAuth2();
@@ -97,5 +95,4 @@ abstract class TestCase extends LaravelTestCase
 
         $this->beginDatabaseTransaction();
     }
-
 }

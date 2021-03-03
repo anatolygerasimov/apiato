@@ -33,13 +33,12 @@ use Apiato\Core\Generator\Commands\ValueGenerator;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class GeneratorsServiceProvider
+ * Class GeneratorsServiceProvider.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class GeneratorsServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      *
@@ -92,6 +91,7 @@ class GeneratorsServiceProvider extends ServiceProvider
 
     /**
      * Register the generators.
+     *
      * @param array $classes
      */
     private function registerGenerators(array $classes)

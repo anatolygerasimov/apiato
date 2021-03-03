@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Log;
  */
 trait CallableTrait
 {
-
     /**
      * This function will be called from anywhere (controllers, Actions,..) by the Apiato facade.
      * The $class input will usually be an Action or Task.
@@ -26,7 +25,8 @@ trait CallableTrait
      * @param array $runMethodArguments
      * @param array $extraMethodsToCall
      *
-     * @return  mixed
+     * @return mixed
+     *
      * @throws \Dto\Exceptions\UnstorableValueException
      */
     public function call($class, $runMethodArguments = [], $extraMethodsToCall = [])
@@ -55,27 +55,26 @@ trait CallableTrait
      */
     public function transactionalCall($class, $runMethodArguments = [], $extraMethodsToCall = [])
     {
-        return DB::transaction(function() use ($class, $runMethodArguments, $extraMethodsToCall) {
+        return DB::transaction(function () use ($class, $runMethodArguments, $extraMethodsToCall) {
             return $this->call($class, $runMethodArguments, $extraMethodsToCall);
         });
     }
 
     /**
-     * Get instance from a class string
+     * Get instance from a class string.
      *
      * @param $class
      *
-     * @return  mixed
+     * @return mixed
      */
     private function resolveClass($class)
     {
         // in case passing apiato style names such as containerName@classType
         if ($this->needsParsing($class)) {
-
             $parsedClass = $this->parseClassName($class);
 
             $containerName = $this->capitalizeFirstLetter($parsedClass[0]);
-            $className = $parsedClass[1];
+            $className     = $parsedClass[1];
 
             Apiato::verifyContainerExist($containerName);
 
@@ -92,12 +91,12 @@ trait CallableTrait
     }
 
     /**
-     * Split containerName@someClass into container name and class name
+     * Split containerName@someClass into container name and class name.
      *
      * @param        $class
      * @param string $delimiter
      *
-     * @return  array
+     * @return array
      */
     private function parseClassName($class, $delimiter = '@')
     {
@@ -105,12 +104,12 @@ trait CallableTrait
     }
 
     /**
-     * If it's apiato Style caller like this: containerName@someClass
+     * If it's apiato Style caller like this: containerName@someClass.
      *
      * @param        $class
      * @param string $separator
      *
-     * @return  int
+     * @return int
      */
     private function needsParsing($class, $separator = '@')
     {
@@ -120,7 +119,7 @@ trait CallableTrait
     /**
      * @param $string
      *
-     * @return  string
+     * @return string
      */
     private function capitalizeFirstLetter($string)
     {
@@ -128,7 +127,6 @@ trait CallableTrait
     }
 
     /**
-     *
      * $this->ui is coming, should be attached on the parent controller, from where the actions was called.
      * It can be WebController and ApiController. Each of them has ui, to inform the action
      * if it needs to handle the request differently.
@@ -166,10 +164,11 @@ trait CallableTrait
      */
     private function callWithArguments($class, $methodInfo)
     {
-        $method = key($methodInfo);
+        $method    = key($methodInfo);
         $arguments = $methodInfo[$method];
+
         if (method_exists($class, $method)) {
-            $class->$method(...$arguments);
+            $class->{$method}(...$arguments);
         }
     }
 
@@ -180,7 +179,7 @@ trait CallableTrait
     private function callWithoutArguments($class, $methodInfo)
     {
         if (method_exists($class, $methodInfo)) {
-            $class->$methodInfo();
+            $class->{$methodInfo}();
         }
     }
 
@@ -192,7 +191,8 @@ trait CallableTrait
      * @param       $class
      * @param array $runMethodArguments
      *
-     * @return  array
+     * @return array
+     *
      * @throws \Dto\Exceptions\UnstorableValueException
      */
     private function convertRequestsToTransporters($class, array $runMethodArguments = [])
@@ -218,16 +218,16 @@ trait CallableTrait
         // this is a bit more tricky than the stuff above - but we will manage this
 
         // get a reflector for the run() method
-        $reflector = new \ReflectionMethod($class, 'run');
+        $reflector        = new \ReflectionMethod($class, 'run');
         $calleeParameters = $reflector->getParameters();
 
         // now specifically check only the positions we have found a REQUEST in the call() method
         foreach ($requestPositions as $requestPosition) {
-            $parameter = $calleeParameters[$requestPosition];
+            $parameter      = $calleeParameters[$requestPosition];
             $parameterClass = $parameter->getClass();
 
             // check if the parameter has a class and this class actually does exist!
-            if (!(($parameterClass != null) && (class_exists($parameterClass->name)))) {
+            if (!(($parameterClass !== null) && (class_exists($parameterClass->name)))) {
                 // no, some tests failed - we cannot convert - skip this entry
                 continue;
             }
@@ -235,6 +235,7 @@ trait CallableTrait
             // and now, we finally need to check, if the class of this param is a subclass of TRANSPORTER
             // Note that we cannot use instanceof here, but rather need to rely on is_subclass_of instead
             $parameterClassName = $parameterClass->name;
+
             if (! is_subclass_of($parameterClassName, Transporter::class)) {
                 // the class is NOT a subclass of TRANSPORTER
                 continue;
@@ -243,7 +244,7 @@ trait CallableTrait
             // so everything is ok
             // now we need to "switch" the REQUEST with the TRANSPORTER
             /** @var Request $request */
-            $request = $runMethodArguments[$requestPosition];
+            $request          = $runMethodArguments[$requestPosition];
             $transporterClass = $request->getTransporter();
             /** @var Transporter $transporter */
             // instantiate transporter and hydrate it with request
@@ -255,5 +256,4 @@ trait CallableTrait
 
         return $runMethodArguments;
     }
-
 }

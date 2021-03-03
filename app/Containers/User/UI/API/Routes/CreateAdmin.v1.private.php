@@ -3,6 +3,7 @@
 /**
  * @apiGroup           Users
  * @apiName            createAdmin
+ *
  * @api                {post} /v1/admins Create Admin type Users
  * @apiDescription     Create non client users for the Dashboard.
  *
@@ -15,10 +16,9 @@
  *
  * @apiUse             UserSuccessSingleResponse
  */
-
 $router->post('admins', [
-    'as' => 'api_user_create_admin',
-    'uses'  => 'Controller@createAdmin',
+    'as'         => 'api_user_create_admin',
+    'uses'       => 'Controller@createAdmin',
     'middleware' => [
         'auth:api',
     ],

@@ -5,7 +5,7 @@ namespace App\Ship\Exceptions\Codes;
 use App\Ship\Parents\Exceptions\ErrorCodesTable;
 
 /**
- * Class CustomErrorCodesTable
+ * Class CustomErrorCodesTable.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
@@ -23,7 +23,5 @@ class CustomErrorCodesTable extends ErrorCodesTable
      *      'title' => 'Unknown / Unspecified Error.',
      *      'description' => 'Something unexpected happened.',
      *  ];
-     *
      */
-
 }

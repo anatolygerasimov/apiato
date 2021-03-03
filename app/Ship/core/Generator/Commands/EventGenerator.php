@@ -8,13 +8,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class EventGenerator
+ * Class EventGenerator.
  *
  * @author  Johannes Schobel  <johannes.schobel@googlemail.com>
  */
 class EventGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -39,21 +38,21 @@ class EventGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Events/Events/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'events/event.stub';
 
@@ -61,7 +60,7 @@ class EventGenerator extends GeneratorCommand implements ComponentsGenerator
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['model', null, InputOption::VALUE_OPTIONAL, 'The model to generate this Event for'],
@@ -76,19 +75,19 @@ class EventGenerator extends GeneratorCommand implements ComponentsGenerator
         $model = $this->checkParameterOrAsk('model', 'Enter the name of the Model to generate this Event for');
 
         $handler = $this->checkParameterOrConfirm('handler', 'Do you want to generate a Handler for this Event?', true);
-        if($handler) {
+
+        if ($handler) {
             // we need to generate a corresponding handler
             // so call the other command
             $status = $this->call('apiato:generate:eventhandler', [
                 '--container' => $this->containerName,
-                '--file' => $this->fileName . 'Handler',
-                '--event' => $this->fileName
+                '--file'      => $this->fileName . 'Handler',
+                '--event'     => $this->fileName,
             ]);
 
-            if ($status == 0) {
+            if ($status === 0) {
                 $this->printInfoMessage('The Handler for Event was successfully generated');
-            }
-            else {
+            } else {
                 $this->printErrorMessage('Could not generate the corresponding Handler!');
             }
         }
@@ -101,14 +100,13 @@ class EventGenerator extends GeneratorCommand implements ComponentsGenerator
             ],
             'stub-parameters' => [
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'model' => $model,
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
+                'model'           => $model,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
             ],
         ];
     }
-
 }

@@ -4,20 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 /**
- * Class CreatePaymentTransactionsTable
+ * Class CreatePaymentTransactionsTable.
  *
  * @author Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class CreatePaymentTransactionsTable extends Migration
 {
-
     /**
      * Run the migrations.
      */
     public function up()
     {
         Schema::create('payment_transactions', function (Blueprint $table) {
-
             $table->increments('id');
 
             $table->integer('user_id')->unsigned();

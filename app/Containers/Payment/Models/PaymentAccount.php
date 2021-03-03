@@ -6,14 +6,13 @@ use App\Ship\Parents\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class PaymentAccount
+ * Class PaymentAccount.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class PaymentAccount extends Model
 {
-
     use SoftDeletes;
 
     protected $fillable = [
@@ -32,9 +31,8 @@ class PaymentAccount extends Model
         'user_id' => 'integer',
     ];
 
-
     /**
-     * @return  \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function accountable()
     {

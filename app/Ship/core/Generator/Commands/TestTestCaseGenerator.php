@@ -8,13 +8,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class TestTestCaseGenerator
+ * Class TestTestCaseGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class TestTestCaseGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -39,21 +38,21 @@ class TestTestCaseGenerator extends GeneratorCommand implements ComponentsGenera
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Tests/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'tests/testcase/generic.stub';
 
@@ -61,7 +60,7 @@ class TestTestCaseGenerator extends GeneratorCommand implements ComponentsGenera
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['ui', null, InputOption::VALUE_OPTIONAL, 'The user-interface to generate the TestCase for.'],
@@ -78,11 +77,11 @@ class TestTestCaseGenerator extends GeneratorCommand implements ComponentsGenera
         $ui = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for the controller', ['Generic', 'API', 'WEB', 'CLI'], 0));
 
         // we need to generate the generic testcase first!
-        if ($ui != 'generic') {
+        if ($ui !== 'generic') {
             $this->call('apiato:generate:test:testcase', [
                 '--container' => $this->containerName,
-                '--file' => 'TestCase',
-                '--ui' => 'generic',
+                '--file'      => 'TestCase',
+                '--ui'        => 'generic',
             ]);
 
             // however, as this generator here is NOT the one for the generic TestCase, we need to prepend the UI before
@@ -111,6 +110,4 @@ class TestTestCaseGenerator extends GeneratorCommand implements ComponentsGenera
     {
         return 'TestCase';
     }
-
 }
-

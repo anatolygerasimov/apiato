@@ -6,17 +6,16 @@ use App\Ship\Parents\Controllers\WebController;
 use Laravel\Socialite\Facades\Socialite;
 
 /**
- * Class Controller
+ * Class Controller.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Controller extends WebController
 {
-
     /**
      * @param $provider
      *
-     * @return  mixed
+     * @return mixed
      */
     public function redirectAll($provider)
     {
@@ -26,11 +25,10 @@ class Controller extends WebController
     /**
      * @param $provider
      *
-     * @return  mixed
+     * @return mixed
      */
     public function handleCallbackAll($provider)
     {
         return Socialite::driver($provider)->user();
     }
-
 }

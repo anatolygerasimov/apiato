@@ -8,13 +8,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class TestFunctionalTestGenerator
+ * Class TestFunctionalTestGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class TestFunctionalTestGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -39,21 +38,21 @@ class TestFunctionalTestGenerator extends GeneratorCommand implements Components
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/UI/{user-interface}/Tests/Functional/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'tests/functional/general.stub';
 
@@ -61,7 +60,7 @@ class TestFunctionalTestGenerator extends GeneratorCommand implements Components
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['ui', null, InputOption::VALUE_OPTIONAL, 'The user-interface to generate the Test for.'],
@@ -80,8 +79,8 @@ class TestFunctionalTestGenerator extends GeneratorCommand implements Components
         // we need to generate the TestCase class before
         $this->call('apiato:generate:test:testcase', [
             '--container' => $this->containerName,
-            '--file' => 'TestCase',
-            '--ui' => $ui,
+            '--file'      => 'TestCase',
+            '--ui'        => $ui,
         ]);
 
         return [
@@ -104,6 +103,4 @@ class TestFunctionalTestGenerator extends GeneratorCommand implements Components
     {
         return 'DefaultFunctionalTest';
     }
-
 }
-

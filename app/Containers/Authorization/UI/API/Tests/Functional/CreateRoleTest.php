@@ -14,7 +14,6 @@ use App\Containers\Authorization\Tests\ApiTestCase;
  */
 class CreateRoleTest extends ApiTestCase
 {
-
     protected $endpoint = 'post@v1/roles';
 
     protected $auth = true;
@@ -24,7 +23,7 @@ class CreateRoleTest extends ApiTestCase
         'permissions' => 'manage-roles',
     ];
 
-    public function testCreateRole_()
+    public function testCreateRole()
     {
         $data = [
             'name'         => 'manager',
@@ -45,7 +44,7 @@ class CreateRoleTest extends ApiTestCase
         $this->assertEquals($data['level'], $responseContent->data->level);
     }
 
-    public function testCreateRoleWithoutLevel_()
+    public function testCreateRoleWithoutLevel()
     {
         $data = [
             'name'         => 'manager',
@@ -64,7 +63,7 @@ class CreateRoleTest extends ApiTestCase
         $this->assertEquals(0, $responseContent->data->level);
     }
 
-    public function testCreateRoleWithWrongName_()
+    public function testCreateRoleWithWrongName()
     {
         $data = [
             'name'         => 'include Space',
@@ -78,5 +77,4 @@ class CreateRoleTest extends ApiTestCase
         // assert response status is correct
         $response->assertStatus(422);
     }
-
 }

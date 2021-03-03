@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Config;
  */
 class GetAllDocsTypesTask extends Task
 {
-
     /**
-     * @return  array
+     * @return array
+     *
      * @throws \App\Containers\Documentation\Exceptions\NoDocTypesFoundException
      */
     public function run()

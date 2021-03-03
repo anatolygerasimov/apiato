@@ -14,11 +14,10 @@ use App\Ship\Transporters\DataTransporter;
  */
 class CreateAdminAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\User\Models\User
+     * @return \App\Containers\User\Models\User
      */
     public function run(DataTransporter $data): User
     {
@@ -26,7 +25,7 @@ class CreateAdminAction extends Action
             $isClient = false,
             $data->email,
             $data->password,
-            $data->name
+            $data->name,
         ]);
 
         // NOTE: if not using a single general role for all Admins, comment out that line below. And assign Roles

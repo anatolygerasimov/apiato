@@ -2,10 +2,10 @@
 
 namespace App\Containers\Authorization\UI\API\Tests\Functional;
 
-use Illuminate\Support\Arr;
 use App\Containers\Authorization\Models\Role;
 use App\Containers\Authorization\Tests\ApiTestCase;
 use App\Containers\User\Models\User;
+use Illuminate\Support\Arr;
 
 /**
  * Class SyncUserRolesTest.
@@ -17,7 +17,6 @@ use App\Containers\User\Models\User;
  */
 class SyncUserRolesTest extends ApiTestCase
 {
-
     protected $endpoint = 'post@v1/roles/sync?include=roles';
 
     protected $access = [
@@ -35,7 +34,6 @@ class SyncUserRolesTest extends ApiTestCase
 
         $randomUser = factory(User::class)->create();
         $randomUser->assignRole($role1);
-
 
         $data = [
             'roles_ids' => [
@@ -60,5 +58,4 @@ class SyncUserRolesTest extends ApiTestCase
 
         $this->assertContains($data['roles_ids'][1], $roleIds);
     }
-
 }

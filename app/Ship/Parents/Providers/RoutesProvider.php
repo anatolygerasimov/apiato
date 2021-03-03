@@ -13,7 +13,6 @@ use Apiato\Core\Abstracts\Providers\RoutesProvider as AbstractRoutesProvider;
  */
 class RoutesProvider extends AbstractRoutesProvider
 {
-
     /**
      * Define your route model bindings, pattern filters, etc.
      */
@@ -21,5 +20,4 @@ class RoutesProvider extends AbstractRoutesProvider
     {
         parent::boot();
     }
-
 }

@@ -13,7 +13,6 @@ use App\Ship\Parents\Providers\MainProvider;
  */
 class MainServiceProvider extends MainProvider
 {
-
     /**
      * Container Service Providers.
      *
@@ -24,12 +23,11 @@ class MainServiceProvider extends MainProvider
     ];
 
     /**
-     * Container Aliases
+     * Container Aliases.
      *
-     * @var  array
+     * @var array
      */
     public $aliases = [
 
     ];
-
 }

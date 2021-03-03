@@ -12,7 +12,6 @@ use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterfa
  */
 class RoleCriteria extends Criteria
 {
-
     /**
      * @var string
      */

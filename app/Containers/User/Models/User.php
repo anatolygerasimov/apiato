@@ -17,10 +17,9 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends UserModel implements ChargeableInterface
 {
-
-    use ChargeableTrait;
-    use AuthorizationTrait;
     use AuthenticationTrait;
+    use AuthorizationTrait;
+    use ChargeableTrait;
     use Notifiable;
 
     /**
@@ -82,12 +81,11 @@ class User extends UserModel implements ChargeableInterface
         'remember_token',
     ];
 
-  /**
-   * @return \Illuminate\Database\Eloquent\Relations\HasMany
-   */
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function paymentAccounts()
     {
         return $this->hasMany(PaymentAccount::class);
     }
-
 }

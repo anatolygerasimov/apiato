@@ -13,7 +13,6 @@ use App\Ship\Parents\Tasks\Task;
  */
 class FindPermissionTask extends Task
 {
-
     protected $repository;
 
     public function __construct(PermissionRepository $repository)
@@ -24,15 +23,12 @@ class FindPermissionTask extends Task
     /**
      * @param $permissionNameOrId
      *
-     * @return  Permission
+     * @return Permission
      */
     public function run($permissionNameOrId): Permission
     {
         $query = is_numeric($permissionNameOrId) ? ['id' => $permissionNameOrId] : ['name' => $permissionNameOrId];
 
-        $permission = $this->repository->findWhere($query)->first();
-
-        return $permission;
+        return $this->repository->findWhere($query)->first();
     }
-
 }

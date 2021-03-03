@@ -9,13 +9,12 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
- * Class DeletePaymentAccountTask
+ * Class DeletePaymentAccountTask.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class DeletePaymentAccountTask extends Task
 {
-
     protected $repository;
 
     public function __construct(PaymentAccountRepository $repository)

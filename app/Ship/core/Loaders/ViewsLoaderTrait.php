@@ -11,13 +11,12 @@ use File;
  */
 trait ViewsLoaderTrait
 {
-
     /**
      * @param $containerName
      */
     public function loadViewsFromContainers($containerName)
     {
-        $containerViewDirectory = base_path('app/Containers/' . $containerName . '/UI/WEB/Views/');
+        $containerViewDirectory          = base_path('app/Containers/' . $containerName . '/UI/WEB/Views/');
         $containerMailTemplatesDirectory = base_path('app/Containers/' . $containerName . '/Mails/Templates/');
 
         $this->loadViews($containerViewDirectory, $containerName);
@@ -44,5 +43,4 @@ trait ViewsLoaderTrait
             $this->loadViewsFrom($directory, strtolower($containerName));
         }
     }
-
 }

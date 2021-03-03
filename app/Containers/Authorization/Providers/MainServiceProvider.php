@@ -14,7 +14,6 @@ use Spatie\Permission\PermissionServiceProvider;
  */
 class MainServiceProvider extends MainProvider
 {
-
     /**
      * Container Service Providers.
      *
@@ -22,16 +21,15 @@ class MainServiceProvider extends MainProvider
      */
     public $serviceProviders = [
         PermissionServiceProvider::class,
-        MiddlewareServiceProvider::class
+        MiddlewareServiceProvider::class,
     ];
 
     /**
-     * Container Aliases
+     * Container Aliases.
      *
-     * @var  array
+     * @var array
      */
     public $aliases = [
 
     ];
-
 }

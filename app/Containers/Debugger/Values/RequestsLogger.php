@@ -10,14 +10,13 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 /**
- * Class RequestsLogger
+ * Class RequestsLogger.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class RequestsLogger extends Value
 {
-
-    CONST TESTING_ENV = 'testing';
+    public const TESTING_ENV = 'testing';
 
     protected $debuggingEnabled;
 
@@ -41,7 +40,7 @@ class RequestsLogger extends Value
      */
     public function releaseOutput(Output $output)
     {
-        if ($this->environment != self::TESTING_ENV && $this->debuggingEnabled === true) {
+        if ($this->environment !== self::TESTING_ENV && $this->debuggingEnabled === true) {
             $this->logger->info($output->get());
         }
     }
@@ -51,9 +50,9 @@ class RequestsLogger extends Value
      */
     private function prepareConfigs()
     {
-        $this->environment = App::environment();
-        $this->debuggingEnabled = Config::get("debugger.requests.debug");
-        $this->logFile = Config::get("debugger.requests.log_file");
+        $this->environment      = App::environment();
+        $this->debuggingEnabled = Config::get('debugger.requests.debug');
+        $this->logFile          = Config::get('debugger.requests.log_file');
     }
 
     /**
@@ -64,7 +63,7 @@ class RequestsLogger extends Value
         $handler = new StreamHandler(storage_path('logs/' . $this->logFile));
         $handler->setFormatter(new LineFormatter(null, null, true, true));
 
-        $this->logger = new Logger("REQUESTS DEBUGGER");
+        $this->logger = new Logger('REQUESTS DEBUGGER');
         $this->logger->pushHandler($handler);
     }
 }

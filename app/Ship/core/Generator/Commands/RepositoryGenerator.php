@@ -7,13 +7,12 @@ use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
 use Illuminate\Support\Str;
 
 /**
- * Class RepositoryGenerator
+ * Class RepositoryGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class RepositoryGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -38,21 +37,21 @@ class RepositoryGenerator extends GeneratorCommand implements ComponentsGenerato
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Data/Repositories/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'repository.stub';
 
@@ -60,7 +59,7 @@ class RepositoryGenerator extends GeneratorCommand implements ComponentsGenerato
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
     ];
@@ -76,13 +75,12 @@ class RepositoryGenerator extends GeneratorCommand implements ComponentsGenerato
             ],
             'stub-parameters' => [
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
             ],
         ];
     }
-
 }

@@ -15,11 +15,10 @@ use App\Ship\Transporters\DataTransporter;
  */
 class Controller extends ApiController
 {
-
     /**
      * @param \App\Containers\Stripe\UI\API\Requests\CreateStripeAccountRequest $request
      *
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function createStripeAccount(CreateStripeAccountRequest $request)
     {
@@ -34,7 +33,7 @@ class Controller extends ApiController
     /**
      * @param \App\Containers\Stripe\UI\API\Requests\UpdateStripeAccountRequest $request
      *
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function updateStripeAccount(UpdateStripeAccountRequest $request)
     {
@@ -45,5 +44,4 @@ class Controller extends ApiController
             'stripe_account_id' => $stripeAccount->id,
         ]);
     }
-
 }

@@ -9,20 +9,20 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
- * Class AssignPaymentAccountToUserTask
+ * Class AssignPaymentAccountToUserTask.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class AssignPaymentAccountToUserTask extends Task
 {
-
     /**
      * @param \App\Containers\Payment\Models\AbstractPaymentAccount $account
      * @param \App\Containers\User\Models\User                      $user
      * @param string|null                                           $paymentNickName
      *
-     * @return  \Illuminate\Database\Eloquent\Model
-     * @throws  CreateResourceFailedException
+     * @return \Illuminate\Database\Eloquent\Model
+     *
+     * @throws CreateResourceFailedException
      */
     public function run(AbstractPaymentAccount $account, User $user, string $paymentNickName = null)
     {

@@ -6,7 +6,7 @@ use Apiato\Core\Abstracts\Transformers\Transformer;
 use stdClass;
 
 /**
- * Class ComposerTransformer
+ * Class ComposerTransformer.
  *
  * @author Fabian Widmann <fabian.widmann@gmail.com>
  */
@@ -14,12 +14,13 @@ class ComposerTransformer extends Transformer
 {
     /**
      * @param stdClass $decodedJson
+     *
      * @return array
      */
     public function transform(stdClass $decodedJson)
     {
         $result = [
-            'name' => $decodedJson->name,
+            'name'        => $decodedJson->name,
             'description' => $decodedJson->name,
         ];
 

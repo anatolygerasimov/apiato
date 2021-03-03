@@ -8,26 +8,25 @@ use File;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 /**
- * Class ListActionsCommand
+ * Class ListActionsCommand.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class ListActionsCommand extends ConsoleCommand
 {
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = "apiato:list:actions {--withfilename}";
+    protected $signature = 'apiato:list:actions {--withfilename}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = "List all Actions in the Application.";
+    protected $description = 'List all Actions in the Application.';
 
     /**
      * ListActionsCommand constructor.
@@ -42,18 +41,16 @@ class ListActionsCommand extends ConsoleCommand
     }
 
     /**
-     * Handle the command
+     * Handle the command.
      */
     public function handle()
     {
         foreach (Apiato::getContainersNames() as $containerName) {
-
             $this->console->writeln("<fg=yellow> [$containerName]</fg=yellow>");
 
             $directory = base_path('app/Containers/' . $containerName . '/Actions');
 
             if (File::isDirectory($directory)) {
-
                 $files = File::allFiles($directory);
 
                 foreach ($files as $action) {
@@ -72,6 +69,7 @@ class ListActionsCommand extends ConsoleCommand
 
                     // check if flag exist
                     $includeFileName = '';
+
                     if ($this->option('withfilename')) {
                         $includeFileName = "<fg=red>($originalFileName)</fg=red>";
                     }
@@ -81,5 +79,4 @@ class ListActionsCommand extends ConsoleCommand
             }
         }
     }
-
 }

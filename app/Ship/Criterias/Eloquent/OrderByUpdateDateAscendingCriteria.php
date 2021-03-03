@@ -6,13 +6,12 @@ use App\Ship\Parents\Criterias\Criteria;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
- * Class OrderByUpdateDateAscendingCriteria
+ * Class OrderByUpdateDateAscendingCriteria.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class OrderByUpdateDateAscendingCriteria extends Criteria
 {
-
     /**
      * @param                                                   $model
      * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
@@ -23,5 +22,4 @@ class OrderByUpdateDateAscendingCriteria extends Criteria
     {
         return $model->orderBy('updated_at', 'asc');
     }
-
 }

@@ -6,13 +6,12 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateJobsTable
+ * Class CreateJobsTable.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class CreateJobsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -20,7 +19,7 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        if(Config::get('queue.default') == 'database'){
+        if (Config::get('queue.default') === 'database') {
             Schema::create('jobs', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('queue');
@@ -44,5 +43,4 @@ class CreateJobsTable extends Migration
     {
         Schema::dropIfExists('jobs');
     }
-
 }

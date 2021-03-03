@@ -8,24 +8,23 @@ use App\Ship\Parents\Actions\Action;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class UpdateStripeAccountAction
+ * Class UpdateStripeAccountAction.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class UpdateStripeAccountAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\Stripe\Models\StripeAccount
+     * @return \App\Containers\Stripe\Models\StripeAccount
      */
     public function run(DataTransporter $data): StripeAccount
     {
         $user = Apiato::call('Authentication@GetAuthenticatedUserTask');
 
         // check, if this account does - in fact - belong to our user
-        $account = Apiato::call('Stripe@FindStripeAccountByIdTask', [$data->id]);
+        $account        = Apiato::call('Stripe@FindStripeAccountByIdTask', [$data->id]);
         $paymentAccount = $account->paymentAccount;
         Apiato::call('Payment@CheckIfPaymentAccountBelongsToUserTask', [$user, $paymentAccount]);
 
@@ -38,8 +37,6 @@ class UpdateStripeAccountAction extends Action
             'card_fingerprint',
         ]);
 
-        $account = Apiato::call('Stripe@UpdateStripeAccountTask', [$account, $sanitizedData]);
-
-        return $account;
+        return Apiato::call('Stripe@UpdateStripeAccountTask', [$account, $sanitizedData]);
     }
 }

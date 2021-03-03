@@ -9,13 +9,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class ContainerApiGenerator
+ * Class ContainerApiGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -40,21 +39,21 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'composer.stub';
 
@@ -62,7 +61,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['docversion', null, InputOption::VALUE_OPTIONAL, 'The version of all endpoints to be generated (1, 2, ...)'],
@@ -81,11 +80,11 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         $useTransporters = $this->checkParameterOrConfirm('transporters', 'Would you like to use specific Transporters?', true);
 
         // containername as inputted and lower
-        $containerName = $this->containerName;
+        $containerName  = $this->containerName;
         $_containerName = Str::lower($this->containerName);
 
         // name of the model (singular and plural)
-        $model = $this->containerName;
+        $model  = $this->containerName;
         $models = Pluralizer::plural($model);
 
         // add the README file
@@ -206,39 +205,38 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
             ],
         ];
 
-        foreach ($routes as $route)
-        {
+        foreach ($routes as $route) {
             $this->call('apiato:generate:route', [
-                '--container' => $containerName,
-                '--file' => $route['name'],
-                '--ui' => $ui,
-                '--operation' => $route['operation'],
-                '--doctype' => $doctype,
+                '--container'  => $containerName,
+                '--file'       => $route['name'],
+                '--ui'         => $ui,
+                '--operation'  => $route['operation'],
+                '--doctype'    => $doctype,
                 '--docversion' => $version,
-                '--url' => $route['url'],
-                '--verb' => $route['verb'],
+                '--url'        => $route['url'],
+                '--verb'       => $route['verb'],
             ]);
 
             $this->call('apiato:generate:request', [
-                '--container' => $containerName,
-                '--file' => $route['request'],
-                '--ui' => $ui,
-                '--transporter' => $useTransporters,
+                '--container'       => $containerName,
+                '--file'            => $route['request'],
+                '--ui'              => $ui,
+                '--transporter'     => $useTransporters,
                 '--transportername' => $route['transporter'],
             ]);
 
             $this->call('apiato:generate:action', [
                 '--container' => $containerName,
-                '--file' => $route['action'],
-                '--model' => $model,
-                '--stub' => $route['stub'],
+                '--file'      => $route['action'],
+                '--model'     => $model,
+                '--stub'      => $route['stub'],
             ]);
 
             $this->call('apiato:generate:task', [
                 '--container' => $containerName,
-                '--file' => $route['task'],
-                '--model' => $model,
-                '--stub' => $route['stub'],
+                '--file'      => $route['task'],
+                '--model'     => $model,
+                '--stub'      => $route['stub'],
             ]);
         }
 
@@ -252,14 +250,15 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         ]);
 
         $this->printInfoMessage('Generating Composer File');
+
         return [
             'path-parameters' => [
                 'container-name' => $containerName,
             ],
             'stub-parameters' => [
                 '_container-name' => $_containerName,
-                'container-name' => $containerName,
-                'class-name' => $this->fileName,
+                'container-name'  => $containerName,
+                'class-name'      => $this->fileName,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
@@ -268,7 +267,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
     }
 
     /**
-     * Get the default file name for this component to be generated
+     * Get the default file name for this component to be generated.
      *
      * @return string
      */
@@ -281,5 +280,4 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
     {
         return 'json';
     }
-
 }

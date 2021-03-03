@@ -14,13 +14,12 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
 
 /**
- * Class Controller
+ * Class Controller.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Controller extends ApiController
 {
-
     /**
      * @param \App\Containers\Authentication\UI\API\Requests\LogoutRequest $request
      *
@@ -28,7 +27,7 @@ class Controller extends ApiController
      */
     public function logout(LogoutRequest $request)
     {
-        $dataTransporter = new DataTransporter($request);
+        $dataTransporter              = new DataTransporter($request);
         $dataTransporter->bearerToken = $request->bearerToken();
 
         Apiato::call('Authentication@ApiLogoutAction', [$dataTransporter]);
@@ -55,7 +54,7 @@ class Controller extends ApiController
         $dataTransporter = new ProxyApiLoginTransporter(
             array_merge($request->all(), [
                 'client_id'       => Config::get('authentication-container.clients.web.admin.id'),
-                'client_password' => Config::get('authentication-container.clients.web.admin.secret')
+                'client_password' => Config::get('authentication-container.clients.web.admin.secret'),
             ])
         );
 
@@ -65,7 +64,7 @@ class Controller extends ApiController
     }
 
     /**
-     * Read the comment in the function `proxyLoginForAdminWebClient`
+     * Read the comment in the function `proxyLoginForAdminWebClient`.
      *
      * @param \App\Containers\Authentication\UI\API\Requests\RefreshRequest $request
      *
@@ -78,7 +77,7 @@ class Controller extends ApiController
                 'client_id'       => Config::get('authentication-container.clients.web.admin.id'),
                 'client_password' => Config::get('authentication-container.clients.web.admin.secret'),
                 // use the refresh token sent in request data, if not exist try to get it from the cookie
-                'refresh_token'   => $request->refresh_token ? : $request->cookie('refreshToken'),
+                'refresh_token'   => $request->refresh_token ?: $request->cookie('refreshToken'),
             ])
         );
 

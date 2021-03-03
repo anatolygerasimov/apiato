@@ -5,7 +5,7 @@ namespace App\Ship\Exceptions\Handlers;
 use Apiato\Core\Exceptions\Handlers\ExceptionsHandler as CoreExceptionsHandler;
 
 /**
- * Class ExceptionsHandler
+ * Class ExceptionsHandler.
  *
  * A.K.A (app/Exceptions/Handler.php)
  *
@@ -13,5 +13,4 @@ use Apiato\Core\Exceptions\Handlers\ExceptionsHandler as CoreExceptionsHandler;
  */
 class ExceptionsHandler extends CoreExceptionsHandler
 {
-
 }

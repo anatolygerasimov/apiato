@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 
 /**
- * Class Apiato
+ * Class Apiato.
  *
  * Helper Class to serve Apiato (Ship/Containers).
  *
@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\File;
  */
 class Apiato
 {
-
     use CallableTrait;
 
     /**
@@ -26,12 +25,12 @@ class Apiato
      *
      * @var string
      */
-    const VERSION = '9.0.0';
+    public const VERSION = '9.0.0';
 
     /**
-     * Get the containers namespace value from the containers config file
+     * Get the containers namespace value from the containers config file.
      *
-     * @return  string
+     * @return string
      */
     public function getContainersNamespace()
     {
@@ -39,9 +38,9 @@ class Apiato
     }
 
     /**
-     * Get the containers names
+     * Get the containers names.
      *
-     * @return  array
+     * @return array
      */
     public function getContainersNames()
     {
@@ -55,9 +54,9 @@ class Apiato
     }
 
     /**
-     * Get the port folders names
+     * Get the port folders names.
      *
-     * @return  array
+     * @return array
      */
     public function getShipFoldersNames()
     {
@@ -71,9 +70,9 @@ class Apiato
     }
 
     /**
-     * get containers directories paths
+     * get containers directories paths.
      *
-     * @return  mixed
+     * @return mixed
      */
     public function getContainersPaths()
     {
@@ -81,7 +80,7 @@ class Apiato
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function getShipPath()
     {
@@ -89,28 +88,26 @@ class Apiato
     }
 
     /**
-     * build and return an object of a class from its file path
+     * build and return an object of a class from its file path.
      *
      * @param $filePathName
      *
-     * @return  mixed
+     * @return mixed
      */
     public function getClassObjectFromFile($filePathName)
     {
         $classString = $this->getClassFullNameFromFile($filePathName);
 
-        $object = new $classString;
-
-        return $object;
+        return new $classString();
     }
 
     /**
      * get the full name (name \ namespace) of a class from its file path
-     * result example: (string) "I\Am\The\Namespace\Of\This\Class"
+     * result example: (string) "I\Am\The\Namespace\Of\This\Class".
      *
      * @param $filePathName
      *
-     * @return  string
+     * @return string
      */
     public function getClassFullNameFromFile($filePathName)
     {
@@ -118,29 +115,30 @@ class Apiato
     }
 
     /**
-     * get the class namespace form file path using token
+     * get the class namespace form file path using token.
      *
      * @param $filePathName
      *
-     * @return  null|string
+     * @return null|string
      */
     protected function getClassNamespaceFromFile($filePathName)
     {
         $src = file_get_contents($filePathName);
 
-        $tokens = token_get_all($src);
-        $count = count($tokens);
-        $i = 0;
-        $namespace = '';
+        $tokens       = token_get_all($src);
+        $count        = count($tokens);
+        $i            = 0;
+        $namespace    = '';
         $namespace_ok = false;
         while ($i < $count) {
             $token = $tokens[$i];
+
             if (is_array($token) && $token[0] === T_NAMESPACE) {
                 // Found namespace declaration
                 while (++$i < $count) {
                     if ($tokens[$i] === ';') {
                         $namespace_ok = true;
-                        $namespace = trim($namespace);
+                        $namespace    = trim($namespace);
                         break;
                     }
                     $namespace .= is_array($tokens[$i]) ? $tokens[$i][1] : $tokens[$i];
@@ -149,6 +147,7 @@ class Apiato
             }
             $i++;
         }
+
         if (!$namespace_ok) {
             return null;
         } else {
@@ -157,27 +156,26 @@ class Apiato
     }
 
     /**
-     * get the class name form file path using token
+     * get the class name form file path using token.
      *
      * @param $filePathName
      *
-     * @return  mixed
+     * @return mixed
      */
     protected function getClassNameFromFile($filePathName)
     {
         $php_code = file_get_contents($filePathName);
 
         $classes = [];
-        $tokens = token_get_all($php_code);
-        $count = count($tokens);
+        $tokens  = token_get_all($php_code);
+        $count   = count($tokens);
         for ($i = 2; $i < $count; $i++) {
-            if ($tokens[$i - 2][0] == T_CLASS
-                && $tokens[$i - 1][0] == T_WHITESPACE
-                && $tokens[$i][0] == T_STRING
+            if ($tokens[$i - 2][0] === T_CLASS
+                && $tokens[$i - 1][0] === T_WHITESPACE
+                && $tokens[$i][0] === T_STRING
             ) {
-
                 $class_name = $tokens[$i][1];
-                $classes[] = $class_name;
+                $classes[]  = $class_name;
             }
         }
 
@@ -185,16 +183,16 @@ class Apiato
     }
 
     /**
-     * check if a word starts with another word
+     * check if a word starts with another word.
      *
      * @param $word
      * @param $startsWith
      *
-     * @return  bool
+     * @return bool
      */
     public function stringStartsWith($word, $startsWith)
     {
-        return (substr($word, 0, strlen($startsWith)) === $startsWith);
+        return substr($word, 0, strlen($startsWith)) === $startsWith;
     }
 
     /**
@@ -202,9 +200,9 @@ class Apiato
      * @param string $splitter
      * @param bool   $uppercase
      *
-     * @return  mixed|string
+     * @return mixed|string
      */
-    public function uncamelize($word, $splitter = " ", $uppercase = true)
+    public function uncamelize($word, $splitter = ' ', $uppercase = true)
     {
         $word = preg_replace('/(?!^)[[:upper:]][[:lower:]]/', '$0',
             preg_replace('/(?!^)[[:upper:]]+/', $splitter . '$0', $word));
@@ -214,6 +212,7 @@ class Apiato
 
     /**
      * @return mixed
+     *
      * @throws WrongConfigurationsException
      */
     public function getLoginWebPageName()
@@ -227,14 +226,13 @@ class Apiato
         return $loginPage;
     }
 
-
     /**
      * Build namespace for a class in Container.
      *
      * @param $containerName
      * @param $className
      *
-     * @return  string
+     * @return string
      */
     public function buildClassFullName($containerName, $className)
     {
@@ -243,11 +241,11 @@ class Apiato
 
     /**
      * Get the last part of a camel case string.
-     * Example input = helloDearWorld | returns = World
+     * Example input = helloDearWorld | returns = World.
      *
      * @param $className
      *
-     * @return  mixed
+     * @return mixed
      */
     public function getClassType($className)
     {
@@ -279,5 +277,4 @@ class Apiato
             throw new ClassDoesNotExistException("Class ($className) is not installed.");
         }
     }
-
 }

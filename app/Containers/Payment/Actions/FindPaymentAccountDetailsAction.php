@@ -8,17 +8,16 @@ use App\Ship\Parents\Actions\Action;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class FindPaymentAccountDetailsAction
+ * Class FindPaymentAccountDetailsAction.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class FindPaymentAccountDetailsAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\Payment\Models\PaymentAccount
+     * @return \App\Containers\Payment\Models\PaymentAccount
      */
     public function run(DataTransporter $data): PaymentAccount
     {

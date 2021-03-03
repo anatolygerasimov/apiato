@@ -3,6 +3,7 @@
 /**
  * @apiGroup           Users
  * @apiName            registerUser
+ *
  * @api                {post} /v1/register Register User (create client)
  * @apiDescription     Register users as (client).
  *
@@ -17,8 +18,7 @@
  *
  * @apiUse             UserSuccessSingleResponse
  */
-
 $router->post('/register', [
-    'as' => 'api_user_register_user',
+    'as'    => 'api_user_register_user',
     'uses'  => 'Controller@registerUser',
 ]);

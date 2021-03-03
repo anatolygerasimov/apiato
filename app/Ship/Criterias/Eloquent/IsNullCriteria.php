@@ -6,13 +6,12 @@ use App\Ship\Parents\Criterias\Criteria;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
- * Class IsNullCriteria
+ * Class IsNullCriteria.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class IsNullCriteria extends Criteria
 {
-
     /**
      * @var
      */
@@ -32,11 +31,10 @@ class IsNullCriteria extends Criteria
      * @param                                                   $model
      * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
      *
-     * @return  mixed
+     * @return mixed
      */
     public function apply($model, PrettusRepositoryInterface $repository)
     {
         return $model->whereNull($this->field);
     }
-
 }

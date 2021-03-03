@@ -6,13 +6,12 @@ use Apiato\Core\Loaders\RoutesLoaderTrait;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as LaravelRouteServiceProvider;
 
 /**
- * Class RoutesProvider
+ * Class RoutesProvider.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class RoutesProvider extends LaravelRouteServiceProvider
 {
-
     use RoutesLoaderTrait;
 
     /**
@@ -41,5 +40,4 @@ class RoutesProvider extends LaravelRouteServiceProvider
     {
         $this->runRoutesAutoLoader();
     }
-
 }

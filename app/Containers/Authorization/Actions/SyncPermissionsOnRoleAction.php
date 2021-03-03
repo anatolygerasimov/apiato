@@ -14,11 +14,10 @@ use App\Ship\Transporters\DataTransporter;
  */
 class SyncPermissionsOnRoleAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\Authorization\Models\Role
+     * @return \App\Containers\Authorization\Models\Role
      */
     public function run(DataTransporter $data): Role
     {

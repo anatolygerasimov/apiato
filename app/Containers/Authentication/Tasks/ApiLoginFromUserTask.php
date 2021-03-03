@@ -15,13 +15,10 @@ class ApiLoginFromUserTask extends Task
     /**
      * @param \App\Containers\User\Models\User $user
      *
-     * @return  \Laravel\Passport\PersonalAccessTokenResult
+     * @return \Laravel\Passport\PersonalAccessTokenResult
      */
     public function run(User $user)
     {
-        $personalAccessTokenResult = $user->createToken('social');
-
-        return $personalAccessTokenResult;
+        return $user->createToken('social');
     }
-
 }

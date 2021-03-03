@@ -2,6 +2,7 @@
 /**
  * @apiGroup           OAuth2
  * @apiName            Logout
+ *
  * @api                {DELETE} /v1/logout Logout
  * @apiDescription     User Logout. (Revoking Access Token)
  *
@@ -10,15 +11,14 @@
  *
  * @apiSuccessExample  {json}       Success-Response:
  * HTTP/1.1 202 Accepted
-{
-  "message": "Token revoked successfully."
-}
+ * {
+ * "message": "Token revoked successfully."
+ * }
  */
 $router->delete('logout', [
-    'as' => 'api_authentication_logout',
-    'uses'  => 'Controller@logout',
+    'as'         => 'api_authentication_logout',
+    'uses'       => 'Controller@logout',
     'middleware' => [
         'auth:api',
     ],
 ]);
-

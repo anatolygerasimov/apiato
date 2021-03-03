@@ -9,13 +9,12 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
- * Class DeleteUserTask
+ * Class DeleteUserTask.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class DeleteUserTask extends Task
 {
-
     protected $repository;
 
     public function __construct(UserRepository $repository)
@@ -24,18 +23,17 @@ class DeleteUserTask extends Task
     }
 
     /**
-     *
      * @param User $user
      *
      * @return bool
+     *
      * @throws DeleteResourceFailedException
      */
     public function run(User $user)
     {
         try {
             return $this->repository->delete($user->id);
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             throw new DeleteResourceFailedException();
         }
     }

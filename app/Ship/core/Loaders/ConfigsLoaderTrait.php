@@ -11,7 +11,6 @@ use File;
  */
 trait ConfigsLoaderTrait
 {
-
     /**
      * @param $containerName
      */
@@ -22,9 +21,6 @@ trait ConfigsLoaderTrait
         $this->loadConfigs($containerConfigsDirectory);
     }
 
-    /**
-     *
-     */
     public function loadConfigsFromShip()
     {
         $portConfigsDirectory = base_path('app/Ship/Configs');
@@ -38,7 +34,6 @@ trait ConfigsLoaderTrait
     private function loadConfigs($directory)
     {
         if (File::isDirectory($directory)) {
-
             $files = File::allFiles($directory);
 
             foreach ($files as $file) {
@@ -50,5 +45,4 @@ trait ConfigsLoaderTrait
             }
         }
     }
-
 }

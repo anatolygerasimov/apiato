@@ -8,13 +8,13 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class Event
+ * Class Event.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 abstract class Event extends AbstractEvent
 {
-
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 }

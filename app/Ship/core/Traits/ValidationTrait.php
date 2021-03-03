@@ -5,13 +5,12 @@ namespace Apiato\Core\Traits;
 use Validator;
 
 /**
- * Class ValidationTrait
+ * Class ValidationTrait.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 trait ValidationTrait
 {
-
     /**
      * Extend the default Laravel validation rules.
      */
@@ -27,7 +26,6 @@ trait ValidationTrait
         // Example:    'values'               => 'required|unique_composite:item_variant_values,value,item_variant_name_id',
         //             'item_variant_name_id' => 'required',
         Validator::extend('unique_composite', function ($attribute, $value, $parameters, $validator) {
-
             $queryBuilder = \DB::table($parameters[0]);
 
             $queryBuilder = is_array($value) ? $queryBuilder->whereIn($parameters[1],
@@ -38,7 +36,6 @@ trait ValidationTrait
             $queryResult = $queryBuilder->get();
 
             return $queryResult->isEmpty();
-        }, ["Duplicated record. This record has composite ID and it must be unique."]);
+        }, ['Duplicated record. This record has composite ID and it must be unique.']);
     }
-
 }

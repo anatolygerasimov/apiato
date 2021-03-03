@@ -6,22 +6,21 @@ use App\Containers\Localization\Values\Localization;
 use App\Ship\Parents\Transformers\Transformer;
 
 /**
- * Class LocalizationTransformer
+ * Class LocalizationTransformer.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class LocalizationTransformer extends Transformer
 {
-
     /**
-     * @var  array
+     * @var array
      */
     protected $defaultIncludes = [
 
     ];
 
     /**
-     * @var  array
+     * @var array
      */
     protected $availableIncludes = [
 
@@ -46,7 +45,7 @@ class LocalizationTransformer extends Transformer
         ];
 
         // now we manually build the regions
-        $regions = [];
+        $regions        = [];
         $entity_regions = $entity->getRegions();
 
         foreach ($entity_regions as $region) {
@@ -62,10 +61,8 @@ class LocalizationTransformer extends Transformer
             'regions' => $regions,
         ]);
 
-        $response = $this->ifAdmin([
+        return $this->ifAdmin([
 
         ], $response);
-
-        return $response;
     }
 }

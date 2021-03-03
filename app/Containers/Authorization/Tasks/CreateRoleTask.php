@@ -15,9 +15,8 @@ use Exception;
  */
 class CreateRoleTask extends Task
 {
-
     /**
-     * @var  \App\Containers\Authorization\Data\Repositories\RoleRepository
+     * @var \App\Containers\Authorization\Data\Repositories\RoleRepository
      */
     protected $repository;
 
@@ -38,6 +37,7 @@ class CreateRoleTask extends Task
      * @param int         $level
      *
      * @return Role
+     *
      * @throws CreateResourceFailedException
      */
     public function run(string $name, string $description = null, string $displayName = null, int $level = 0): Role
@@ -58,5 +58,4 @@ class CreateRoleTask extends Task
 
         return $role;
     }
-
 }

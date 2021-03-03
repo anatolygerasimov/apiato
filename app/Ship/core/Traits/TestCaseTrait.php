@@ -7,13 +7,12 @@ use Laravel\Passport\ClientRepository;
 use Laravel\Passport\PersonalAccessClient;
 
 /**
- * Class TestCaseTrait
+ * Class TestCaseTrait.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 trait TestCaseTrait
 {
-
     /**
      * Migrate the database.
      */
@@ -23,11 +22,11 @@ trait TestCaseTrait
     }
 
     /**
-     * Override default URL subDomain in case you want to change it for some tests
+     * Override default URL subDomain in case you want to change it for some tests.
      *
      * @param null $url
      *
-     * @return  string|void
+     * @return string|void
      */
     public function overrideSubDomain($url = null)
     {
@@ -36,7 +35,7 @@ trait TestCaseTrait
             return;
         }
 
-        $url = ($url) ? : $this->baseUrl;
+        $url = ($url) ?: $this->baseUrl;
 
         $info = parse_url($url);
 
@@ -51,7 +50,7 @@ trait TestCaseTrait
     }
 
     /**
-     * Equivalent to passport:install but enough to run the tests
+     * Equivalent to passport:install but enough to run the tests.
      */
     public function setupPassportOAuth2()
     {
@@ -61,9 +60,8 @@ trait TestCaseTrait
             'http://localhost'
         );
 
-        $accessClient = new PersonalAccessClient();
+        $accessClient            = new PersonalAccessClient();
         $accessClient->client_id = $client->id;
         $accessClient->save();
     }
-
 }

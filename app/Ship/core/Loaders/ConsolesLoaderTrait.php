@@ -12,7 +12,6 @@ use File;
  */
 trait ConsolesLoaderTrait
 {
-
     /**
      * @param $containerName
      */
@@ -32,7 +31,7 @@ trait ConsolesLoaderTrait
             // ship commands
             base_path('app/Ship/Commands'),
             // core commands
-            __DIR__ . '/../Commands'
+            __DIR__ . '/../Commands',
         ];
 
         foreach ($commandsFoldersPaths as $folderPath) {
@@ -46,7 +45,6 @@ trait ConsolesLoaderTrait
     private function loadTheConsoles($directory)
     {
         if (File::isDirectory($directory)) {
-
             $files = File::allFiles($directory);
 
             foreach ($files as $consoleFile) {
@@ -60,18 +58,16 @@ trait ConsolesLoaderTrait
                     $this->commands([$consoleClass]);
                 }
             }
-
         }
     }
 
     /**
      * @param $consoleFile
      *
-     * @return  bool
+     * @return bool
      */
     private function isRouteFile($consoleFile)
     {
-        return $consoleFile->getFilename() === "Routes.php";
+        return $consoleFile->getFilename() === 'Routes.php';
     }
-
 }

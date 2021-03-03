@@ -3,25 +3,24 @@
 namespace Apiato\Core\Traits;
 
 /**
- * Class StateKeeperTrait
+ * Class StateKeeperTrait.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 trait StateKeeperTrait
 {
-
     /**
      * Stores Data of any kind during the request life cycle.
      * This helps related Actions can share data from different steps.
      *
-     * @var  array
+     * @var array
      */
     public $stateKeeperStates = [];
 
     /**
      * @param array $data
      *
-     * @return  $this
+     * @return $this
      */
     public function keep(array $data = [])
     {
@@ -35,11 +34,10 @@ trait StateKeeperTrait
     /**
      * @param $key
      *
-     * @return  mixed
+     * @return mixed
      */
     public function retrieve($key)
     {
         return $this->stateKeeperStates[$key];
     }
-
 }

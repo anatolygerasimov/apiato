@@ -7,4 +7,3 @@ $factory->define(StripeAccount::class, function (Faker\Generator $faker) {
         'customer_id' => $faker->text(10),
     ];
 });
-

@@ -14,7 +14,6 @@ use App\Containers\Stripe\Tests\ApiTestCase;
  */
 class CreateStripeAccountTest extends ApiTestCase
 {
-
     protected $endpoint = 'post@v1/user/payments/accounts/stripe';
 
     protected $access = [
@@ -25,7 +24,7 @@ class CreateStripeAccountTest extends ApiTestCase
     /**
      * @test
      */
-    public function testCreateStripeAccount_()
+    public function testCreateStripeAccount()
     {
         $userDetails = [
             'name'     => 'Mahmoud Zalt',
@@ -54,7 +53,5 @@ class CreateStripeAccountTest extends ApiTestCase
         $responseContent = $this->getResponseContentObject();
 
         $this->assertEquals($responseContent->message, 'Stripe account created successfully.');
-
     }
-
 }

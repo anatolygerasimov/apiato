@@ -4,13 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
 /**
- * Class CreateStripeAccountsTable
+ * Class CreateStripeAccountsTable.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class CreateStripeAccountsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *

@@ -12,7 +12,7 @@ return [
      */
     'channels' => [
         'database',
-//        'mail',
-    ]
+        //        'mail',
+    ],
 
 ];

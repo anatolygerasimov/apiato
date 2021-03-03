@@ -13,16 +13,14 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class AssignUserToRoleTask extends Task
 {
-
     /**
      * @param \App\Containers\User\Models\User $user
      * @param array                            $roles
      *
-     * @return  \Illuminate\Contracts\Auth\Authenticatable
+     * @return \Illuminate\Contracts\Auth\Authenticatable
      */
-    public function run(User $user, array $roles) : Authenticatable
+    public function run(User $user, array $roles): Authenticatable
     {
         return $user->assignRole($roles);
     }
-
 }

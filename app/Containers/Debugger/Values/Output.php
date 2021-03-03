@@ -9,15 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class Output
+ * Class Output.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Output extends Value
 {
-
     /**
-     * @var  string
+     * @var string
      */
     public $output = '';
 
@@ -49,17 +48,17 @@ class Output extends Value
      */
     public function __construct(Request $request, Response $response)
     {
-        $this->request = $request;
+        $this->request  = $request;
         $this->response = $response;
 
-        $this->responseDataCut = Config::get("debugger.requests.response_show_first");
-        $this->tokenDataCut = Config::get("debugger.requests.token_show_first");
+        $this->responseDataCut = Config::get('debugger.requests.response_show_first');
+        $this->tokenDataCut    = Config::get('debugger.requests.token_show_first');
     }
 
     /**
      * @param $text
      *
-     * @return  string
+     * @return string
      */
     protected function set($text)
     {
@@ -67,7 +66,7 @@ class Output extends Value
     }
 
     /**
-     * @return  string
+     * @return string
      */
     public function get()
     {
@@ -83,7 +82,7 @@ class Output extends Value
     }
 
     /**
-     * Add header
+     * Add header.
      *
      * @param $name
      */
@@ -93,17 +92,17 @@ class Output extends Value
     }
 
     /**
-     * Add line to indicate new request
+     * Add line to indicate new request.
      *
      * @void
      */
     public function newRequest()
     {
-        $this->append("----------------- NEW REQUEST -----------------");
+        $this->append('----------------- NEW REQUEST -----------------');
     }
 
     /**
-     * Add empty line
+     * Add empty line.
      *
      * @void
      */
@@ -117,8 +116,8 @@ class Output extends Value
      */
     public function endpoint()
     {
-        $this->append(" * Endpoint: " . $this->request->fullUrl() . "\n");
-        $this->append(" * Method: " . $this->request->getMethod() . "\n");
+        $this->append(' * Endpoint: ' . $this->request->fullUrl() . "\n");
+        $this->append(' * Method: ' . $this->request->getMethod() . "\n");
     }
 
     /**
@@ -127,7 +126,7 @@ class Output extends Value
     public function version()
     {
         if (method_exists($this->request, 'version')) {
-            $this->append(" * Version: " . $this->request->version() . "\n");
+            $this->append(' * Version: ' . $this->request->version() . "\n");
         }
     }
 
@@ -136,7 +135,7 @@ class Output extends Value
      */
     public function ip()
     {
-        $this->append(" * IP: " . $this->request->ip() . " (Port: " . $this->request->getPort() . ") \n");
+        $this->append(' * IP: ' . $this->request->ip() . ' (Port: ' . $this->request->getPort() . ") \n");
     }
 
     /**
@@ -144,7 +143,7 @@ class Output extends Value
      */
     public function format()
     {
-        $this->append(" * Format: " . $this->request->format() . "\n");
+        $this->append(' * Format: ' . $this->request->format() . "\n");
     }
 
     /**
@@ -153,18 +152,18 @@ class Output extends Value
     public function userInfo()
     {
         // Auth Header
-        $authHeader = $this->request->header("Authorization");
+        $authHeader = $this->request->header('Authorization');
         // User
-        $user = $this->request->user() ? "ID: " . $this->request->user()->id . " (Name: " . $this->request->user()->name . ")" : "N/A";
+        $user = $this->request->user() ? 'ID: ' . $this->request->user()->id . ' (Name: ' . $this->request->user()->name . ')' : 'N/A';
         // Browser
         $browser = Agent::browser();
 
-        $this->append(" * Access Token: " . substr($authHeader, 0,
-                $this->tokenDataCut) . (!is_null($authHeader) ? "..." : "N/A") . "\n");
-        $this->append(" * User: " . $user . "\n");
-        $this->append(" * Device: " . Agent::device() . " (Platform: " . Agent::platform() . ") \n");
-        $this->append(" * Browser: " . $browser . " (Version: " . Agent::version($browser) . ") \n");
-        $this->append(" * Languages: " . implode(", ", Agent::languages()) . "\n");
+        $this->append(' * Access Token: ' . substr($authHeader, 0,
+                $this->tokenDataCut) . (!is_null($authHeader) ? '...' : 'N/A') . "\n");
+        $this->append(' * User: ' . $user . "\n");
+        $this->append(' * Device: ' . Agent::device() . ' (Platform: ' . Agent::platform() . ") \n");
+        $this->append(' * Browser: ' . $browser . ' (Version: ' . Agent::version($browser) . ") \n");
+        $this->append(' * Languages: ' . implode(', ', Agent::languages()) . "\n");
     }
 
     /**
@@ -173,9 +172,9 @@ class Output extends Value
     public function requestData()
     {
         // Request Data
-        $requestData = $this->request->all() ? http_build_query($this->request->all(), "", " + ") : "N/A";
+        $requestData = $this->request->all() ? http_build_query($this->request->all(), '', ' + ') : 'N/A';
 
-        $this->append(" * " . $requestData . "\n");
+        $this->append(' * ' . $requestData . "\n");
     }
 
     /**
@@ -185,19 +184,18 @@ class Output extends Value
     {
         // Response Data
         $responseContent = ($this->response && method_exists($this->response,
-                "content")) ? $this->response->content() : "N/A";
+                'content')) ? $this->response->content() : 'N/A';
 
-        $this->append(" * " . substr($responseContent, 0, $this->responseDataCut) . "..." . "\n");
+        $this->append(' * ' . substr($responseContent, 0, $this->responseDataCut) . '...' . "\n");
     }
 
     /**
      * @param $output
      *
-     * @return  string
+     * @return string
      */
     private function append($output)
     {
         return $this->output .= $output;
     }
-
 }

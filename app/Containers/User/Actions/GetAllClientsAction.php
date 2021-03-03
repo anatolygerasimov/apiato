@@ -12,9 +12,8 @@ use App\Ship\Parents\Actions\Action;
  */
 class GetAllClientsAction extends Action
 {
-
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function run()
     {

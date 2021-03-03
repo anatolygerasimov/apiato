@@ -9,15 +9,14 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
- * Class CreatePermissionTask
+ * Class CreatePermissionTask.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class CreatePermissionTask extends Task
 {
-
     /**
-     * @var  \App\Containers\Authorization\Data\Repositories\PermissionRepository
+     * @var \App\Containers\Authorization\Data\Repositories\PermissionRepository
      */
     protected $repository;
 
@@ -37,6 +36,7 @@ class CreatePermissionTask extends Task
      * @param string|null $displayName
      *
      * @return Permission
+     *
      * @throws CreateResourceFailedException
      */
     public function run(string $name, string $description = null, string $displayName = null): Permission

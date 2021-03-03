@@ -20,9 +20,10 @@ class WebLoginTask extends Task
      * @param bool   $remember
      *
      * @return Authenticatable
+     *
      * @throws LoginFailedException
      */
-    public function run(string $email, string $password, bool $remember = false) : Authenticatable
+    public function run(string $email, string $password, bool $remember = false): Authenticatable
     {
         if (!$user = Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
             throw new LoginFailedException();
@@ -30,5 +31,4 @@ class WebLoginTask extends Task
 
         return Auth::user();
     }
-
 }

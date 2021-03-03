@@ -5,13 +5,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateFailedJobsTable
+ * Class CreateFailedJobsTable.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class CreateFailedJobsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -38,5 +37,4 @@ class CreateFailedJobsTable extends Migration
     {
         Schema::drop('failed_jobs');
     }
-
 }

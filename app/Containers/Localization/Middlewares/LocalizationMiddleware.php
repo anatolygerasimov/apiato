@@ -12,18 +12,17 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
 /**
- * Class LocalizationMiddleware
+ * Class LocalizationMiddleware.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class LocalizationMiddleware extends Middleware
 {
-
     /**
      * @param \Illuminate\Http\Request $request
      * @param \Closure                 $next
      *
-     * @return  mixed
+     * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
@@ -47,6 +46,7 @@ class LocalizationMiddleware extends Middleware
      * @param $request_languages
      *
      * @return string
+     *
      * @throws UnsupportedLanguageException
      */
     private function validateLanguage($request_languages)
@@ -58,7 +58,7 @@ class LocalizationMiddleware extends Middleware
          *  2) otherwise, give me de
          *  3) otherwise, give me en-US
          *  4) if all fails, give me en
-        */
+         */
 
         // split it up by ","
         $languages = explode(',', $request_languages);
@@ -82,7 +82,7 @@ class LocalizationMiddleware extends Middleware
             // now check, if the language to be checked is in the form of de-DE
             if (Str::contains($current_locale, '-')) {
                 // extract the "main" part ("de") and append it to the end of the languages to be checked
-                $base = explode('-', $current_locale);
+                $base                = explode('-', $current_locale);
                 $language_iterator[] = $base[0];
             }
         }
@@ -94,7 +94,7 @@ class LocalizationMiddleware extends Middleware
     /**
      * @param $request
      *
-     * @return  string
+     * @return string
      */
     private function findLanguage($request)
     {
@@ -137,5 +137,4 @@ class LocalizationMiddleware extends Middleware
 
         return $supported_locales;
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Apiato\Core\Loaders;
 
-use App;
 use File;
 
 /**
@@ -12,7 +11,6 @@ use File;
  */
 trait MigrationsLoaderTrait
 {
-
     /**
      * @param $containerName
      */
@@ -39,10 +37,7 @@ trait MigrationsLoaderTrait
     private function loadMigrations($directory)
     {
         if (File::isDirectory($directory)) {
-
             $this->loadMigrationsFrom($directory);
-
         }
     }
-
 }

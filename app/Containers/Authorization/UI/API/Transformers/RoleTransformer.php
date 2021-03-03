@@ -12,13 +12,12 @@ use App\Ship\Parents\Transformers\Transformer;
  */
 class RoleTransformer extends Transformer
 {
-
     protected $availableIncludes = [
 
     ];
 
     protected $defaultIncludes = [
-        'permissions'
+        'permissions',
     ];
 
     /**
@@ -41,11 +40,10 @@ class RoleTransformer extends Transformer
     /**
      * @param \App\Containers\Authorization\Models\Role $role
      *
-     * @return  \League\Fractal\Resource\Collection
+     * @return \League\Fractal\Resource\Collection
      */
     public function includePermissions(Role $role)
     {
         return $this->collection($role->permissions, new PermissionTransformer());
     }
-
 }

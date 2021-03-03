@@ -7,13 +7,12 @@ use App\Ship\Parents\Actions\Action;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class DeleteSettingAction
+ * Class DeleteSettingAction.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class DeleteSettingAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      */

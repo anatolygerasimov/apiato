@@ -11,11 +11,10 @@ use App\Ship\Parents\Requests\Request;
  */
 class DeleteUserRequest extends Request
 {
-
     /**
      * Define which Roles and/or Permissions has access to this request.
      *
-     * @var  array
+     * @var array
      */
     protected $access = [
         'permissions' => 'delete-users',
@@ -25,7 +24,7 @@ class DeleteUserRequest extends Request
     /**
      * Id's that needs decoding before applying the validation rules.
      *
-     * @var  array
+     * @var array
      */
     protected $decode = [
         'id',
@@ -35,14 +34,14 @@ class DeleteUserRequest extends Request
      * Defining the URL parameters (`/stores/999/items`) allows applying
      * validation rules on them and allows accessing them like request data.
      *
-     * @var  array
+     * @var array
      */
     protected $urlParameters = [
         'id',
     ];
 
     /**
-     * @return  array
+     * @return array
      */
     public function rules()
     {
@@ -52,7 +51,7 @@ class DeleteUserRequest extends Request
     }
 
     /**
-     * @return  bool
+     * @return bool
      */
     public function authorize()
     {

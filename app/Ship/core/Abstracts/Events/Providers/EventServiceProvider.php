@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\Factory as QueueFactoryContract;
  * Created by PhpStorm.
  * User: arthur
  * Date: 08/11/17
- * Time: 16:20
+ * Time: 16:20.
  */
 class EventServiceProvider extends \Illuminate\Events\EventServiceProvider
 {
@@ -21,5 +21,4 @@ class EventServiceProvider extends \Illuminate\Events\EventServiceProvider
             });
         });
     }
-
 }

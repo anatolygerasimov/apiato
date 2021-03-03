@@ -12,9 +12,8 @@ use App\Ship\Parents\Controllers\ApiController;
  */
 class Controller extends ApiController
 {
-
     /**
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function apiRoot()
     {
@@ -24,7 +23,7 @@ class Controller extends ApiController
     }
 
     /**
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function v1ApiLandingPage()
     {
@@ -32,5 +31,4 @@ class Controller extends ApiController
 
         return response()->json($message);
     }
-
 }

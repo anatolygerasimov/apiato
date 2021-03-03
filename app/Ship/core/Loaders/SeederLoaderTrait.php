@@ -16,16 +16,15 @@ use Illuminate\Support\Collection;
  */
 trait SeederLoaderTrait
 {
-
     /**
-     * Default seeders directory for containers and port
+     * Default seeders directory for containers and port.
      *
-     * @var  string
+     * @var string
      */
     protected $seedersPath = '/Data/Seeders';
 
     /**
-     * runLoadingSeeders
+     * runLoadingSeeders.
      */
     public function runLoadingSeeders()
     {
@@ -34,7 +33,7 @@ trait SeederLoaderTrait
     }
 
     /**
-     * loadSeedersFromContainers
+     * loadSeedersFromContainers.
      */
     private function loadSeedersFromContainers()
     {
@@ -43,19 +42,17 @@ trait SeederLoaderTrait
         $containersDirectories = [];
 
         foreach (Apiato::getContainersNames() as $containerName) {
-
             $containersDirectories[] = base_path('app/Containers/' . $containerName . $this->seedersPath);
-
         }
 
-        $seedersClasses = $this->findSeedersClasses($containersDirectories, $seedersClasses);
+        $seedersClasses       = $this->findSeedersClasses($containersDirectories, $seedersClasses);
         $orderedSeederClasses = $this->sortSeeders($seedersClasses);
 
         $this->loadSeeders($orderedSeederClasses);
     }
 
     /**
-     * loadSeedersFromShip
+     * loadSeedersFromShip.
      */
     private function loadSeedersFromShip()
     {
@@ -78,18 +75,15 @@ trait SeederLoaderTrait
      * @param array $directories
      * @param       $seedersClasses
      *
-     * @return  mixed
+     * @return mixed
      */
     private function findSeedersClasses(array $directories, $seedersClasses)
     {
         foreach ($directories as $directory) {
-
             if (File::isDirectory($directory)) {
-
                 $files = File::allFiles($directory);
 
                 foreach ($files as $seederClass) {
-
                     if (File::isFile($seederClass)) {
 
                         // do not seed the classes now, just store them in a collection and w
@@ -108,7 +102,7 @@ trait SeederLoaderTrait
     /**
      * @param $seedersClasses
      *
-     * @return  \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection
      */
     private function sortSeeders($seedersClasses)
     {
@@ -131,9 +125,7 @@ trait SeederLoaderTrait
         // sort the classes that needed to be ordered
         $orderedSeederClasses = $orderedSeederClasses->sortBy(function ($seederFullClassName) {
             // get the order number form the end of each class name
-            $orderNumber = substr($seederFullClassName, strpos($seederFullClassName, "_") + 1);
-
-            return $orderNumber;
+            return substr($seederFullClassName, strpos($seederFullClassName, '_') + 1);
         });
 
         // append the randomly ordered seeder classes to the end of the ordered seeder classes
@@ -154,5 +146,4 @@ trait SeederLoaderTrait
             $this->call($seeder);
         }
     }
-
 }

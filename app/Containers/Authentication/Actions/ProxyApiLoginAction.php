@@ -11,7 +11,6 @@ use App\Ship\Parents\Actions\Action;
  */
 class ProxyApiLoginAction extends Action
 {
-
     /**
      * @param \App\Containers\Authentication\Data\Transporters\ProxyApiLoginTransporter $data
      *
@@ -35,7 +34,7 @@ class ProxyApiLoginAction extends Action
         // check if user email is confirmed only if that feature is enabled.
         Apiato::call('Authentication@CheckIfUserIsConfirmedTask', [],
             [['loginWithCredentials' => [
-                $requestData['username'], $requestData['password'], $loginCustomAttribute['loginAttribute']]]
+                $requestData['username'], $requestData['password'], $loginCustomAttribute['loginAttribute'], ]],
             ]);
 
         $refreshCookie = Apiato::call('Authentication@MakeRefreshCookieTask', [$responseContent['refresh_token']]);

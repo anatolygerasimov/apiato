@@ -13,13 +13,13 @@ use Laravel\Socialite\Facades\Socialite;
  */
 class FindUserSocialProfileTask extends Task
 {
-
     /**
      * @param            $provider
      * @param array|null $requestData
      *
-     * @return  mixed
-     * @throws  UnsupportedSocialAuthProviderException
+     * @return mixed
+     *
+     * @throws UnsupportedSocialAuthProviderException
      */
     public function run($provider, array $requestData = null)
     {
@@ -41,5 +41,4 @@ class FindUserSocialProfileTask extends Task
 
         return $user;
     }
-
 }

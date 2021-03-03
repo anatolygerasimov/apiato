@@ -2,17 +2,15 @@
 
 namespace Apiato\Core\Loaders;
 
-use App;
 use File;
 
 /**
- * Class LocalizationLoaderTrait
+ * Class LocalizationLoaderTrait.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 trait LocalizationLoaderTrait
 {
-
     /**
      * @param $containerName
      */
@@ -38,10 +36,7 @@ trait LocalizationLoaderTrait
     private function loadLocals($directory, $containerName)
     {
         if (File::isDirectory($directory)) {
-
             $this->loadTranslationsFrom($directory, strtolower($containerName));
-
         }
     }
-
 }

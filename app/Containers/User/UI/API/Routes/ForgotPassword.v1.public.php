@@ -15,10 +15,9 @@
  *
  * @apiSuccessExample  {json}  Success-Response:
  * HTTP/1.1 202 OK
-{}
+ * {}
  */
-
 $router->post('password/forgot', [
-    'as' => 'api_user_forgot_password',
+    'as'    => 'api_user_forgot_password',
     'uses'  => 'Controller@forgotPassword',
 ]);

@@ -9,13 +9,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class TransformerGenerator
+ * Class TransformerGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class TransformerGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -40,21 +39,21 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/UI/API/Transformers/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'transformer.stub';
 
@@ -62,7 +61,7 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['model', null, InputOption::VALUE_OPTIONAL, 'The model to generate this Transformer for'],
@@ -75,7 +74,7 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
     public function getUserInputs()
     {
         $model = $this->checkParameterOrAsk('model', 'Enter the name of the Model to generate this Transformer for');
-        $full = $this->checkParameterOrConfirm('full', 'Generate a Transformer with all fields', false);
+        $full  = $this->checkParameterOrConfirm('full', 'Generate a Transformer with all fields', false);
 
         $attributes = $this->getListOfAllAttributes($full, $model);
 
@@ -85,10 +84,10 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
             ],
             'stub-parameters' => [
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'model' => $model,
-                'attributes' => $attributes,
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
+                'model'           => $model,
+                'attributes'      => $attributes,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
@@ -96,19 +95,20 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
         ];
     }
 
-    private function getListOfAllAttributes($full, $model) {
+    private function getListOfAllAttributes($full, $model)
+    {
         $indent = str_repeat(' ', 12);
         $fields = [
             'object' => "'$model'",
         ];
 
-        if($full) {
-            $obj = 'App\\Containers\\' . $this->containerName . '\\Models\\' . $model;
-            $obj = new $obj();
+        if ($full) {
+            $obj     = 'App\\Containers\\' . $this->containerName . '\\Models\\' . $model;
+            $obj     = new $obj();
             $columns = Schema::getColumnListing($obj->getTable());
 
-            foreach($columns as $column) {
-                if(in_array($column, $obj->getHidden())) {
+            foreach ($columns as $column) {
+                if (in_array($column, $obj->getHidden())) {
                     // skip all hidden fields of respective model
                     continue;
                 }
@@ -118,17 +118,16 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
         }
 
         $fields = array_merge($fields, [
-            'id' => '$entity->getHashedKey()',
+            'id'         => '$entity->getHashedKey()',
             'created_at' => '$entity->created_at',
-            'updated_at' => '$entity->updated_at'
+            'updated_at' => '$entity->updated_at',
         ]);
 
-        $attributes = "";
-        foreach($fields as $key => $value) {
+        $attributes = '';
+        foreach ($fields as $key => $value) {
             $attributes = $attributes . $indent . "'$key' => $value," . PHP_EOL;
         }
 
         return $attributes;
     }
-
 }

@@ -6,7 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as LaravelConsoleKernel;
 
 /**
- * Class ConsoleKernel
+ * Class ConsoleKernel.
  *
  * A.K.A (app/Console/Kernel.php)
  *
@@ -14,7 +14,6 @@ use Illuminate\Foundation\Console\Kernel as LaravelConsoleKernel;
  */
 class ConsoleKernel extends LaravelConsoleKernel
 {
-
     /**
      * The Artisan commands provided by your application.
      *
@@ -29,7 +28,8 @@ class ConsoleKernel extends LaravelConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     *
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -51,5 +51,4 @@ class ConsoleKernel extends LaravelConsoleKernel
 
         require app_path('Ship/Commands/Routes.php');
     }
-
 }

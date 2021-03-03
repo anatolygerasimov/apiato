@@ -14,7 +14,6 @@ use App\Containers\User\Tests\ApiTestCase;
  */
 class UpdateUserTest extends ApiTestCase
 {
-
     protected $endpoint = 'put@v1/users/{id}';
 
     protected $access = [
@@ -25,7 +24,7 @@ class UpdateUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testUpdateExistingUser_()
+    public function testUpdateExistingUser()
     {
         $user = $this->getTestingUser();
 
@@ -54,7 +53,7 @@ class UpdateUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testUpdateNonExistingUser_()
+    public function testUpdateNonExistingUser()
     {
         $data = [
             'name' => 'Updated Name',
@@ -69,14 +68,14 @@ class UpdateUserTest extends ApiTestCase
         $response->assertStatus(422);
 
         $this->assertResponseContainKeyValue([
-            'message' => 'The given data was invalid.'
+            'message' => 'The given data was invalid.',
         ]);
     }
 
     /**
      * @test
      */
-    public function testUpdateExistingUserWithoutData_()
+    public function testUpdateExistingUserWithoutData()
     {
         // send the HTTP request
         $response = $this->makeCall();
@@ -85,7 +84,7 @@ class UpdateUserTest extends ApiTestCase
         $response->assertStatus(422);
 
         $this->assertResponseContainKeyValue([
-            'message' => 'The given data was invalid.'
+            'message' => 'The given data was invalid.',
         ]);
     }
 
@@ -110,6 +109,5 @@ class UpdateUserTest extends ApiTestCase
             'password' => 'The password must be at least 6 characters.',
             'name'     => 'The name must be at least 2 characters.',
         ]);
-
     }
 }

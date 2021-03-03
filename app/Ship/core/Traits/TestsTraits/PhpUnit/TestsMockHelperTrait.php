@@ -6,7 +6,7 @@ use App;
 use Mockery;
 
 /**
- * Class TestsMockHelperTrait
+ * Class TestsMockHelperTrait.
  *
  * Tests helper for mocking objects and services.
  *
@@ -14,13 +14,12 @@ use Mockery;
  */
 trait TestsMockHelperTrait
 {
-
     /**
-     * Mocking helper
+     * Mocking helper.
      *
      * @param $class
      *
-     * @return  \Mockery\MockInterface
+     * @return \Mockery\MockInterface
      */
     public function mockIt($class)
     {
@@ -29,5 +28,4 @@ trait TestsMockHelperTrait
 
         return $mock;
     }
-
 }

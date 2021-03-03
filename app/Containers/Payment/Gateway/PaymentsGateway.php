@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 
 /**
- * Class PaymentsGateway
+ * Class PaymentsGateway.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class PaymentsGateway
 {
-
     /**
      * @param ChargeableInterface $chargeable
      * @param PaymentAccount      $account
@@ -28,10 +27,11 @@ class PaymentsGateway
      * @param string|null         $currency
      *
      * @return PaymentTransaction
+     *
      * @throws ChargerTaskDoesNotImplementInterfaceException
      * @throws NoChargeTaskForPaymentGatewayDefinedException
      */
-    public function charge(ChargeableInterface $chargeable, PaymentAccount $account, $amount, $currency = null) : PaymentTransaction
+    public function charge(ChargeableInterface $chargeable, PaymentAccount $account, $amount, $currency = null): PaymentTransaction
     {
         $currency = ($currency === null) ? Config::get('payment.currency') : $currency;
 
@@ -58,9 +58,9 @@ class PaymentsGateway
         $transaction = $chargerTask->charge($chargeable, $typedAccount, $amount, $currency);
 
         // now set some details of the transaction
-        $transaction->user_id = $chargeable->id;
-        $transaction->gateway = $typedAccount->getPaymentGatewayReadableName();
-        $transaction->amount = $amount;
+        $transaction->user_id  = $chargeable->id;
+        $transaction->gateway  = $typedAccount->getPaymentGatewayReadableName();
+        $transaction->amount   = $amount;
         $transaction->currency = $currency;
 
         $transaction->save();

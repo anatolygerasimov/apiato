@@ -20,7 +20,8 @@ class GenerateSwaggerTask extends Task
      * @param $type
      * @param $console
      *
-     * @return  mixed
+     * @return mixed
+     *
      * @throws \Symfony\Component\Process\Exception\RuntimeException
      * @throws \Symfony\Component\Process\Exception\LogicException
      * @throws \Symfony\Component\Process\Exception\ProcessFailedException
@@ -29,21 +30,21 @@ class GenerateSwaggerTask extends Task
     {
         // little hack to move the apidoc.json file to the /app directory in order to be seen by apidoc-swagger
         // since the command doesn't support passing custom path.
-        $app_path = 'app';
+        $app_path    = 'app';
         $apidoc_json = '/apidoc.json';
         copy($this->getJsonFilePath($type) . $apidoc_json, $app_path . $apidoc_json);
 
         $command = [
             $this->getSwaggerConverter(),
             // executable parameters
-            "-v",
-            "",
-            "-f",
+            '-v',
+            '',
+            '-f',
             "'.*\.php$'",
-            "-i",
+            '-i',
             $app_path,
-            "-o",
-            "{$this->getDocumentationPath($type)}/swagger"
+            '-o',
+            "{$this->getDocumentationPath($type)}/swagger",
         ];
 
         $process = new Process($command);
@@ -60,11 +61,10 @@ class GenerateSwaggerTask extends Task
         }
 
         // echo the output
-        $console->info('[' . $type . '] ' . implode (' ', $command));
+        $console->info('[' . $type . '] ' . implode(' ', $command));
         $console->info('Output: ' . $process->getOutput());
 
         // return the past to that generated documentation
-        return $this->getFullApiUrl($type).'/swagger/swagger.json';
+        return $this->getFullApiUrl($type) . '/swagger/swagger.json';
     }
-
 }

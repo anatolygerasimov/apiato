@@ -5,13 +5,12 @@ namespace App\Containers\Settings\Data\Seeders;
 use App\Ship\Parents\Seeders\Seeder;
 
 /**
- * Class SettingsDefaultSettingsSeeder
+ * Class SettingsDefaultSettingsSeeder.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class SettingsDefaultSettingsSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *

@@ -5,18 +5,17 @@ namespace App\Containers\Authentication\Data\Transporters;
 use App\Ship\Parents\Transporters\Transporter;
 
 /**
- * Class ProxyRefreshTransporter
+ * Class ProxyRefreshTransporter.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class ProxyRefreshTransporter extends Transporter
 {
-
     /**
      * @var array
      */
     protected $schema = [
-        'type' => 'object',
+        'type'       => 'object',
         'properties' => [
             'refresh_token',
             'client_id',
@@ -31,6 +30,6 @@ class ProxyRefreshTransporter extends Transporter
         ],
         'default'    => [
             'scope' => '',
-        ]
+        ],
     ];
 }

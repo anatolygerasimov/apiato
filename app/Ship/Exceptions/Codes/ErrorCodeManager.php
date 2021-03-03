@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Ship\Exceptions\Codes;
+
 use App\Ship\Exceptions\InternalErrorException;
 use Exception;
 use ReflectionClass;
 
 /**
- * Class ErrorCodeManager
+ * Class ErrorCodeManager.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
@@ -43,7 +44,7 @@ class ErrorCodeManager
     }
 
     /**
-     * Returns the value for a given key in the array or a default value
+     * Returns the value for a given key in the array or a default value.
      *
      * @param array $error
      * @param       $key
@@ -57,46 +58,43 @@ class ErrorCodeManager
     }
 
     /**
-     * Returns all "defined" CodeTables
+     * Returns all "defined" CodeTables.
      *
      * @return array
      */
     public static function getCodeTables()
     {
-        $codeTables = [
+        return [
             ApplicationErrorCodesTable::class,
             CustomErrorCodesTable::class,
         ];
-
-        return $codeTables;
     }
 
     /**
-     * Get all arrays for this one error code table
+     * Get all arrays for this one error code table.
      *
      * @param $codeTable
      *
      * @return array
+     *
      * @throws InternalErrorException
      */
     public static function getErrorsForCodeTable($codeTable)
     {
         try {
-            $class = new $codeTable;
-        }
-        catch (Exception $exception) {
+            $class = new $codeTable();
+        } catch (Exception $exception) {
             throw new InternalErrorException();
         }
 
         // now we need to get all errors (i.e., constants) from this class!
         $reflectionClass = new ReflectionClass($class);
-        $constants = $reflectionClass->getConstants();
 
-        return $constants;
+        return $reflectionClass->getConstants();
     }
 
     /**
-     * Get all errors across all defined error code tables
+     * Get all errors across all defined error code tables.
      *
      * @return array
      */

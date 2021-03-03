@@ -3,6 +3,7 @@
 /**
  * @apiGroup           RolePermission
  * @apiName            syncUserRoles
+ *
  * @api                {post} /v1/roles/sync Sync User Roles
  * @apiDescription     You can use this endpoint instead of `roles/assign` & `roles/revoke`.
  *                     The sync endpoint will override all existing user roles with the new
@@ -16,9 +17,8 @@
  *
  * @apiUse             UserSuccessSingleResponse
  */
-
 $router->post('roles/sync', [
-    'as' => 'api_authorization_sync_user_roles',
+    'as'         => 'api_authorization_sync_user_roles',
     'uses'       => 'Controller@syncUserRoles',
     'middleware' => [
         'auth:api',

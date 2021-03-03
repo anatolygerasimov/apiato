@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class Job
+ * Class Job.
  *
  * A.K.A (app/Jobs/Job.php)
  *
@@ -18,7 +18,10 @@ use Illuminate\Queue\SerializesModels;
  */
 abstract class Job extends AbstractJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /*
     |--------------------------------------------------------------------------
@@ -30,5 +33,4 @@ abstract class Job extends AbstractJob implements ShouldQueue
     | provides access to the "onQueue" and "delay" queue helper methods.
     |
     */
-
 }

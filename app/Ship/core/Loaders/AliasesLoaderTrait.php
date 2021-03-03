@@ -2,7 +2,6 @@
 
 namespace Apiato\Core\Loaders;
 
-use App;
 use Illuminate\Foundation\AliasLoader;
 
 /**
@@ -12,7 +11,6 @@ use Illuminate\Foundation\AliasLoader;
  */
 trait AliasesLoaderTrait
 {
-
     /**
      * @void
      */
@@ -34,5 +32,4 @@ trait AliasesLoaderTrait
     {
         AliasLoader::getInstance()->alias($aliasKey, $aliasValue);
     }
-
 }

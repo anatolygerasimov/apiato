@@ -6,7 +6,7 @@ use App\Ship\Parents\Exceptions\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class RoleNotFoundException
+ * Class RoleNotFoundException.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */

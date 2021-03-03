@@ -6,7 +6,7 @@ use App\Ship\Parents\Exceptions\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class RefreshTokenMissedException
+ * Class RefreshTokenMissedException.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */

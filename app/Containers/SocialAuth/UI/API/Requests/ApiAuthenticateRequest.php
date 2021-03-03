@@ -11,21 +11,19 @@ use App\Ship\Parents\Requests\Request;
  */
 class ApiAuthenticateRequest extends Request
 {
-
-
     /**
      * Define which Roles and/or Permissions has access to this request.
      *
-     * @var  array
+     * @var array
      */
     protected $access = [
-        'permissions' => null
+        'permissions' => null,
     ];
 
     /**
      * Id's that needs decoding before applying the validation rules.
      *
-     * @var  array
+     * @var array
      */
     protected $decode = [
 

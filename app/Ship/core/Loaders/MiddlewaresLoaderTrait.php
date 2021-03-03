@@ -2,7 +2,6 @@
 
 namespace Apiato\Core\Loaders;
 
-use App;
 use Illuminate\Contracts\Http\Kernel;
 
 /**
@@ -12,7 +11,6 @@ use Illuminate\Contracts\Http\Kernel;
  */
 trait MiddlewaresLoaderTrait
 {
-
     /**
      * @void
      */
@@ -24,7 +22,7 @@ trait MiddlewaresLoaderTrait
     }
 
     /**
-     * Registering Route Group's
+     * Registering Route Group's.
      *
      * @param array $middlewares
      */
@@ -38,7 +36,7 @@ trait MiddlewaresLoaderTrait
     }
 
     /**
-     * Registering Route Group's
+     * Registering Route Group's.
      *
      * @param array $middlewareGroups
      */
@@ -56,7 +54,7 @@ trait MiddlewaresLoaderTrait
     }
 
     /**
-     * Registering Route Middleware's
+     * Registering Route Middleware's.
      *
      * @param array $routeMiddleware
      */
@@ -66,5 +64,4 @@ trait MiddlewaresLoaderTrait
             $this->app['router']->aliasMiddleware($key, $routeMiddleware);
         }
     }
-
 }

@@ -7,15 +7,14 @@ use Apiato\Core\Exceptions\CoreInternalErrorException;
 use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
- * Trait HasRequestCriteriaTrait
+ * Trait HasRequestCriteriaTrait.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 trait HasRequestCriteriaTrait
 {
-
     /**
-     * Adds the RequestCriteria to a Repository
+     * Adds the RequestCriteria to a Repository.
      *
      * @param null $repository
      */
@@ -27,7 +26,7 @@ trait HasRequestCriteriaTrait
     }
 
     /**
-     * Removes the RequestCriteria from a Repository
+     * Removes the RequestCriteria from a Repository.
      *
      * @param null $repository
      */
@@ -39,11 +38,12 @@ trait HasRequestCriteriaTrait
     }
 
     /**
-     * Validates, if the given Repository exists or uses $this->repository on the Task/Action to apply functions
+     * Validates, if the given Repository exists or uses $this->repository on the Task/Action to apply functions.
      *
      * @param $repository
      *
      * @return mixed
+     *
      * @throws CoreInternalErrorException
      */
     private function validateRepository($repository)
@@ -70,5 +70,4 @@ trait HasRequestCriteriaTrait
 
         return $validatedRepository;
     }
-
 }

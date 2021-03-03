@@ -6,7 +6,7 @@ use App\Ship\Parents\Exceptions\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class WrongDocTypeException
+ * Class WrongDocTypeException.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */

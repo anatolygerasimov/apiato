@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 /**
- * Class ResetPasswordAction
+ * Class ResetPasswordAction.
  *
  * * @author  Sebastian Weckend
  */
 class ResetPasswordAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      */

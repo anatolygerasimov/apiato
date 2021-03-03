@@ -15,7 +15,6 @@ use App\Containers\User\Tests\ApiTestCase;
  */
 class GetAllClientsTest extends ApiTestCase
 {
-
     protected $endpoint = 'get@v1/clients';
 
     protected $access = [
@@ -26,7 +25,7 @@ class GetAllClientsTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllClientsByAdmin_()
+    public function testGetAllClientsByAdmin()
     {
         // should be returned
         factory(User::class, 3)->states('client')->create();
@@ -50,7 +49,7 @@ class GetAllClientsTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllClientsByNonAdmin_()
+    public function testGetAllClientsByNonAdmin()
     {
         // prepare a user without any roles or permissions
         $this->getTestingUserWithoutAccess();
@@ -65,5 +64,4 @@ class GetAllClientsTest extends ApiTestCase
             'message' => 'This action is unauthorized.',
         ]);
     }
-
 }

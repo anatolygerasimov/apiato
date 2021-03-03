@@ -9,7 +9,6 @@ use Exception;
 
 class CreateStripeAccountTask extends Task
 {
-
     protected $repository;
 
     public function __construct(StripeAccountRepository $repository)
@@ -21,6 +20,7 @@ class CreateStripeAccountTask extends Task
      * @param array $data
      *
      * @return mixed
+     *
      * @throws CreateResourceFailedException
      */
     public function run(array $data)

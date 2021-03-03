@@ -3,18 +3,16 @@
 namespace Apiato\Core\Generator\Interfaces;
 
 /**
- * Class ComponentsGenerator
+ * Class ComponentsGenerator.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 interface ComponentsGenerator
 {
-
     /**
-     * Reads all data for the component to be generated (as well as the mappings for path, file and stubs)
+     * Reads all data for the component to be generated (as well as the mappings for path, file and stubs).
      *
-     * @return  mixed
+     * @return mixed
      */
     public function getUserInputs();
-
 }

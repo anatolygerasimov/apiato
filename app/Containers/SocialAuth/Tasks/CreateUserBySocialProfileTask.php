@@ -14,7 +14,6 @@ use Exception;
  */
 class CreateUserBySocialProfileTask extends Task
 {
-
     protected $repository;
 
     public function __construct(UserRepository $repository)
@@ -36,6 +35,7 @@ class CreateUserBySocialProfileTask extends Task
      * @param null $avatar_original
      *
      * @return mixed
+     *
      * @throws AccountFailedException
      */
     public function run(
@@ -51,7 +51,6 @@ class CreateUserBySocialProfileTask extends Task
         $refreshToken = null,
         $avatar_original = null
     ) {
-
         $data = [
             'social_provider'        => $provider,
             'social_token'           => $token,
@@ -75,6 +74,4 @@ class CreateUserBySocialProfileTask extends Task
 
         return $user;
     }
-
-
 }

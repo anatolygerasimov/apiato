@@ -9,7 +9,7 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
- * Class UpdatePaymentAccountTask
+ * Class UpdatePaymentAccountTask.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
@@ -27,6 +27,7 @@ class UpdatePaymentAccountTask extends Task
      * @param array                                         $data
      *
      * @return mixed
+     *
      * @throws UpdateResourceFailedException
      */
     public function run(PaymentAccount $account, array $data)

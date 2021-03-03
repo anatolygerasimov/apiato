@@ -11,7 +11,6 @@ use Apiato\Core\Abstracts\Repositories\Repository as AbstractRepository;
  */
 abstract class Repository extends AbstractRepository
 {
-
     /**
      * Boot up the repository, pushing criteria.
      */
@@ -19,5 +18,4 @@ abstract class Repository extends AbstractRepository
     {
         parent::boot();
     }
-
 }

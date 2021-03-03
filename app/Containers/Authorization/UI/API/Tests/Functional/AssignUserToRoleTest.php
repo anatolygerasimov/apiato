@@ -2,10 +2,10 @@
 
 namespace App\Containers\Authorization\UI\API\Tests\Functional;
 
-use Illuminate\Support\Arr;
 use App\Containers\Authorization\Models\Role;
 use App\Containers\Authorization\Tests\ApiTestCase;
 use App\Containers\User\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Config;
  */
 class AssignUserToRoleTest extends ApiTestCase
 {
-
     protected $endpoint = 'post@v1/roles/assign?include=roles';
 
     protected $access = [
@@ -29,7 +28,7 @@ class AssignUserToRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testAssignUserToRole_()
+    public function testAssignUserToRole()
     {
         $randomUser = factory(User::class)->create();
 
@@ -56,7 +55,7 @@ class AssignUserToRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testAssignUserToRoleWithRealId_()
+    public function testAssignUserToRoleWithRealId()
     {
         $randomUser = factory(User::class)->create();
 
@@ -71,22 +70,21 @@ class AssignUserToRoleTest extends ApiTestCase
         $response = $this->makeCall($data);
 
         // assert response status is correct. Note: this will return 200 if `HASH_ID=false` in the .env
-        if(Config::get('apiato.hash-id')){
+        if (Config::get('apiato.hash-id')) {
             $response->assertStatus(400);
 
             $this->assertResponseContainKeyValue([
                 'message' => 'Only Hashed ID\'s allowed.',
             ]);
-        }else{
+        } else {
             $response->assertStatus(200);
         }
-
     }
 
     /**
      * @test
      */
-    public function testAssignUserToManyRoles_()
+    public function testAssignUserToManyRoles()
     {
         $randomUser = factory(User::class)->create();
 
@@ -116,5 +114,4 @@ class AssignUserToRoleTest extends ApiTestCase
 
         $this->assertContains($data['roles_ids'][1], $roleIds);
     }
-
 }

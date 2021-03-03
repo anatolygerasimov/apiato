@@ -9,13 +9,12 @@ use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
- * Class UpdateSettingsByKeyTask
+ * Class UpdateSettingsByKeyTask.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class UpdateSettingsByKeyTask extends Task
 {
-
     protected $repository;
 
     public function __construct(SettingRepository $repository)
@@ -28,6 +27,7 @@ class UpdateSettingsByKeyTask extends Task
      * @param $value
      *
      * @return mixed
+     *
      * @throws NotFoundException
      * @throws UpdateResourceFailedException
      */
@@ -41,12 +41,10 @@ class UpdateSettingsByKeyTask extends Task
 
         try {
             return $this->repository->update([
-                'value' => $value
+                'value' => $value,
             ], $setting->id);
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             throw new UpdateResourceFailedException();
         }
     }
-
 }

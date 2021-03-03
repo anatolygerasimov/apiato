@@ -11,9 +11,8 @@ use App\Ship\Parents\Actions\Action;
  */
 class FindMessageForApiRootVisitorAction extends Action
 {
-
     /**
-     * @return  array
+     * @return array
      */
     public function run()
     {

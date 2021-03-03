@@ -12,7 +12,6 @@ use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterfa
  */
 class OrderByNameCriteria extends Criteria
 {
-
     /**
      * @param                                                   $model
      * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
@@ -23,5 +22,4 @@ class OrderByNameCriteria extends Criteria
     {
         return $model->orderBy('name', 'asc');
     }
-
 }

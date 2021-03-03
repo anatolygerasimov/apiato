@@ -10,9 +10,8 @@ use Illuminate\Support\Facades\Log;
 
 class UserRegisteredEvent extends Event implements ShouldQueue
 {
-
     /**
-     * @var  \App\Containers\User\Models\User
+     * @var \App\Containers\User\Models\User
      */
     protected $user;
 
@@ -27,7 +26,7 @@ class UserRegisteredEvent extends Event implements ShouldQueue
     }
 
     /**
-     * Handle the Event. (Single Listener Implementation)
+     * Handle the Event. (Single Listener Implementation).
      */
     public function handle()
     {

@@ -12,9 +12,8 @@ use App\Ship\Parents\Actions\Action;
  */
 class GetAllAdminsAction extends Action
 {
-
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function run()
     {

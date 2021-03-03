@@ -11,7 +11,6 @@ use App\Ship\Parents\Repositories\Repository;
  */
 class UserRepository extends Repository
 {
-
     /**
      * @var array
      */
@@ -22,5 +21,4 @@ class UserRepository extends Repository
         'confirmed'  => '=',
         'created_at' => 'like',
     ];
-
 }

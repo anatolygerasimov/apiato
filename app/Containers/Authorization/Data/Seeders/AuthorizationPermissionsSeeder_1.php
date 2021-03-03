@@ -6,7 +6,7 @@ use Apiato\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Seeders\Seeder;
 
 /**
- * Class AuthorizationPermissionsSeeder_1
+ * Class AuthorizationPermissionsSeeder_1.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
@@ -26,6 +26,5 @@ class AuthorizationPermissionsSeeder_1 extends Seeder
         Apiato::call('Authorization@CreatePermissionTask', ['access-dashboard', 'Access the admins dashboard.']);
 
         // ...
-
     }
 }

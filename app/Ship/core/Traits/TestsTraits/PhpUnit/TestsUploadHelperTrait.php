@@ -5,7 +5,7 @@ namespace Apiato\Core\Traits\TestsTraits\PhpUnit;
 use Illuminate\Http\UploadedFile;
 
 /**
- * Class TestsUploadHelperTrait
+ * Class TestsUploadHelperTrait.
  *
  * * Tests helper for uploading files.
  *
@@ -13,14 +13,13 @@ use Illuminate\Http\UploadedFile;
  */
 trait TestsUploadHelperTrait
 {
-
     /**
      * @param        $fileName
      * @param        $stubDirPath
      * @param string $mimeType
      * @param null   $size
      *
-     * @return  \Illuminate\Http\UploadedFile
+     * @return \Illuminate\Http\UploadedFile
      */
     public function getTestingFile($fileName, $stubDirPath, $mimeType = 'text/plain', $size = null)
     {
@@ -35,11 +34,10 @@ trait TestsUploadHelperTrait
      * @param string $mimeType
      * @param null   $size
      *
-     * @return  \Illuminate\Http\UploadedFile
+     * @return \Illuminate\Http\UploadedFile
      */
     public function getTestingImage($imageName, $stubDirPath, $mimeType = 'image/jpeg', $size = null)
     {
         return $this->getTestingFile($imageName, $stubDirPath, $mimeType, $size);
     }
-
 }

@@ -8,13 +8,12 @@ use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Str;
 
 /**
- * Class ValueGenerator
+ * Class ValueGenerator.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class ValueGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -39,21 +38,21 @@ class ValueGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Values/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'value.stub';
 
@@ -61,7 +60,7 @@ class ValueGenerator extends GeneratorCommand implements ComponentsGenerator
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
     ];
@@ -91,6 +90,4 @@ class ValueGenerator extends GeneratorCommand implements ComponentsGenerator
     {
         return 'DefaultValue';
     }
-
 }
-

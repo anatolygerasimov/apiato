@@ -8,13 +8,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class RequestGenerator
+ * Class RequestGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -39,21 +38,21 @@ class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/UI/{user-interface}/Requests/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'request.stub';
 
@@ -61,7 +60,7 @@ class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['ui', null, InputOption::VALUE_OPTIONAL, 'The user-interface to generate the Request for.'],
@@ -74,24 +73,23 @@ class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     public function getUserInputs()
     {
-        $ui = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for the controller', ['API', 'WEB'], 0));
+        $ui          = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for the controller', ['API', 'WEB'], 0));
         $transporter = $this->checkParameterOrConfirm('transporter', 'Would you like to create a corresponding Transporter for this Request?', true);
 
         if ($transporter) {
             $transporterName = $this->checkParameterOrAsk('transportername', 'Enter the Name of the corresponding Transporter to be assigned');
 
             $transporterComment = '';
-            $transporterClass = '\\App\\Containers\\' . $this->containerName . '\\Data\\Transporters\\' . $transporterName . '::class';
+            $transporterClass   = '\\App\\Containers\\' . $this->containerName . '\\Data\\Transporters\\' . $transporterName . '::class';
 
             // now create the Transporter
             $this->call('apiato:generate:transporter', [
                 '--container' => $this->containerName,
-                '--file' => $transporterName,
+                '--file'      => $transporterName,
             ]);
-        }
-        else {
+        } else {
             $transporterComment = '// ';
-            $transporterClass = '\\App\\Ship\\Transporters\\DataTransporter::class';
+            $transporterClass   = '\\App\\Ship\\Transporters\\DataTransporter::class';
         }
 
         return [
@@ -100,17 +98,16 @@ class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
                 'user-interface' => Str::upper($ui),
             ],
             'stub-parameters' => [
-                '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'user-interface' => Str::upper($ui),
+                '_container-name'    => Str::lower($this->containerName),
+                'container-name'     => $this->containerName,
+                'class-name'         => $this->fileName,
+                'user-interface'     => Str::upper($ui),
                 'transporterEnabled' => $transporterComment,
-                'transporterClass' => $transporterClass,
+                'transporterClass'   => $transporterClass,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
             ],
         ];
     }
-
 }

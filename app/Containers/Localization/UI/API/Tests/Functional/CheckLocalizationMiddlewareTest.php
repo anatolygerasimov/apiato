@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Config;
  */
 class CheckLocalizationMiddlewareTest extends ApiTestCase
 {
-
     // the endpoint to be called within this test (e.g., get@v1/users)
     protected $endpoint = 'get@v1/localizations';
 
@@ -26,9 +25,9 @@ class CheckLocalizationMiddlewareTest extends ApiTestCase
     /**
      * @test
      */
-    public function test_if_middleware_sets_default_app_language()
+    public function testIfMiddlewareSetsDefaultAppLanguage()
     {
-        $data = [];
+        $data           = [];
         $requestHeaders = [];
 
         // send the HTTP request
@@ -43,11 +42,11 @@ class CheckLocalizationMiddlewareTest extends ApiTestCase
         $response->assertHeader('content-language', $defaultLanguage);
     }
 
-    public function test_if_middleware_sets_custom_language()
+    public function testIfMiddlewareSetsCustomLanguage()
     {
         $language = 'fr';
 
-        $data = [];
+        $data           = [];
         $requestHeaders = [
             'accept-language' => $language,
         ];
@@ -62,11 +61,11 @@ class CheckLocalizationMiddlewareTest extends ApiTestCase
         $response->assertHeader('content-language', $language);
     }
 
-    public function test_if_middleware_throws_error_on_wrong_language()
+    public function testIfMiddlewareThrowsErrorOnWrongLanguage()
     {
         $language = 'xxx';
 
-        $data = [];
+        $data           = [];
         $requestHeaders = [
             'accept-language' => $language,
         ];
@@ -77,5 +76,4 @@ class CheckLocalizationMiddlewareTest extends ApiTestCase
         // assert the response status
         $response->assertStatus(412);
     }
-
 }

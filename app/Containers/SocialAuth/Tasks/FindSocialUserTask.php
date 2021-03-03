@@ -12,7 +12,6 @@ use App\Ship\Parents\Tasks\Task;
  */
 class FindSocialUserTask extends Task
 {
-
     protected $repository;
 
     public function __construct(UserRepository $repository)
@@ -24,7 +23,7 @@ class FindSocialUserTask extends Task
      * @param $socialProvider
      * @param $socialId
      *
-     * @return  mixed
+     * @return mixed
      */
     public function run($socialProvider, $socialId)
     {
@@ -33,5 +32,4 @@ class FindSocialUserTask extends Task
             'social_id'       => $socialId,
         ])->first();
     }
-
 }

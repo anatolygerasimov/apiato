@@ -8,7 +8,7 @@ use App\Containers\Localization\UI\API\Transformers\LocalizationTransformer;
 use App\Ship\Parents\Controllers\ApiController;
 
 /**
- * Class Controller
+ * Class Controller.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */

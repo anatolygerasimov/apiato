@@ -12,7 +12,6 @@ use Apiato\Core\Traits\HasRequestCriteriaTrait;
  */
 abstract class Action
 {
-
     use CallableTrait;
     use HasRequestCriteriaTrait;
 
@@ -27,7 +26,7 @@ abstract class Action
     /**
      * @param $interface
      *
-     * @return  $this
+     * @return $this
      */
     public function setUI($interface)
     {
@@ -37,11 +36,10 @@ abstract class Action
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function getUI()
     {
         return $this->ui;
     }
-
 }

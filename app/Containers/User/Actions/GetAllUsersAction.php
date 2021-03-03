@@ -12,7 +12,6 @@ use App\Ship\Parents\Actions\Action;
  */
 class GetAllUsersAction extends Action
 {
-
     /**
      * @return mixed
      */

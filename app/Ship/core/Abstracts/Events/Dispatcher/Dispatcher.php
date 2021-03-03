@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\PendingDispatch as JobDispatcher;
 
 /**
  * Created by PhpStorm.
- * User: arthur Devious
+ * User: arthur Devious.
  */
 class Dispatcher extends EventDispatcher
 {
@@ -24,7 +24,7 @@ class Dispatcher extends EventDispatcher
             $queue = $event->jobQueue;
 
             /* Create a job & initialize the dispatcher */
-            $job = new EventJob($event);
+            $job        = new EventJob($event);
             $dispatcher = (new JobDispatcher($job));
 
             /* Check if the delay is set and if it has the correct type */
@@ -40,7 +40,6 @@ class Dispatcher extends EventDispatcher
             if (isset($queue) && is_string($queue)) {
                 $dispatcher->onQueue($queue);
             }
-
         } else {
             if ($event instanceof ShouldHandleNow) {
                 $event->handle();

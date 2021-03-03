@@ -15,7 +15,6 @@ use App\Containers\User\Tests\ApiTestCase;
  */
 class GetAllAdminsTest extends ApiTestCase
 {
-
     protected $endpoint = 'get@v1/admins';
 
     protected $access = [
@@ -26,7 +25,7 @@ class GetAllAdminsTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllAdmins_()
+    public function testGetAllAdmins()
     {
         // create some non-admin users
         $users = factory(User::class, 2)->create();
@@ -51,7 +50,7 @@ class GetAllAdminsTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllAdminsByNonAdmin_()
+    public function testGetAllAdminsByNonAdmin()
     {
         $this->getTestingUserWithoutAccess();
 
@@ -67,5 +66,4 @@ class GetAllAdminsTest extends ApiTestCase
             'message' => 'This action is unauthorized.',
         ]);
     }
-
 }

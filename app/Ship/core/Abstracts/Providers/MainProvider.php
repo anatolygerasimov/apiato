@@ -7,15 +7,14 @@ use Apiato\Core\Loaders\ProvidersLoaderTrait;
 use Illuminate\Support\ServiceProvider as LaravelAppServiceProvider;
 
 /**
- * Class MainProvider
+ * Class MainProvider.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 abstract class MainProvider extends LaravelAppServiceProvider
 {
-
-    use ProvidersLoaderTrait;
     use AliasesLoaderTrait;
+    use ProvidersLoaderTrait;
 
     /**
      * Perform post-registration booting of services.
@@ -31,7 +30,5 @@ abstract class MainProvider extends LaravelAppServiceProvider
      */
     public function register()
     {
-
     }
-
 }

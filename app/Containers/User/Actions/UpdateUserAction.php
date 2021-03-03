@@ -15,11 +15,10 @@ use Illuminate\Support\Facades\Hash;
  */
 class UpdateUserAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\User\Models\User
+     * @return \App\Containers\User\Models\User
      */
     public function run(DataTransporter $data): User
     {
@@ -38,8 +37,6 @@ class UpdateUserAction extends Action
         // remove null values and their keys
         $userData = array_filter($userData);
 
-        $user = Apiato::call('User@UpdateUserTask', [$userData, $data->id]);
-
-        return $user;
+        return Apiato::call('User@UpdateUserTask', [$userData, $data->id]);
     }
 }

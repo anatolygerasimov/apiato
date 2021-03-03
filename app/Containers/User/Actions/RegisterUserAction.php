@@ -21,11 +21,10 @@ use Illuminate\Support\Facades\Notification;
  */
 class RegisterUserAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\User\Models\User
+     * @return \App\Containers\User\Models\User
      */
     public function run(DataTransporter $data): User
     {
@@ -36,14 +35,14 @@ class RegisterUserAction extends Action
             $data->password,
             $data->name,
             $data->gender,
-            $data->birth
+            $data->birth,
         ]);
 
         Mail::send(new UserRegisteredMail($user));
 
         Notification::send($user, new UserRegisteredNotification($user));
 
-        App::make(Dispatcher::class)->dispatch(New UserRegisteredEvent($user));
+        App::make(Dispatcher::class)->dispatch(new UserRegisteredEvent($user));
 
         return $user;
     }

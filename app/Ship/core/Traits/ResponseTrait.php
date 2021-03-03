@@ -12,24 +12,23 @@ use ReflectionClass;
 use Request;
 
 /**
- * Class ResponseTrait
+ * Class ResponseTrait.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 trait ResponseTrait
 {
-
     /**
-     * @var  array
+     * @var array
      */
     protected $metaData = [];
 
     /**
      * @param       $data
      * @param null  $transformerName The transformer (e.g., Transformer::class or new Transformer()) to be applied
-     * @param array $includes additional resources to be included
-     * @param array $meta additional meta information to be applied
-     * @param null  $resourceKey the resource key to be set for the TOP LEVEL resource
+     * @param array $includes        additional resources to be included
+     * @param array $meta            additional meta information to be applied
+     * @param null  $resourceKey     the resource key to be set for the TOP LEVEL resource
      *
      * @return array
      */
@@ -44,10 +43,9 @@ trait ResponseTrait
         if ($transformerName instanceof Transformer) {
             // check, if we have provided a respective TRANSFORMER class
             $transformer = $transformerName;
-        }
-        else {
+        } else {
             // of if we just passed the classname
-            $transformer = new $transformerName;
+            $transformer = new $transformerName();
         }
 
         // now, finally check, if the class is really a TRANSFORMER
@@ -65,6 +63,7 @@ trait ResponseTrait
         if (!$resourceKey) {
             // get the resource key from the model
             $obj = null;
+
             if ($data instanceof AbstractPaginator) {
                 $obj = $data->getCollection()->first();
             } elseif ($data instanceof Collection) {
@@ -100,11 +99,10 @@ trait ResponseTrait
         return $result;
     }
 
-
     /**
      * @param $data
      *
-     * @return  $this
+     * @return $this
      */
     public function withMeta($data)
     {
@@ -119,7 +117,7 @@ trait ResponseTrait
      * @param array $headers
      * @param int   $options
      *
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function json($message, $status = 200, array $headers = [], $options = 0)
     {
@@ -141,11 +139,11 @@ trait ResponseTrait
 
     /**
      * @param null  array or string $message
-     * @param int   $status
-     * @param array $headers
-     * @param int   $options
+     * @param int                   $status
+     * @param array                 $headers
+     * @param int                   $options
      *
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function accepted($message = null, $status = 202, array $headers = [], $options = 0)
     {
@@ -155,7 +153,7 @@ trait ResponseTrait
     /**
      * @param $responseArray
      *
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function deleted($responseArray = null)
     {
@@ -163,7 +161,7 @@ trait ResponseTrait
             return $this->accepted();
         }
 
-        $id = $responseArray->getHashedKey();
+        $id        = $responseArray->getHashedKey();
         $className = (new ReflectionClass($responseArray))->getShortName();
 
         return $this->accepted([
@@ -174,13 +172,12 @@ trait ResponseTrait
     /**
      * @param int $status
      *
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function noContent($status = 204)
     {
         return new JsonResponse(null, $status);
     }
-
 
     /**
      * @param array $responseArray
@@ -199,6 +196,7 @@ trait ResponseTrait
             if (is_array($v)) {
                 // it is an array - so go one step deeper
                 $v = $this->filterResponse($v, $filters);
+
                 if (empty($v)) {
                     // it is an empty array - delete the key as well
                     unset($responseArray[$k]);
@@ -221,9 +219,8 @@ trait ResponseTrait
     /**
      * @return array
      */
-    protected function parseRequestedIncludes() : array
+    protected function parseRequestedIncludes(): array
     {
         return explode(',', Request::get('include'));
     }
-
 }

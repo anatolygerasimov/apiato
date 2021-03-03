@@ -9,7 +9,7 @@ use App\Containers\User\Tests\TestCase;
 use Illuminate\Support\Facades\App;
 
 /**
- * Class ChargeUserWithStripeTest
+ * Class ChargeUserWithStripeTest.
  *
  * @group stripe
  * @group unit
@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\App;
  */
 class ChargeUserWithStripeTest extends TestCase
 {
-
     use MockablePaymentsTrait;
 
     /**

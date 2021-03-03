@@ -12,7 +12,6 @@ use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterfa
  */
 class ClientsCriteria extends Criteria
 {
-
     /**
      * @param                                                   $model
      * @param \Prettus\Repository\Contracts\RepositoryInterface $repository

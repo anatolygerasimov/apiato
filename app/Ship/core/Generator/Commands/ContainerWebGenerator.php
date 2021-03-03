@@ -9,13 +9,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class ContainerWebGenerator
+ * Class ContainerWebGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -40,21 +39,21 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'composer.stub';
 
@@ -62,7 +61,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['url', null, InputOption::VALUE_OPTIONAL, 'The base URI of all endpoints (/stores, /cars, ...)'],
@@ -79,11 +78,11 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
         $useTransporters = $this->checkParameterOrConfirm('transporters', 'Would you like to use specific Transporters?', true);
 
         // containername as inputted and lower
-        $containerName = $this->containerName;
+        $containerName  = $this->containerName;
         $_containerName = Str::lower($this->containerName);
 
         // name of the model (singular and plural)
-        $model = $this->containerName;
+        $model  = $this->containerName;
         $models = Pluralizer::plural($model);
 
         // add the README file
@@ -180,7 +179,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
                 'action'      => 'Create' . $model . 'Action',
                 'request'     => 'Store' . $model . 'Request',
                 'task'        => 'Create' . $model . 'Task',
-                'transporter' => 'Create' . $model . 'Transporter'
+                'transporter' => 'Create' . $model . 'Transporter',
             ],
             [
                 'stub'        => null,
@@ -217,8 +216,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
             ],
         ];
 
-        foreach ($routes as $route)
-        {
+        foreach ($routes as $route) {
             $this->call('apiato:generate:route', [
                 '--container'   => $containerName,
                 '--file'        => $route['name'],
@@ -231,35 +229,36 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
             ]);
 
             $enableTransporter = false;
+
             if ($useTransporters) {
-                if ($route['transporter'] != null) {
+                if ($route['transporter'] !== null) {
                     $enableTransporter = true;
                 }
             }
 
             $this->call('apiato:generate:request', [
-                '--container'   => $containerName,
-                '--file'        => $route['request'],
-                '--ui'          => $ui,
-                '--transporter' => $enableTransporter,
+                '--container'       => $containerName,
+                '--file'            => $route['request'],
+                '--ui'              => $ui,
+                '--transporter'     => $enableTransporter,
                 '--transportername' => $route['transporter'],
             ]);
 
-            if ($route['action'] != null || $route['stub'] != null) {
+            if ($route['action'] !== null || $route['stub'] !== null) {
                 $this->call('apiato:generate:action', [
                     '--container' => $containerName,
-                    '--file' => $route['action'],
-                    '--model' => $model,
-                    '--stub' => $route['stub'],
+                    '--file'      => $route['action'],
+                    '--model'     => $model,
+                    '--stub'      => $route['stub'],
                 ]);
             }
 
-            if ($route['task'] != null || $route['stub'] != null) {
+            if ($route['task'] !== null || $route['stub'] !== null) {
                 $this->call('apiato:generate:task', [
                     '--container' => $containerName,
-                    '--file' => $route['task'],
-                    '--model' => $model,
-                    '--stub' => $route['stub'],
+                    '--file'      => $route['task'],
+                    '--model'     => $model,
+                    '--stub'      => $route['stub'],
                 ]);
             }
         }
@@ -274,14 +273,15 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
         ]);
 
         $this->printInfoMessage('Generating Composer File');
+
         return [
             'path-parameters' => [
                 'container-name' => $containerName,
             ],
             'stub-parameters' => [
                 '_container-name' => $_containerName,
-                'container-name' => $containerName,
-                'class-name' => $this->fileName,
+                'container-name'  => $containerName,
+                'class-name'      => $this->fileName,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
@@ -290,7 +290,7 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
     }
 
     /**
-     * Get the default file name for this component to be generated
+     * Get the default file name for this component to be generated.
      *
      * @return string
      */
@@ -303,5 +303,4 @@ class ContainerWebGenerator extends GeneratorCommand implements ComponentsGenera
     {
         return 'json';
     }
-
 }

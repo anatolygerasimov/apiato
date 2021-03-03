@@ -8,17 +8,17 @@ use App\Ship\Parents\Exceptions\Exception;
 use App\Ship\Parents\Tasks\Task;
 
 /**
- * Class CreatePasswordResetTask
+ * Class CreatePasswordResetTask.
  *
  * @author  Sebastian Weckend
  */
 class CreatePasswordResetTask extends Task
 {
-
     /**
      * @param \App\Containers\User\Models\User $user
      *
      * @return mixed
+     *
      * @throws InternalErrorException
      */
     public function run(User $user)

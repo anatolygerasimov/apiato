@@ -8,7 +8,6 @@ use App\Ship\Parents\Tasks\Task;
 
 class GetAllSettingsTask extends Task
 {
-
     /**
      * @var SettingRepository
      */

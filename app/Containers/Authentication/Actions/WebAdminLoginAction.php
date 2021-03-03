@@ -15,11 +15,10 @@ use Illuminate\Contracts\Auth\Authenticatable;
  */
 class WebAdminLoginAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \Illuminate\Contracts\Auth\Authenticatable
+     * @return \Illuminate\Contracts\Auth\Authenticatable
      */
     public function run(DataTransporter $data): Authenticatable
     {

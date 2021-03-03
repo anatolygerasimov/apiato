@@ -12,7 +12,7 @@ class UpdateSettingRequest extends Request
     /**
      * Define which Roles and/or Permissions has access to this request.
      *
-     * @var  array
+     * @var array
      */
     protected $access = [
         'permissions' => '',
@@ -22,7 +22,7 @@ class UpdateSettingRequest extends Request
     /**
      * Id's that needs decoding before applying the validation rules.
      *
-     * @var  array
+     * @var array
      */
     protected $decode = [
         'id',
@@ -32,14 +32,14 @@ class UpdateSettingRequest extends Request
      * Defining the URL parameters (e.g, `/user/{id}`) allows applying
      * validation rules on them and allows accessing them like request data.
      *
-     * @var  array
+     * @var array
      */
     protected $urlParameters = [
         'id',
     ];
 
     /**
-     * @return  array
+     * @return array
      */
     public function rules()
     {
@@ -47,13 +47,13 @@ class UpdateSettingRequest extends Request
             // put your rules here
             'id' => 'required|exists:settings,id',
 
-            'key' => 'sometimes|string|max:190',
+            'key'   => 'sometimes|string|max:190',
             'value' => 'sometimes|string|max:190',
         ];
     }
 
     /**
-     * @return  bool
+     * @return bool
      */
     public function authorize()
     {

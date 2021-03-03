@@ -14,11 +14,10 @@ use App\Ship\Transporters\DataTransporter;
  */
 class AttachPermissionsToRoleAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\Authorization\Models\Role
+     * @return \App\Containers\Authorization\Models\Role
      */
     public function run(DataTransporter $data): Role
     {
@@ -31,8 +30,6 @@ class AttachPermissionsToRoleAction extends Action
             return Apiato::call('Authorization@FindPermissionTask', [$permissionId]);
         }, $permissionIds);
 
-        $role = $role->givePermissionTo($permissions);
-
-        return $role;
+        return $role->givePermissionTo($permissions);
     }
 }

@@ -10,13 +10,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class MigrationGenerator
+ * Class MigrationGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -41,21 +40,21 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Data/Migrations/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{date}_{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'migration.stub';
 
@@ -63,7 +62,7 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['tablename', null, InputOption::VALUE_OPTIONAL, 'The name for the database table'],
@@ -105,19 +104,19 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
             ],
             'stub-parameters' => [
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => Str::studly($this->fileName),
-                'table-name' => $tablename
+                'container-name'  => $this->containerName,
+                'class-name'      => Str::studly($this->fileName),
+                'table-name'      => $tablename,
             ],
             'file-parameters' => [
-                'date' => Carbon::now()->format('Y_m_d_His'),
+                'date'      => Carbon::now()->format('Y_m_d_His'),
                 'file-name' => $this->fileName,
             ],
         ];
     }
 
     /**
-     * Get the default file name for this component to be generated
+     * Get the default file name for this component to be generated.
      *
      * @return string
      */
@@ -127,7 +126,7 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
     }
 
     /**
-     * Removes "special characters" from a string
+     * Removes "special characters" from a string.
      *
      * @param $str
      *

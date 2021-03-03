@@ -14,15 +14,14 @@
  *
  * @apiSuccessExample  {json}  Success-Response:
  * HTTP/1.1 200 OK
-{
-  // TODO..
-}
+ * {
+ * // TODO..
+ * }
  */
-
 $router->get('localizations', [
-    'as' => 'api_localization_get_all_localizations',
-    'uses'  => 'Controller@getAllLocalizations',
+    'as'         => 'api_localization_get_all_localizations',
+    'uses'       => 'Controller@getAllLocalizations',
     'middleware' => [
-      'auth:api',
+        'auth:api',
     ],
 ]);

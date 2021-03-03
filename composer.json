@@ -1,52 +1,31 @@
 {
   "name": "apiato/apiato",
-  "description": "A flawless framework for building scalable and testable API-Centric Apps with PHP and Laravel.",
-  "homepage": "http://apiato.io/",
-  "support": {
-    "issues": "https://github.com/apiato/apiato/issues",
-    "source": "https://github.com/apiato/apiato"
-  },
-  "authors": [
-    {
-      "name": "Mahmoud Zalt",
-      "email": "mahmoud@zalt.me"
-    }
-  ],
-  "keywords": [
-    "Apiato",
-    "API",
-    "Framework",
-    "API framework",
-    "API Starter",
-    "PHP API Starter",
-    "Laravel API",
-    "PHP",
-    "Hello API",
-    "Porto",
-    "Porto SAP"
-  ],
-  "license": "MIT",
   "type": "project",
+  "description": "Uinno starter kit.",
   "require": {
     "php": "^7.2.5",
     "ext-mbstring": "*",
     "ext-openssl": "*",
     "ext-pdo": "*",
     "ext-tokenizer": "*",
-    "laravel/framework": "^7.0",
-    "doctrine/dbal": "2.5.*",
-    "fideloper/proxy": "^4.2",
-    "guzzlehttp/guzzle": "^6.3",
-    "laravel/tinker": "^2.0",
-    "fruitcake/laravel-cors": "^1.0",
-    "wikimedia/composer-merge-plugin": "^1.3.1"
+    "laravel/framework": "^8.12",
+    "doctrine/dbal": "^2.6",
+    "fideloper/proxy": "^4.4",
+    "guzzlehttp/guzzle": "^7.0.1",
+    "laravel/tinker": "^2.5",
+    "fruitcake/laravel-cors": "^2.0",
+    "wikimedia/composer-merge-plugin": "^2.0.1"
   },
   "require-dev": {
-    "facade/ignition": "^2.0",
-    "fzaninotto/faker": "^1.9.1",
-    "mockery/mockery": "^1.3.1",
-    "nunomaduro/collision": "^4.1",
-    "phpunit/phpunit": "^8.5"
+    "facade/ignition": "^2.5",
+    "fakerphp/faker": "^1.9.1",
+    "mockery/mockery": "^1.4.2",
+    "nunomaduro/collision": "^5.0",
+    "phpunit/phpunit": "^9.5",
+    "friendsofphp/php-cs-fixer": "^2.18",
+    "rector/rector-prefixed": "^0.9.31",
+    "psalm/plugin-laravel": "^1.4",
+    "vimeo/psalm": "^4.6"
   },
   "autoload": {
     "classmap": [
@@ -91,6 +70,21 @@
     ],
     "post-create-project-cmd": [
       "@php artisan key:generate --ansi"
+    ],
+    "php-cs-fixer": [
+      "php ./vendor/bin/php-cs-fixer fix --config=.php_cs.dist --allow-risky=yes --using-cache=no"
+    ],
+    "php-cs-fixer-check": [
+        "php ./vendor/bin/php-cs-fixer fix --dry-run --diff --diff-format=udiff -vv --allow-risky=yes --using-cache=no"
+    ],
+    "psalm": [
+        "php ./vendor/bin/psalm --threads=2 --no-cache"
+    ],
+    "phpunit": [
+        "php ./vendor/bin/phpunit --configuration phpunit.xml"
+    ],
+    "rector": [
+        "php ./vendor/bin/rector process --dry-run"
     ]
   },
   "config": {

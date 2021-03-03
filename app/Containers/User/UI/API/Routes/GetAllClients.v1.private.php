@@ -3,6 +3,7 @@
 /**
  * @apiGroup           Users
  * @apiName            getAllClients
+ *
  * @api                {get} /v1/clients Get All Client Users
  * @apiDescription     Get All Users where role `Client`.
  *                     You can search for Users by email, name and ID.
@@ -15,9 +16,8 @@
  *
  * @apiUse             GeneralSuccessMultipleResponse
  */
-
 $router->get('clients', [
-    'as' => 'api_user_get_all_clients',
+    'as'         => 'api_user_get_all_clients',
     'uses'       => 'Controller@getAllClients',
     'middleware' => [
         'auth:api',

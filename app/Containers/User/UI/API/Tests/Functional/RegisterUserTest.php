@@ -14,7 +14,6 @@ use App\Containers\User\Tests\ApiTestCase;
  */
 class RegisterUserTest extends ApiTestCase
 {
-
     protected $endpoint = 'post@v1/register';
 
     protected $auth = false;
@@ -27,7 +26,7 @@ class RegisterUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRegisterNewUserWithCredentials_()
+    public function testRegisterNewUserWithCredentials()
     {
         $data = [
             'email'    => 'apiato@mail.test',
@@ -50,7 +49,7 @@ class RegisterUserTest extends ApiTestCase
 
         $this->assertNotEmpty($responseContent->data);
 
-         // assert the data is stored in the database
+        // assert the data is stored in the database
         $this->assertDatabaseHas('users', ['email' => $data['email']]);
     }
 

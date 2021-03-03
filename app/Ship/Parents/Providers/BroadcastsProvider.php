@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Broadcast;
 use function app_path;
 
 /**
- * Class BroadcastsProvider
+ * Class BroadcastsProvider.
  *
  * A.K.A app/Providers/BroadcastServiceProvider.php
  *
@@ -15,7 +15,6 @@ use function app_path;
  */
 class BroadcastsProvider extends AbstractBroadcastsProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -27,5 +26,4 @@ class BroadcastsProvider extends AbstractBroadcastsProvider
 
         require app_path('Ship/Broadcasts/Routes.php');
     }
-
 }

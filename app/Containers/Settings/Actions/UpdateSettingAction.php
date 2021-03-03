@@ -7,27 +7,24 @@ use App\Ship\Parents\Actions\Action;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class UpdateSettingAction
+ * Class UpdateSettingAction.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class UpdateSettingAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  mixed
+     * @return mixed
      */
     public function run(DataTransporter $data)
     {
         $sanitizedData = $data->sanitizeInput([
             'key',
-            'value'
+            'value',
         ]);
 
-        $setting = Apiato::call('Settings@UpdateSettingTask', [$data->id, $sanitizedData]);
-
-        return $setting;
+        return Apiato::call('Settings@UpdateSettingTask', [$data->id, $sanitizedData]);
     }
 }

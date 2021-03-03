@@ -9,13 +9,12 @@ use App\Ship\Criterias\Eloquent\ThisUserCriteria;
 use App\Ship\Parents\Tasks\Task;
 
 /**
- * Class GetAllPaymentAccountsTask
+ * Class GetAllPaymentAccountsTask.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class GetAllPaymentAccountsTask extends Task
 {
-
     protected $repository;
 
     /**
@@ -29,7 +28,7 @@ class GetAllPaymentAccountsTask extends Task
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function run()
     {
@@ -37,7 +36,7 @@ class GetAllPaymentAccountsTask extends Task
     }
 
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function ordered()
     {
@@ -47,7 +46,7 @@ class GetAllPaymentAccountsTask extends Task
     /**
      * @param \App\Containers\User\Models\User $user
      *
-     * @return  mixed
+     * @return mixed
      */
     public function filterByUser(User $user)
     {

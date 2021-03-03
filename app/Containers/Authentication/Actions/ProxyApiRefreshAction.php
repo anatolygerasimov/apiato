@@ -12,15 +12,14 @@ use App\Ship\Parents\Actions\Action;
  */
 class ProxyApiRefreshAction extends Action
 {
-
     /**
      * @param \App\Containers\Authentication\Data\Transporters\ProxyRefreshTransporter $data
      *
-     * @return  array
+     * @return array
      */
     public function run(ProxyRefreshTransporter $data): array
     {
-        if(!$data->refresh_token){
+        if (!$data->refresh_token) {
             throw new RefreshTokenMissedException();
         }
 

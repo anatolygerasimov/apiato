@@ -12,15 +12,11 @@ use App\Ship\Parents\Actions\Action;
  */
 class GetAllPermissionsAction extends Action
 {
-
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function run()
     {
-        $permissions = Apiato::call('Authorization@GetAllPermissionsTask', [], ['addRequestCriteria']);
-
-        return $permissions;
+        return Apiato::call('Authorization@GetAllPermissionsTask', [], ['addRequestCriteria']);
     }
-
 }

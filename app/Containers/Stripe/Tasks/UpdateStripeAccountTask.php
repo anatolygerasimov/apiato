@@ -10,7 +10,6 @@ use Exception;
 
 class UpdateStripeAccountTask extends Task
 {
-
     protected $repository;
 
     public function __construct(StripeAccountRepository $repository)
@@ -23,6 +22,7 @@ class UpdateStripeAccountTask extends Task
      * @param array                                       $data
      *
      * @return mixed
+     *
      * @throws UpdateResourceFailedException
      */
     public function run(StripeAccount $account, array $data)

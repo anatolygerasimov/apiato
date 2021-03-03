@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Factory;
  */
 trait FactoriesLoaderTrait
 {
-
     /**
      * By default Laravel takes a shared factory directory to load from it all the factories.
      * This function changes the path to load the factories from the port directory instead.
@@ -30,5 +29,4 @@ trait FactoriesLoaderTrait
             return Factory::construct($faker, $newFactoriesPath);
         });
     }
-
 }

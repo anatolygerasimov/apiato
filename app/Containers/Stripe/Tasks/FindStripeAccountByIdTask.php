@@ -9,7 +9,6 @@ use Exception;
 
 class FindStripeAccountByIdTask extends Task
 {
-
     protected $repository;
 
     public function __construct(StripeAccountRepository $repository)
@@ -21,14 +20,14 @@ class FindStripeAccountByIdTask extends Task
      * @param $id
      *
      * @return mixed
+     *
      * @throws NotFoundException
      */
     public function run($id)
     {
         try {
             return $this->repository->find($id);
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             throw new NotFoundException();
         }
     }

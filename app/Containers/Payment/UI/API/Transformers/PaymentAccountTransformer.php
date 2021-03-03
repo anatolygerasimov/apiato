@@ -7,16 +7,15 @@ use App\Ship\Parents\Transformers\Transformer;
 
 class PaymentAccountTransformer extends Transformer
 {
-
     /**
-     * @var  array
+     * @var array
      */
     protected $defaultIncludes = [
 
     ];
 
     /**
-     * @var  array
+     * @var array
      */
     protected $availableIncludes = [
 
@@ -48,11 +47,9 @@ class PaymentAccountTransformer extends Transformer
             'updated_at' => $entity->updated_at,
         ];
 
-        $response = $this->ifAdmin([
+        return $this->ifAdmin([
             'real_id'    => $entity->id,
             'deleted_at' => $entity->deleted_at,
         ], $response);
-
-        return $response;
     }
 }

@@ -7,13 +7,12 @@ use App\Ship\Parents\Actions\Action;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class DeletePaymentAccountAction
+ * Class DeletePaymentAccountAction.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class DeletePaymentAccountAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      */

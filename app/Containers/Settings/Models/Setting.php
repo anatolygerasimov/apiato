@@ -5,13 +5,12 @@ namespace App\Containers\Settings\Models;
 use App\Ship\Parents\Models\Model;
 
 /**
- * Class Setting
+ * Class Setting.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Setting extends Model
 {
-
     /**
      * The database table used by the model.
      *
@@ -20,7 +19,7 @@ class Setting extends Model
     protected $table = 'settings';
 
     /**
-     * @var  bool
+     * @var bool
      */
     public $timestamps = false;
 
@@ -42,5 +41,4 @@ class Setting extends Model
     protected $hidden = [
 
     ];
-
 }

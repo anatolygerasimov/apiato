@@ -5,13 +5,12 @@ namespace App\Ship\Parents\Providers;
 use Apiato\Core\Abstracts\Providers\MiddlewareProvider as AbstractMiddlewareProvider;
 
 /**
- * Class MiddlewareProvider
+ * Class MiddlewareProvider.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 abstract class MiddlewareProvider extends AbstractMiddlewareProvider
 {
-
     /**
      * Perform post-registration booting of services.
      */
@@ -27,5 +26,4 @@ abstract class MiddlewareProvider extends AbstractMiddlewareProvider
     {
         parent::register();
     }
-
 }

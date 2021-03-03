@@ -8,27 +8,24 @@ use App\Ship\Parents\Actions\Action;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class CreateSettingAction
+ * Class CreateSettingAction.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class CreateSettingAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\Settings\Models\Setting
+     * @return \App\Containers\Settings\Models\Setting
      */
     public function run(DataTransporter $data): Setting
     {
         $data = $data->sanitizeInput([
             'key',
-            'value'
+            'value',
         ]);
 
-        $setting = Apiato::call('Settings@CreateSettingTask', [$data]);
-
-        return $setting;
+        return Apiato::call('Settings@CreateSettingTask', [$data]);
     }
 }

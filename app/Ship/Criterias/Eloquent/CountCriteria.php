@@ -7,13 +7,12 @@ use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
- * Class CountCriteria
+ * Class CountCriteria.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class CountCriteria extends Criteria
 {
-
     /**
      * @var string
      */
@@ -29,16 +28,14 @@ class CountCriteria extends Criteria
         $this->field = $field;
     }
 
-
     /**
      * @param                                                   $model
      * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
      *
-     * @return  mixed
+     * @return mixed
      */
     public function apply($model, PrettusRepositoryInterface $repository)
     {
         return DB::table($model->getModel()->getTable())->select($this->field, DB::raw('count(' . $this->field . ') as total_count'))->groupBy($this->field);
     }
-
 }

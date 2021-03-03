@@ -9,13 +9,12 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
- * Class ActionGenerator
+ * Class ActionGenerator.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class ActionGenerator extends GeneratorCommand implements ComponentsGenerator
 {
-
     /**
      * The console command name.
      *
@@ -40,21 +39,21 @@ class ActionGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file path.
      *
-     * @var  string
+     * @var string
      */
     protected $pathStructure = '{container-name}/Actions/*';
 
     /**
      * The structure of the file name.
      *
-     * @var  string
+     * @var string
      */
     protected $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      *
-     * @var  string
+     * @var string
      */
     protected $stubName = 'actions/generic.stub';
 
@@ -62,7 +61,7 @@ class ActionGenerator extends GeneratorCommand implements ComponentsGenerator
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads from the console whenever it's called".
      *
-     * @var  array
+     * @var array
      */
     public $inputs = [
         ['model', null, InputOption::VALUE_OPTIONAL, 'The model this action is for.'],
@@ -75,7 +74,7 @@ class ActionGenerator extends GeneratorCommand implements ComponentsGenerator
     public function getUserInputs()
     {
         $model = $this->checkParameterOrAsk('model', 'Enter the name of the model this action is for.', $this->containerName);
-        $stub = Str::lower($this->checkParameterOrChoice(
+        $stub  = Str::lower($this->checkParameterOrChoice(
             'stub',
             'Select the Stub you want to load',
             ['Generic', 'GetAll', 'Find', 'Create', 'Update', 'Delete'],
@@ -87,7 +86,7 @@ class ActionGenerator extends GeneratorCommand implements ComponentsGenerator
 
         $models = Pluralizer::plural($model);
 
-        $entity = Str::lower($model);
+        $entity   = Str::lower($model);
         $entities = Pluralizer::plural($entity);
 
         return [
@@ -96,12 +95,12 @@ class ActionGenerator extends GeneratorCommand implements ComponentsGenerator
             ],
             'stub-parameters' => [
                 '_container-name' => Str::lower($this->containerName),
-                'container-name' => $this->containerName,
-                'class-name' => $this->fileName,
-                'model' => $model,
-                'models' => $models,
-                'entity' => $entity,
-                'entities' => $entities,
+                'container-name'  => $this->containerName,
+                'class-name'      => $this->fileName,
+                'model'           => $model,
+                'models'          => $models,
+                'entity'          => $entity,
+                'entities'        => $entities,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
@@ -110,7 +109,7 @@ class ActionGenerator extends GeneratorCommand implements ComponentsGenerator
     }
 
     /**
-     * Get the default file name for this component to be generated
+     * Get the default file name for this component to be generated.
      *
      * @return string
      */

@@ -6,7 +6,7 @@ use App\Ship\Parents\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class PaymentTransaction
+ * Class PaymentTransaction.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
@@ -39,8 +39,8 @@ class PaymentTransaction extends Model
 
     protected $casts = [
         'is_successful' => 'boolean',
-        'data' => 'array',
-        'custom' => 'array',
+        'data'          => 'array',
+        'custom'        => 'array',
     ];
 
     protected $dates = [

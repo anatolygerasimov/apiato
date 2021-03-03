@@ -8,18 +8,17 @@ use App\Ship\Parents\Actions\Action;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class UpdatePaymentAccountAction
+ * Class UpdatePaymentAccountAction.
  *
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class UpdatePaymentAccountAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\Payment\Models\PaymentAccount
+     * @return \App\Containers\Payment\Models\PaymentAccount
      */
     public function run(DataTransporter $data): PaymentAccount
     {
@@ -31,11 +30,9 @@ class UpdatePaymentAccountAction extends Action
         Apiato::call('Payment@CheckIfPaymentAccountBelongsToUserTask', [$user, $paymentAccount]);
 
         $data = $data->sanitizeInput([
-            'name'
+            'name',
         ]);
 
-        $paymentAccount = Apiato::call('Payment@UpdatePaymentAccountTask', [$paymentAccount, $data]);
-
-        return $paymentAccount;
+        return Apiato::call('Payment@UpdatePaymentAccountTask', [$paymentAccount, $data]);
     }
 }

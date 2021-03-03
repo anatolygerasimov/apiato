@@ -5,7 +5,7 @@ namespace App\Ship\Transporters;
 use App\Ship\Parents\Transporters\Transporter;
 
 /**
- * Class DataTransporter
+ * Class DataTransporter.
  *
  * @author Johannes Schobel <johannes.schobel@googlemail.com>
  */
@@ -22,15 +22,15 @@ class DataTransporter extends Transporter
      * @var array
      */
     protected $schema = [
-        'type' => 'object',
+        'type'       => 'object',
         'properties' => [
             'additionalProperties' => true,
         ],
-        'required' => [  // defined Transporter required fields ['first_name', 'last_name'],
+        'required' => [// defined Transporter required fields ['first_name', 'last_name'],
 
         ],
         'default' => [
-//            'foo' => 'bar',
-        ]
+            //            'foo' => 'bar',
+        ],
     ];
 }

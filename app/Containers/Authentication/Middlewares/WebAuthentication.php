@@ -9,20 +9,18 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 
 /**
- * Class WebAuthentication
+ * Class WebAuthentication.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class WebAuthentication extends Middleware
 {
-
     /**
      * The Guard implementation.
      *
      * @var Guard
      */
     protected $auth;
-
 
     /**
      * WebAuthentication constructor.
@@ -37,8 +35,8 @@ class WebAuthentication extends Middleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
      *
      * @return mixed
      */

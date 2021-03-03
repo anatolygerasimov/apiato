@@ -20,7 +20,7 @@ return [
 
         'limit' => env('PAGINATION_LIMIT_DEFAULT', 15),
 
-         // if enabled it allows users to skip pagination by passing `?limit=0`.
+        // if enabled it allows users to skip pagination by passing `?limit=0`.
         'skip' => env('PAGINATION_SKIP', false),
     ],
 
@@ -227,7 +227,7 @@ return [
     */
     'generator'  => [
         'basePath'      => env('SRC_PATH'),
-        'rootNamespace' => env('ROOT_NAMESPACE').'\\',
+        'rootNamespace' => env('ROOT_NAMESPACE') . '\\',
         'paths'         => [
             'models'       => 'Entities',
             'repositories' => 'Repositories',
@@ -237,7 +237,7 @@ return [
             'validators'   => 'Validators',
             'controllers'  => 'Http/Controllers',
             'provider'     => 'RepositoryServiceProvider',
-            'criteria'     => 'Criteria'
+            'criteria'     => 'Criteria',
         ],
     ],
 ];

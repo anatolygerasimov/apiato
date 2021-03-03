@@ -16,23 +16,23 @@ use function strtolower;
  */
 trait HashIdTrait
 {
-
     /**
-     * endpoint to be skipped from decoding their ID's (example for external ID's)
-     * @var  array
+     * endpoint to be skipped from decoding their ID's (example for external ID's).
+     *
+     * @var array
      */
     private $skippedEndpoints = [
-//        'orders/{id}/external',
+        //        'orders/{id}/external',
     ];
 
     /**
-     * Hashes the value of a field (e.g., ID)
+     * Hashes the value of a field (e.g., ID).
      *
      * Will be used by the Eloquent Models (since it's used as trait there).
      *
      * @param null $field The field of the model to be hashed
      *
-     * @return  mixed
+     * @return mixed
      */
     public function getHashedKey($field = null)
     {
@@ -45,6 +45,7 @@ trait HashIdTrait
         if (Config::get('apiato.hash-id')) {
             // we need to get the VALUE for this KEY (model field)
             $value = $this->getAttribute($field);
+
             return $this->encoder($value);
         }
 
@@ -53,13 +54,13 @@ trait HashIdTrait
 
     /**
      * without decoding the encoded ID's you won't be able to use
-     * validation features like `exists:table,id`
+     * validation features like `exists:table,id`.
      *
      * @param array $requestData
      *
-     * @return  array
+     * @return array
      */
-    protected function decodeHashedIdsBeforeValidation(Array $requestData)
+    protected function decodeHashedIdsBeforeValidation(array $requestData)
     {
 
         // the hash ID feature must be enabled to use this decoder feature.
@@ -74,28 +75,27 @@ trait HashIdTrait
     }
 
     /**
-     * Search the IDs to be decoded in the request data
+     * Search the IDs to be decoded in the request data.
      *
      * @param $requestData
      * @param $key
      *
-     * @return  mixed
+     * @return mixed
      */
     private function locateAndDecodeIds($requestData, $key)
     {
         // split the key based on the "."
         $fields = explode('.', $key);
         // loop through all elements of the key.
-        $transformedData = $this->processField($requestData, $fields);
-
-        return $transformedData;
+        return $this->processField($requestData, $fields);
     }
 
     /**
-     * Recursive function to process (decode) the request data with a given key
+     * Recursive function to process (decode) the request data with a given key.
      *
      * @param $data
      * @param $keysTodo
+     *
      * @return array
      */
     private function processField($data, $keysTodo)
@@ -103,15 +103,14 @@ trait HashIdTrait
         // check if there are no more fields to be processed
         if (empty($keysTodo)) {
             // there are no more keys left - so basically we need to decode this entry
-            $decodedId = $this->decode($data);
-            return $decodedId;
+            return $this->decode($data);
         }
 
         // take the first element from the field
         $field = array_shift($keysTodo);
 
         // is the current field an array?! we need to process it like crazy
-        if ($field == '*') {
+        if ($field === '*') {
             //make sure field value is an array
             $data = is_array($data) ? $data : [$data];
 
@@ -120,8 +119,8 @@ trait HashIdTrait
             foreach ($fields as $key => $value) {
                 $data[$key] = $this->processField($value, $keysTodo);
             }
-            return $data;
 
+            return $data;
         } else {
             // check if the key we are looking for does, in fact, really exist
             if (!array_key_exists($field, $data)) {
@@ -129,8 +128,9 @@ trait HashIdTrait
             }
 
             // go down one level
-            $value = $data[$field];
+            $value        = $data[$field];
             $data[$field] = $this->processField($value, $keysTodo);
+
             return $data;
         }
     }
@@ -140,7 +140,7 @@ trait HashIdTrait
      * @param $findKey
      * @param $callback
      *
-     * @return  array
+     * @return array
      */
     public function findKeyAndReturnValue(&$subject, $findKey, $callback)
     {
@@ -150,8 +150,7 @@ trait HashIdTrait
         }
 
         foreach ($subject as $key => $value) {
-
-            if ($key == $findKey && isset($subject[$findKey])) {
+            if ($key === $findKey && isset($subject[$findKey])) {
                 $subject[$key] = $callback($subject[$findKey]);
                 break;
             }
@@ -164,7 +163,7 @@ trait HashIdTrait
     /**
      * @param array $ids
      *
-     * @return  array
+     * @return array
      */
     public function decodeArray(array $ids)
     {
@@ -181,12 +180,13 @@ trait HashIdTrait
      * @param null $parameter
      *
      * @return array
+     *
      * @throws IncorrectIdException
      */
     public function decode($id, $parameter = null)
     {
         // check if passed as null, (could be an optional decodable variable)
-        if (is_null($id) || strtolower($id) == 'null') {
+        if (is_null($id) || strtolower($id) === 'null') {
             return $id;
         }
 
@@ -202,7 +202,7 @@ trait HashIdTrait
     /**
      * @param $id
      *
-     * @return  mixed
+     * @return mixed
      */
     public function encode($id)
     {
@@ -212,7 +212,7 @@ trait HashIdTrait
     /**
      * @param $id
      *
-     * @return  mixed
+     * @return mixed
      */
     private function decoder($id)
     {
@@ -222,7 +222,7 @@ trait HashIdTrait
     /**
      * @param $id
      *
-     * @return  mixed
+     * @return mixed
      */
     public function encoder($id)
     {
@@ -255,5 +255,4 @@ trait HashIdTrait
             });
         }
     }
-
 }

@@ -4,7 +4,7 @@ use Apiato\Core\Loaders\SeederLoaderTrait;
 use Illuminate\Database\Seeder as LaravelSeeder;
 
 /**
- * Class DatabaseSeeder
+ * Class DatabaseSeeder.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */

@@ -6,7 +6,7 @@ use App\Ship\Parents\Exceptions\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class NoDocTypesFoundException
+ * Class NoDocTypesFoundException.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */

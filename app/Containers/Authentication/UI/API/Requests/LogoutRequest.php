@@ -11,21 +11,20 @@ use App\Ship\Parents\Requests\Request;
  */
 class LogoutRequest extends Request
 {
-
     /**
      * Define which Roles and/or Permissions has access to this request.
      *
-     * @var  array
+     * @var array
      */
     protected $access = [
         'permissions' => null,
-        'roles' => null,
+        'roles'       => null,
     ];
 
     /**
      * Id's that needs decoding before applying the validation rules.
      *
-     * @var  array
+     * @var array
      */
     protected $decode = [
 
@@ -35,7 +34,7 @@ class LogoutRequest extends Request
      * Defining the URL parameters (`/stores/999/items`) allows applying
      * validation rules on them and allows accessing them like request data.
      *
-     * @var  array
+     * @var array
      */
     protected $urlParameters = [
 

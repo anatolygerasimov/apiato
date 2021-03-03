@@ -8,7 +8,7 @@ use Config;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class ProxyRefreshTest
+ * Class ProxyRefreshTest.
  *
  * @group authorization
  * @group api
@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB;
  */
 class ProxyRefreshTest extends ApiTestCase
 {
-
     protected $endpoint = 'post@v1/clients/web/admin/refresh';
 
     protected $access = [
@@ -34,12 +33,12 @@ class ProxyRefreshTest extends ApiTestCase
     {
         $user = $this->getTestingUser([
             'email'    => 'testing@mail.com',
-            'password' => 'testingpass'
+            'password' => 'testingpass',
         ]);
 
         $this->actingAs($user, 'api');
 
-        $clientId = '100';
+        $clientId     = '100';
         $clientSecret = 'XXp8x4QK7d3J9R7OVRXWrhc19XPRroHTTKIbY8XX';
 
         // create client
@@ -60,11 +59,11 @@ class ProxyRefreshTest extends ApiTestCase
         Config::set('authentication-container.clients.web.admin.secret', $clientSecret);
 
         // create testing oauth keys files
-        $publicFilePath = $this->createTestingKey('oauth-public.key');
+        $publicFilePath  = $this->createTestingKey('oauth-public.key');
         $privateFilePath = $this->createTestingKey('oauth-private.key');
 
         $data = [
-            'refresh_token' => null
+            'refresh_token' => null,
         ];
 
         $response = $this->makeCall($data);
@@ -84,7 +83,7 @@ class ProxyRefreshTest extends ApiTestCase
     /**
      * @param $fileName
      *
-     * @return  string
+     * @return string
      */
     private function createTestingKey($fileName)
     {

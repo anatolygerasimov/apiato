@@ -11,7 +11,6 @@ use Apiato\Core\Abstracts\Providers\MainProvider as AbstractMainProvider;
  */
 abstract class MainProvider extends AbstractMainProvider
 {
-
     /**
      * Perform post-registration booting of services.
      */
@@ -27,5 +26,4 @@ abstract class MainProvider extends AbstractMainProvider
     {
         parent::register();
     }
-
 }

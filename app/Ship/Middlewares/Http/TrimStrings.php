@@ -5,7 +5,7 @@ namespace App\Ship\Middlewares\Http;
 use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
 /**
- * Class TrimStrings
+ * Class TrimStrings.
  *
  * A.K.A app/Http/Middleware/TrimStrings.php
  *
@@ -13,7 +13,6 @@ use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
  */
 class TrimStrings extends Middleware
 {
-
     /**
      * The names of the attributes that should not be trimmed.
      *
@@ -23,5 +22,4 @@ class TrimStrings extends Middleware
         'password',
         'password_confirmation',
     ];
-
 }

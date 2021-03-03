@@ -7,28 +7,27 @@ use Illuminate\Support\Str;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
- * Class OrderByFieldCriteria
+ * Class OrderByFieldCriteria.
  *
- * @package App\Ship\Criterias\Eloquent
  * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class OrderByFieldCriteria extends Criteria
 {
-
     private $field;
+
     private $sortOrder;
 
     /**
      * OrderByFieldCriteria constructor.
      *
-     * @param string $field The field to be sorted
+     * @param string $field     The field to be sorted
      * @param string $sortOrder the sort direction (asc or desc)
      */
     public function __construct($field, $sortOrder)
     {
         $this->field = $field;
 
-        $sortOrder = Str::lower($sortOrder);
+        $sortOrder           = Str::lower($sortOrder);
         $availableDirections = [
             'asc',
             'desc',
@@ -52,5 +51,4 @@ class OrderByFieldCriteria extends Criteria
     {
         return $model->orderBy($this->field, $this->sortOrder);
     }
-
 }

@@ -13,16 +13,16 @@ use App\Ship\Transporters\DataTransporter;
  */
 class SocialLoginAction extends Action
 {
-
     /**
      * ----- if has social profile
      * --------- [A] update his social profile info
      * ----- if has no social profile
-     * --------- [C] create new record
+     * --------- [C] create new record.
      *
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  mixed
+     * @return mixed
+     *
      * @throws \Dto\Exceptions\InvalidDataTypeException
      */
     public function run(DataTransporter $data)
@@ -35,9 +35,9 @@ class SocialLoginAction extends Action
 
         // checking if some data are available in the response
         // (these lines are written to make this function compatible with multiple providers)
-        $tokenSecret = $socialUserProfile->tokenSecret ?? null;
-        $expiresIn = $socialUserProfile->expiresIn ?? null;
-        $refreshToken = $socialUserProfile->refreshToken ?? null;
+        $tokenSecret     = $socialUserProfile->tokenSecret     ?? null;
+        $expiresIn       = $socialUserProfile->expiresIn       ?? null;
+        $refreshToken    = $socialUserProfile->refreshToken    ?? null;
         $avatar_original = $socialUserProfile->avatar_original ?? null;
 
         if ($socialUser) {
@@ -53,9 +53,8 @@ class SocialLoginAction extends Action
                 $refreshToken,
                 $tokenSecret,
                 $socialUserProfile->avatar,
-                $avatar_original
+                $avatar_original,
             ]);
-
         } else {
             // THIS IS: A NEW USER
             // DO: CREATE NEW USER FROM THE SOCIAL PROFILE INFORMATION.
@@ -71,7 +70,7 @@ class SocialLoginAction extends Action
                 $tokenSecret,
                 $expiresIn,
                 $refreshToken,
-                $avatar_original
+                $avatar_original,
             ]);
         }
 
@@ -83,5 +82,4 @@ class SocialLoginAction extends Action
             'token' => $personalAccessTokenResult,
         ];
     }
-
 }

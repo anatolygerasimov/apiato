@@ -14,11 +14,10 @@ use App\Ship\Transporters\DataTransporter;
  */
 class AssignUserToRoleAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  \App\Containers\User\Models\User
+     * @return \App\Containers\User\Models\User
      */
     public function run(DataTransporter $data): User
     {
@@ -31,8 +30,6 @@ class AssignUserToRoleAction extends Action
             return Apiato::call('Authorization@FindRoleTask', [$roleId]);
         }, $rolesIds);
 
-        $user = Apiato::call('Authorization@AssignUserToRoleTask', [$user, $roles]);
-
-        return $user;
+        return Apiato::call('Authorization@AssignUserToRoleTask', [$user, $roles]);
     }
 }

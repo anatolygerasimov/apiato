@@ -13,7 +13,6 @@ use App\Ship\Parents\Tasks\Task;
  */
 class UpdateUserSocialProfileTask extends Task
 {
-
     protected $repository;
 
     public function __construct(UserRepository $repository)
@@ -35,8 +34,9 @@ class UpdateUserSocialProfileTask extends Task
      * @param null $name
      * @param null $email
      *
-     * @return  mixed
-     * @throws  UpdateResourceFailedException
+     * @return mixed
+     *
+     * @throws UpdateResourceFailedException
      */
     public function run(
         $userId,
@@ -104,10 +104,6 @@ class UpdateUserSocialProfileTask extends Task
         }
 
         // updating the attributes
-        $user = $this->repository->update($attributes, $userId);
-
-        return $user;
+        return $this->repository->update($attributes, $userId);
     }
-
-
 }

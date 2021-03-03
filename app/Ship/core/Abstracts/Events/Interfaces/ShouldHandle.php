@@ -3,7 +3,7 @@
 namespace Apiato\Core\Abstracts\Events\Interfaces;
 
 /**
- * Interface  ShouldHandle
+ * Interface  ShouldHandle.
  *
  * @author  Arthur Devious
  */

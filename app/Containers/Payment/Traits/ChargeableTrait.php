@@ -16,28 +16,25 @@ use JohannesSchobel\ShoppingCart\Models\ShoppingCart;
  */
 trait ChargeableTrait
 {
-
     /**
      * @param \App\Containers\Payment\Models\PaymentAccount $account
      * @param int|float                                     $amount
      * @param string|null                                   $currency
      *
-     * @return  PaymentTransaction
+     * @return PaymentTransaction
      */
-    public function charge(PaymentAccount $account, $amount, $currency = null) : PaymentTransaction
+    public function charge(PaymentAccount $account, $amount, $currency = null): PaymentTransaction
     {
-        $transaction = App::make(PaymentsGateway::class)->charge($this, $account, $amount, $currency);
-
-        return $transaction;
+        return App::make(PaymentsGateway::class)->charge($this, $account, $amount, $currency);
     }
 
     /**
      * @param \App\Containers\Payment\Models\PaymentAccount     $account
      * @param \JohannesSchobel\ShoppingCart\Models\ShoppingCart $cart
      *
-     * @return  PaymentTransaction
+     * @return PaymentTransaction
      */
-    public function purchaseShoppingCart(PaymentAccount $account, ShoppingCart $cart) : PaymentTransaction
+    public function purchaseShoppingCart(PaymentAccount $account, ShoppingCart $cart): PaymentTransaction
     {
         /**
          * get the "value" of the shopping cart
@@ -53,7 +50,7 @@ trait ChargeableTrait
 
         $transaction = $this->charge($account, $amount, $currency);
 
-        $custom = $transaction->custom ? $transaction->custom : [];
+        $custom              = $transaction->custom ? $transaction->custom : [];
         $transaction->custom = array_merge(
             $custom,
             ['cart' => $cart]
@@ -62,5 +59,4 @@ trait ChargeableTrait
 
         return $transaction;
     }
-
 }

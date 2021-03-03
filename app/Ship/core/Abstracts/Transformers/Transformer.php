@@ -18,9 +18,8 @@ use League\Fractal\TransformerAbstract as FractalTransformer;
  */
 abstract class Transformer extends FractalTransformer
 {
-
     /**
-     * @return  mixed
+     * @return mixed
      */
     public function user()
     {
@@ -31,7 +30,7 @@ abstract class Transformer extends FractalTransformer
      * @param $adminResponse
      * @param $clientResponse
      *
-     * @return  array
+     * @return array
      */
     public function ifAdmin($adminResponse, $clientResponse)
     {
@@ -84,6 +83,7 @@ abstract class Transformer extends FractalTransformer
      * @param mixed  $data
      *
      * @return \League\Fractal\Resource\ResourceInterface
+     *
      * @throws CoreInternalErrorException
      * @throws UnsupportedFractalIncludeException
      */
@@ -91,15 +91,12 @@ abstract class Transformer extends FractalTransformer
     {
         try {
             return parent::callIncludeMethod($scope, $includeName, $data);
-        }
-        catch (ErrorException $exception) {
+        } catch (ErrorException $exception) {
             if (Config::get('apiato.requests.force-valid-includes', true)) {
                 throw new UnsupportedFractalIncludeException($exception->getMessage());
             }
-        }
-        catch (Exception $exception) {
+        } catch (Exception $exception) {
             throw new CoreInternalErrorException($exception->getMessage());
         }
     }
-
 }

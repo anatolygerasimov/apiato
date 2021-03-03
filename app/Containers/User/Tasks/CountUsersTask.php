@@ -12,7 +12,6 @@ use App\Ship\Parents\Tasks\Task;
  */
 class CountUsersTask extends Task
 {
-
     protected $repository;
 
     public function __construct(UserRepository $repository)
@@ -21,11 +20,10 @@ class CountUsersTask extends Task
     }
 
     /**
-     * @return  int
+     * @return int
      */
     public function run(): int
     {
         return $this->repository->all()->count();
     }
-
 }

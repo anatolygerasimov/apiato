@@ -13,11 +13,10 @@ use App\Ship\Transporters\DataTransporter;
  */
 class CreateStripeAccountAction extends Action
 {
-
     /**
      * @param \App\Ship\Transporters\DataTransporter $data
      *
-     * @return  mixed
+     * @return mixed
      */
     public function run(DataTransporter $data)
     {
@@ -34,9 +33,6 @@ class CreateStripeAccountAction extends Action
 
         $account = Apiato::call('Stripe@CreateStripeAccountTask', [$sanitizedData]);
 
-        $result = Apiato::call('Payment@AssignPaymentAccountToUserTask', [$account, $user, $sanitizedData['nickname']]);
-
-        return $result;
+        return Apiato::call('Payment@AssignPaymentAccountToUserTask', [$account, $user, $sanitizedData['nickname']]);
     }
-
 }

@@ -14,7 +14,6 @@ use Carbon\Laravel\ServiceProvider as LaravelCarbonServiceProvider;
  */
 class MainServiceProvider extends MainProvider
 {
-
     /**
      * Container Service Providers.
      *
@@ -26,9 +25,9 @@ class MainServiceProvider extends MainProvider
     ];
 
     /**
-     * Container Aliases
+     * Container Aliases.
      *
-     * @var  array
+     * @var array
      */
     public $aliases = [
 

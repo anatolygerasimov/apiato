@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Config;
  */
 class CreateStripeCustomerTask extends Task
 {
-
     private $stripe;
 
     /**
@@ -33,22 +32,20 @@ class CreateStripeCustomerTask extends Task
      * @param string $description
      *
      * @return array stripe customer object
+     *
      * @throws StripeApiErrorException
      */
     public function run($email, $description = '')
     {
         try {
-
             $response = $this->stripe->customers()->create([
                 'email'       => $email,
                 'description' => $description,
             ]);
-
         } catch (Exception $e) {
             throw (new StripeApiErrorException('Stripe API error (createCustomer)'))->debug($e->getMessage(), true);
         }
 
         return $response;
     }
-
 }

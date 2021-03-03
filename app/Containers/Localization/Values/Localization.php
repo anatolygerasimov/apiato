@@ -7,20 +7,19 @@ use Illuminate\Support\Facades\Config;
 use Locale;
 
 /**
- * Class Localization
+ * Class Localization.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Localization extends Value
 {
-
     /**
-     * @var  null
+     * @var null
      */
     private $language = null;
 
     /**
-     * @var  array
+     * @var array
      */
     private $regions = [];
 
@@ -45,7 +44,7 @@ class Localization extends Value
     }
 
     /**
-     * @return  string
+     * @return string
      */
     public function getDefaultName()
     {
@@ -53,7 +52,7 @@ class Localization extends Value
     }
 
     /**
-     * @return  string
+     * @return string
      */
     public function getLocaleName()
     {
@@ -61,7 +60,7 @@ class Localization extends Value
     }
 
     /**
-     * @return  null
+     * @return null
      */
     public function getLanguage()
     {
@@ -69,7 +68,7 @@ class Localization extends Value
     }
 
     /**
-     * @return  array
+     * @return array
      */
     public function getRegions()
     {

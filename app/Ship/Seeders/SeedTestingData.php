@@ -5,13 +5,12 @@ namespace App\Ship\Seeders;
 use App\Ship\Parents\Seeders\Seeder;
 
 /**
- * Class SeedTestingData
+ * Class SeedTestingData.
  *
  * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class SeedTestingData extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -21,5 +20,4 @@ class SeedTestingData extends Seeder
     {
         // Create Testing data for live tests
     }
-
 }

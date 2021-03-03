@@ -6,6 +6,6 @@
     "jenssegers/agent": "^2.6.3"
   },
   "require-dev": {
-    "barryvdh/laravel-debugbar": "^3.2.8"
+    "barryvdh/laravel-debugbar": "^3.5"
   }
 }

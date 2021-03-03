@@ -8,7 +8,6 @@ return [
     |--------------------------------------------------------------------------
     */
 
-
     /*
      * The default currency if no currency is passed
      */

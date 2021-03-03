@@ -20,7 +20,7 @@ return [
             'en-US',
         ],
         'zh' => [
-            'zh-CN'
+            'zh-CN',
         ],
         'es',
         'fr',

@@ -15,7 +15,6 @@ use App\Containers\User\Tests\ApiTestCase;
  */
 class DeleteUserTest extends ApiTestCase
 {
-
     protected $endpoint = 'delete@v1/users/{id}';
 
     protected $access = [
@@ -26,7 +25,7 @@ class DeleteUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testDeleteExistingUser_()
+    public function testDeleteExistingUser()
     {
         $user = $this->getTestingUser();
 
@@ -40,7 +39,7 @@ class DeleteUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testDeleteAnotherExistingUser_()
+    public function testDeleteAnotherExistingUser()
     {
         // make the call form the user token who has no access
         $this->getTestingUserWithoutAccess();

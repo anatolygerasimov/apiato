@@ -2,10 +2,10 @@
 
 namespace Apiato\Core\Traits;
 
-use Illuminate\Support\Arr;
 use Apiato\Core\Abstracts\Requests\Request;
 use Apiato\Core\Abstracts\Transporters\Transporter;
 use App\Ship\Exceptions\InternalErrorException;
+use Illuminate\Support\Arr;
 
 /**
  * Class SanitizerTrait.
@@ -15,7 +15,6 @@ use App\Ship\Exceptions\InternalErrorException;
  */
 trait SanitizerTrait
 {
-
     /**
      * Sanitizes the data of a request. This is a superior version of php built-in array_filter() as it preserves
      * FALSE and NULL values as well.
@@ -36,13 +35,12 @@ trait SanitizerTrait
         }
 
         // check, if the keys exist in both arrays
-        $data = $this->recursiveArrayIntersectKey($data, $search);
-
-        return $data;
+        return $this->recursiveArrayIntersectKey($data, $search);
     }
 
     /**
      * @return array
+     *
      * @throws InternalErrorException
      */
     private function getData()
