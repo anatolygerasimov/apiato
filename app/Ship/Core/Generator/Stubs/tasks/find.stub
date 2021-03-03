@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{container-name}}\Tasks;
+
+use App\Containers\{{container-name}}\Data\Repositories\{{model}}Repository;
+use App\Containers\{{container-name}}\Models\{{model}};
+use App\Ship\Criterias\Eloquent\ThisUserCriteria;
+use App\Ship\Exceptions\NotFoundException;
+use App\Ship\Parents\Tasks\Task;
+use Exception;
+
+class Find{{model}}ByIdTask extends Task
+{
+    /**
+     * @var {{model}}Repository
+     */
+    protected $repository;
+
+    public function __construct({{model}}Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function run(int $id): ?{{model}}
+    {
+        try {
+            return $this->repository->find($id);
+        } catch (Exception $exception) {
+            throw new NotFoundException();
+        }
+    }
+
+    /**
+     * @return {{model}}Repository
+     * @throws RepositoryException
+     */
+    public function filterByUser(): {{model}}Repository
+    {
+        return $this->repository->pushCriteria(app(ThisUserCriteria::class));
+    }
+}

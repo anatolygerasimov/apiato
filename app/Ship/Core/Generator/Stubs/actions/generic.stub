@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{container-name}}\Actions;
+
+use App\Ship\Parents\Actions\Action;
+use App\Ship\Core\Foundation\Facades\Apiato;
+
+class {{class-name}} extends Action
+{
+    public function run()
+    {
+        // $var = Apiato::call('Container@Task', [$arg1, $arg2, ...]);
+    }
+}

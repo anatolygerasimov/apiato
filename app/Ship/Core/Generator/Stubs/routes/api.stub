@@ -1,0 +1,96 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @api                {{{doc-http-verb}}} {{doc-endpoint-url}} Endpoint title here.
+ * @apiVersion         {{endpoint-version}}.0.0
+ * @apiName            {{operation}}
+ * @apiGroup           {{container-name}}
+ * @apiPermission      none
+ *
+ * @apiDescription     Endpoint description here.
+ *
+ * @apiHeader          {String} ContentType=application/json;charset=UTF-8 ContentType
+ * @apiHeader          {String} Accept=application/json;charset=UTF-8 Accept
+ * @apiHeader          {String} Authorization The token can be generated from your user.
+ * @apiHeaderExample   {json} headerExample:
+ *    {
+ *        "Content-Type": "application/json;charset=UTF-8",
+ *        "Accept": "application/json;charset=UTF-8",
+ *        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiO......"
+ *    }
+ *
+ * @apiParam           {Number} id Users unique ID.
+ * @apiParam           {String} name="default" Some description
+ * @apiParam           {String}  parameters here.
+ *
+ * @apiParam (Query string) {String} search Searched value in. Eg:
+ * ```
+ * ?search=is_active:true
+ * ```
+ * @apiParam (Query string) {String} searchFields : Fields in which research should be carried out in. Eg:
+ * ```
+ * ?search=lorem&searchFields=name;email
+ * ?search=lorem&searchFields=name:like;email
+ * ```
+ * @apiParam (Query string) {String} filter Provide only the database fields where you are interested in. Eg:
+ * ```
+ * ?filter=id,name
+ * ```
+ * @apiParam (Query string) {String} orderBy Order either ascending (ASC) or descending (DESC). Eg:
+ * ```
+ * ?orderBy=id&sortedBy=desc
+ * ```
+ * @apiParam (Query string) {String} searchJoin Specifies the search method (AND / OR), by default the
+ * application searches each parameter with OR. Eg:
+ * ```
+ * ?search=lorem&searchJoin=and
+ * ```
+ * @apiParam (Query string) {String} include Specifies the nested response. Eg:
+ * ```
+ * ?include=users;factors.checklists.questions
+ * ```
+ *
+ * @apiSuccessExample  {json} Success-Response:
+ *    HTTP/1.1 200 OK
+ *    {
+ *        "data": [
+ *            {
+ *                "object": "{{container-name}}",
+ *                "id": ""
+ *              // Insert the response of the request here..
+ *            }
+ *        ],
+ *        "meta": {
+ *            "include": [],
+ *            "custom": []
+ *        }
+ *    }
+ *
+ * @apiError            NoAccessRight An Exception occurred when trying to authenticate the User.
+ * @apiError            InvalidData The given data was invalid.
+ * @apiError            UserNotFound  The <code>id</code> of the User was not found.
+ * @apiError            InternalServerError (500 Internal Server Error) The server encountered an internal error
+ *
+ * @apiErrorExample     {json} Error-Response:
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "message": "NoAccessRight"
+ *     }
+ *
+ * @apiErrorExample      {json} Error-Response:
+ *     HTTP/1.1 422 Unprocessable Entity
+ *     {
+ *       "message": "InvalidData"
+ *     }
+ */
+
+/** @var Route $router */
+$router->{{http-verb}}('{{endpoint-url}}', [
+    'as'         => '{{route-name}}',
+    'uses'       => 'Controller@{{operation}}',
+    'middleware' => [
+      'auth:{{auth-middleware}}',
+    ],
+]);

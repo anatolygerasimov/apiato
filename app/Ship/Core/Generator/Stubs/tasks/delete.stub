@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{container-name}}\Tasks;
+
+use App\Containers\{{container-name}}\Data\Repositories\{{model}}Repository;
+use App\Ship\Criterias\Eloquent\ThisUserCriteria;
+use App\Ship\Exceptions\DeleteResourceFailedException;
+use App\Ship\Parents\Tasks\Task;
+use Exception;
+
+class Delete{{model}}Task extends Task
+{
+    /**
+     * @var {{model}}Repository
+     */
+    protected $repository;
+
+    public function __construct({{model}}Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function run(int $id): bool
+    {
+        try {
+            return (bool)$this->repository->delete($id);
+        } catch (Exception $exception) {
+            throw new DeleteResourceFailedException();
+        }
+    }
+
+    /**
+     * @return {{model}}Repository
+     * @throws RepositoryException
+     */
+    public function filterByUser(): {{model}}Repository
+    {
+        return $this->repository->pushCriteria(app(ThisUserCriteria::class));
+    }
+}

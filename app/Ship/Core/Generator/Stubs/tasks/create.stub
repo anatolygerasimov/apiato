@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{container-name}}\Tasks;
+
+use App\Containers\{{container-name}}\Data\Repositories\{{model}}Repository;
+use App\Containers\{{container-name}}\Models\{{model}};
+use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Tasks\Task;
+use Exception;
+
+class Create{{model}}Task extends Task
+{
+    /**
+     * @var {{model}}Repository
+     */
+    protected $repository;
+
+    public function __construct({{model}}Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function run(array $data): {{model}}
+    {
+        try {
+            return $this->repository->create($data);
+        } catch (Exception $exception) {
+            throw new CreateResourceFailedException();
+        }
+    }
+}

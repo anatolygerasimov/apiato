@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Containers\{{container-name}}\Models\{{container-name}};
+use App\Ship\Core\Foundation\Facades\Apiato;
+use Illuminate\Database\Eloquent\Factory;
+
+/**
+ * @var Factory $factory
+ */
+$factory->define({{container-name}}::class, function (Faker\Generator $faker) {
+    return [
+        'name'        => $faker->name,
+        'description' => $faker->sentence,
+    ];
+});

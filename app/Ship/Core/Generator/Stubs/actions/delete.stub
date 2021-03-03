@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{container-name}}\Actions;
+
+use App\Ship\Parents\Actions\Action;
+use App\Containers\{{container-name}}\Data\Transporters\Delete{{model}}Transporter;
+use App\Ship\Core\Foundation\Facades\Apiato;
+
+class Delete{{model}}Action extends Action
+{
+    public function run(Delete{{model}}Transporter ${{entity}}Data)
+    {
+        return Apiato::call('{{container-name}}@Delete{{model}}Task', [${{entity}}Data->id]);
+    }
+}

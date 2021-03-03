@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+/** @var Route $router */
+$router->{{http-verb}}('{{endpoint-url}}', [
+    'as'         => '{{route-name}}',
+    'uses'       => 'Controller@{{operation}}',
+    'middleware' => [
+      'auth:{{auth-middleware}}',
+    ],
+]);

@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{container-name}}\Actions;
+
+use App\Ship\Parents\Actions\Action;
+use App\Containers\{{container-name}}\Data\Transporters\Find{{model}}ByIdTransporter;
+use App\Ship\Core\Foundation\Facades\Apiato;
+
+class Find{{model}}ByIdAction extends Action
+{
+    public function run(Find{{model}}ByIdTransporter ${{entity}}Data)
+    {
+        ${{entity}} = Apiato::call('{{container-name}}@Find{{model}}ByIdTask', [${{entity}}Data->id]);
+
+        return ${{entity}};
+    }
+}
