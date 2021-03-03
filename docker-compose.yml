@@ -1,0 +1,77 @@
+version: '3'
+services:
+
+  # Redis Service
+  viator_redis:
+    image: redis:5.0-alpine
+    container_name: viator_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker/volumes/redis:/data
+    networks:
+      - app-network
+
+  # MySQL Service
+  viator_mysql:
+    image: mysql:5.7
+    container_name: viator_mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./docker/volumes/mysql:/var/lib/mysql
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: viator_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    networks:
+      - app-network
+
+  # Php-FPM Service
+  viator_app:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+      target: viator_app_dev
+    container_name: viator_app
+    env_file: .env
+    volumes:
+      - ./:/var/www/html
+    restart: always
+    depends_on:
+      - viator_redis
+      - viator_mysql
+    environment:
+      CONTAINER_ROLE: app
+      APP_ENV: local
+#      COMPOSER_ALLOW_SUPERUSER: 1
+    networks:
+      - app-network
+
+  #Nginx Service
+  viator_nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+      target: viator_nginx
+    container_name: viator_nginx
+    environment:
+      API_HOST: viator_app
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - viator_app
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
