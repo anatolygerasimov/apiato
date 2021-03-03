@@ -2,12 +2,10 @@
 
 namespace App\Ship\Parents\Providers;
 
-use Apiato\Core\Abstracts\Providers\MainProvider as AbstractMainProvider;
+use App\Ship\Core\Abstracts\Providers\MainProvider as AbstractMainProvider;
 
 /**
  * Class MainProvider.
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 abstract class MainProvider extends AbstractMainProvider
 {

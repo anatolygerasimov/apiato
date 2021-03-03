@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Containers\{{container-name}}\Data\Seeders;
+
+use App\Ship\Core\Foundation\Facades\Apiato;
+use App\Ship\Parents\Seeders\Seeder;
+
+/**
+ * Class {{class-name}}
+ */
+class {{class-name}} extends Seeder
+{
+    public function run()
+    {
+        Apiato::call('Container@CreateContainerTask', [
+            'some_data',
+            'some_data 2',
+        ]);
+    }
+}

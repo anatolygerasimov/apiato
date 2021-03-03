@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            createRole
@@ -15,6 +19,8 @@
  *
  * @apiUse             RoleSuccessSingleResponse
  */
+
+/** @var Route $router */
 $router->post('roles', [
     'as'         => 'api_authorization_create_role',
     'uses'       => 'Controller@createRole',

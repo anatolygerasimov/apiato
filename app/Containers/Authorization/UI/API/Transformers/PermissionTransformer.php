@@ -7,22 +7,24 @@ use App\Ship\Parents\Transformers\Transformer;
 
 /**
  * Class PermissionTransformer.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class PermissionTransformer extends Transformer
 {
+    /**
+     * @var mixed[]
+     */
     protected $availableIncludes = [
 
     ];
 
+    /**
+     * @var mixed[]
+     */
     protected $defaultIncludes = [
 
     ];
 
     /**
-     * @param \App\Containers\Authorization\Models\Permission $permission
-     *
      * @return array
      */
     public function transform(Permission $permission)

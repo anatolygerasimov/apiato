@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authorization\Data\Seeders;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Seeders\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 /**
  * Class AuthorizationRolesSeeder_2.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class AuthorizationRolesSeeder_2 extends Seeder
 {
@@ -20,8 +21,11 @@ class AuthorizationRolesSeeder_2 extends Seeder
     public function run()
     {
         // Default Roles ----------------------------------------------------------------
-        Apiato::call('Authorization@CreateRoleTask', ['admin', 'Administrator', 'Administrator Role', 999]);
+        Apiato::call('Authorization@CreateRoleTask', ['admin', 'Administrator', 'Administrator Role', 'web', 999]);
+        Apiato::call('Authorization@CreateRoleTask', ['user', 'User', 'User Role', 'web', 100]);
 
-        // ...
+        //Give all system Permissions to a user Role.
+        Artisan::call('blocks:permissions:toRole admin web');
+//        Artisan::call('blocks:permissions:toRole user web');
     }
 }

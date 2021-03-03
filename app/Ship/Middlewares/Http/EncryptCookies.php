@@ -5,11 +5,9 @@ namespace App\Ship\Middlewares\Http;
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
 /**
- * Class EncryptCookies.
+ * Class EncryptCookies
  *
  * A.K.A app/Http/Middleware/EncryptCookies.php
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class EncryptCookies extends Middleware
 {
@@ -21,4 +19,5 @@ class EncryptCookies extends Middleware
     protected $except = [
         //
     ];
+
 }

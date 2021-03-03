@@ -8,12 +8,10 @@ use App\Ship\Parents\Tasks\Task;
 
 /**
  * Class FindPermissionTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class FindPermissionTask extends Task
 {
-    protected $repository;
+    protected PermissionRepository $repository;
 
     public function __construct(PermissionRepository $repository)
     {
@@ -21,11 +19,9 @@ class FindPermissionTask extends Task
     }
 
     /**
-     * @param $permissionNameOrId
-     *
-     * @return Permission
+     * @param string|int $permissionNameOrId
      */
-    public function run($permissionNameOrId): Permission
+    public function run($permissionNameOrId): ?Permission
     {
         $query = is_numeric($permissionNameOrId) ? ['id' => $permissionNameOrId] : ['name' => $permissionNameOrId];
 

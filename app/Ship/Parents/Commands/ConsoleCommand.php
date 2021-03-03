@@ -2,13 +2,12 @@
 
 namespace App\Ship\Parents\Commands;
 
-use Apiato\Core\Abstracts\Commands\ConsoleCommand as AbstractConsoleCommand;
+use App\Ship\Core\Abstracts\Commands\ConsoleCommand as AbstractConsoleCommand;
 
 /**
- * Class ConsoleCommand.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * Class ConsoleCommand
  */
 abstract class ConsoleCommand extends AbstractConsoleCommand
 {
+
 }

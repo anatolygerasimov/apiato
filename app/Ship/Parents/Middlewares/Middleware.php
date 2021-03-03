@@ -2,13 +2,12 @@
 
 namespace App\Ship\Parents\Middlewares;
 
-use Apiato\Core\Abstracts\Middlewares\Middleware as AbstractMiddleware;
+use App\Ship\Core\Abstracts\Middlewares\Middleware as AbstractMiddleware;
 
 /**
- * Class Middleware.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * Class Middleware
  */
 abstract class Middleware extends AbstractMiddleware
 {
+
 }

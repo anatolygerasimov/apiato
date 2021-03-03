@@ -2,20 +2,20 @@
 
 namespace App\Ship\Exceptions\Builders;
 
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
 /**
- * Class ExceptionBuilder.
- *
- * @author Johannes Schobel <johannes.schobel@googlemail.com>
+ * Class ExceptionBuilder
  */
 class ExceptionBuilder
 {
+
     /**
-     * @param \Exception $e
+     * @param Exception|Throwable $e
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return  JsonResponse
      */
     public static function make(Throwable $e)
     {

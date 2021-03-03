@@ -22,8 +22,8 @@ return [
     'paths' => ['api/*'],
 
     /*
-     * Matches the request method. `[*]` allows all methods.
-     */
+    * Matches the request method. `[*]` allows all methods.
+    */
     'allowed_methods' => ['*'],
 
     /*
@@ -39,17 +39,17 @@ return [
     /*
      * Sets the Access-Control-Allow-Headers response header. `[*]` allows all headers.
      */
-    'allowed_headers' => ['*'],   // ['Content-Type', 'Authorization', 'Accept'],
+    'allowed_headers' => ['*'],   # ['Content-Type', 'Authorization', 'Accept'],
 
     /*
      * Sets the Access-Control-Expose-Headers response header.
      */
-    'exposed_headers' => false,
+    'exposed_headers' => [],
 
     /*
      * Sets the Access-Control-Max-Age response header.
      */
-    'max_age' => false,
+    'max_age' => 0,
 
     /*
      * Sets the Access-Control-Allow-Credentials header.

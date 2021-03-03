@@ -3,13 +3,13 @@
 namespace App\Ship\Criterias\Eloquent;
 
 use App\Ship\Parents\Criterias\Criteria;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
- * Class OrderByFieldCriteria.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
+ * Class OrderByFieldCriteria
  */
 class OrderByFieldCriteria extends Criteria
 {
@@ -23,7 +23,7 @@ class OrderByFieldCriteria extends Criteria
      * @param string $field     The field to be sorted
      * @param string $sortOrder the sort direction (asc or desc)
      */
-    public function __construct($field, $sortOrder)
+    public function __construct(string $field, string $sortOrder)
     {
         $this->field = $field;
 
@@ -34,7 +34,7 @@ class OrderByFieldCriteria extends Criteria
         ];
 
         // check if the value is available, otherwise set "default" sort order to ascending!
-        if (! array_search($sortOrder, $availableDirections)) {
+        if (!array_search($sortOrder, $availableDirections)) {
             $sortOrder = 'asc';
         }
 
@@ -42,8 +42,8 @@ class OrderByFieldCriteria extends Criteria
     }
 
     /**
-     * @param                                                   $model
-     * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
+     * @param Builder|Model              $model
+     * @param PrettusRepositoryInterface $repository
      *
      * @return mixed
      */

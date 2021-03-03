@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authentication\UI\API\Tests\Functional;
 
 use App\Containers\Authentication\Exceptions\RefreshTokenMissedException;
 use App\Containers\Authentication\Tests\ApiTestCase;
-use Config;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -12,24 +13,28 @@ use Illuminate\Support\Facades\DB;
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class ProxyRefreshTest extends ApiTestCase
 {
-    protected $endpoint = 'post@v1/clients/web/admin/refresh';
+    /**
+     * @var string
+     */
+    protected $endpoint = 'post@v1/refresh';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'permissions' => '',
         'roles'       => '',
     ];
 
-    private $testingFilesCreated = false;
+    private bool $testingFilesCreated = false;
 
     /**
      * @test
      */
-    public function testRefreshWithoutBeingCreatedOrPassed()
+    public function testRefreshWithoutBeingCreatedOrPassed(): void
     {
         $user = $this->getTestingUser([
             'email'    => 'testing@mail.com',
@@ -55,8 +60,8 @@ class ProxyRefreshTest extends ApiTestCase
         ]);
 
         // make the clients credentials available as env variables
-        Config::set('authentication-container.clients.web.admin.id', $clientId);
-        Config::set('authentication-container.clients.web.admin.secret', $clientSecret);
+        config(['authentication-container.clients.api.user.id' => $clientId]);
+        config(['authentication-container.clients.api.user.secret' => $clientSecret]);
 
         // create testing oauth keys files
         $publicFilePath  = $this->createTestingKey('oauth-public.key');
@@ -80,12 +85,7 @@ class ProxyRefreshTest extends ApiTestCase
         }
     }
 
-    /**
-     * @param $fileName
-     *
-     * @return string
-     */
-    private function createTestingKey($fileName)
+    private function createTestingKey(string $fileName): string
     {
         $filePath = storage_path($fileName);
 

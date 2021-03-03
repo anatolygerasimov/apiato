@@ -2,14 +2,13 @@
 
 namespace App\Ship\Parents\Tests\PhpUnit;
 
-use Apiato\Core\Abstracts\Tests\PhpUnit\TestCase as AbstractTestCase;
+use App\Ship\Core\Abstracts\Tests\PhpUnit\TestCase as AbstractTestCase;
 use Faker\Generator;
 use Illuminate\Contracts\Console\Kernel as ApiatoConsoleKernel;
+use Illuminate\Foundation\Application;
 
 /**
- * Class TestCase.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * Class TestCase
  */
 abstract class TestCase extends AbstractTestCase
 {
@@ -34,14 +33,11 @@ abstract class TestCase extends AbstractTestCase
     /**
      * Creates the application.
      *
-     * @return \Illuminate\Foundation\Application
+     * @return Application
      */
     public function createApplication()
     {
         $this->baseUrl = env('API_FULL_URL'); // this reads the value from `phpunit.xml` during testing
-
-        // override the default subDomain of the base URL when subDomain property is declared inside a test
-        $this->overrideSubDomain();
 
         $app = require __DIR__ . '/../../../../../bootstrap/app.php';
 

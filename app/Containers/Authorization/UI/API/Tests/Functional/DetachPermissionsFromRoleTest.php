@@ -11,13 +11,17 @@ use App\Containers\Authorization\Tests\ApiTestCase;
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class DetachPermissionsFromRoleTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'post@v1/permissions/detach';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-roles',
@@ -26,7 +30,7 @@ class DetachPermissionsFromRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testDetachSinglePermissionFromRole()
+    public function testDetachSinglePermissionFromRole(): void
     {
         $permissionA = factory(Permission::class)->create();
 
@@ -56,7 +60,7 @@ class DetachPermissionsFromRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testDetachMultiplePermissionFromRole()
+    public function testDetachMultiplePermissionFromRole(): void
     {
         $permissionA = factory(Permission::class)->create();
         $permissionB = factory(Permission::class)->create();
@@ -81,6 +85,10 @@ class DetachPermissionsFromRoleTest extends ApiTestCase
 
         $this->assertDatabaseMissing('role_has_permissions', [
             'permission_id' => $permissionA->id,
+            'role_id'       => $roleA->id,
+        ]);
+
+        $this->assertDatabaseMissing('role_has_permissions', [
             'permission_id' => $permissionB->id,
             'role_id'       => $roleA->id,
         ]);

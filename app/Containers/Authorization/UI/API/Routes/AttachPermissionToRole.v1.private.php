@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            attachPermissionToRole
@@ -19,6 +23,8 @@
  *
  * @apiUse             RoleSuccessSingleResponse
  */
+
+/** @var Route $router */
 $router->post('permissions/attach', [
     'as'         => 'api_authorization_attach_permission_to_role',
     'uses'       => 'Controller@attachPermissionToRole',

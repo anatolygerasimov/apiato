@@ -1,33 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authentication\Tasks;
 
 use App\Ship\Parents\Tasks\Task;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Cookie\CookieJar;
+use Symfony\Component\HttpFoundation\Cookie;
 
 /**
  * Class MakeRefreshCookieTask.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class MakeRefreshCookieTask extends Task
 {
     /**
-     * @param $refreshToken
+     * @link https://www.chromestatus.com/feature/5633521622188032
      *
-     * @return \Symfony\Component\HttpFoundation\Cookie
+     * @return Cookie|CookieJar
      */
-    public function run($refreshToken)
+    public function run(?string $refreshToken)
     {
         // Save the refresh token in a HttpOnly cookie to minimize the risk of XSS attacks
         return cookie(
             'refreshToken',
             $refreshToken,
-            Config::get('apiato.api.refresh-expires-in'),
-            null,
-            null,
-            false,
-            true // HttpOnly
+            config('apiato.api.refresh-expires-in'),
+            config('session.path'),
+            config('session.domain'),
+            config('app.env') === 'local' ? false : config('session.secure'),
+            config('session.http_only'),
+            config('session.raw'),
+            config('session.same_site'),
         );
     }
 }

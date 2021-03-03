@@ -1,12 +1,14 @@
 <?php
 
-// User
+declare(strict_types=1);
+
 use App\Containers\Authorization\Models\Role;
+use Faker\Generator;
+use Illuminate\Database\Eloquent\Factory;
 
-$factory->define(Role::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->slug,
-    ];
-});
-
-// ...
+/**
+ * @var Factory $factory
+ */
+$factory->define(Role::class, fn (Generator $faker) => [
+    'name' => $faker->slug,
+]);

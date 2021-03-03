@@ -9,13 +9,17 @@ use App\Containers\Authorization\Tests\ApiTestCase;
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllPermissionsTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'get@v1/permissions';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-roles',
@@ -24,7 +28,7 @@ class GetAllPermissionsTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllPermissions()
+    public function testGetAllPermissions(): void
     {
         // send the HTTP request
         $response = $this->makeCall();

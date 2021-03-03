@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            deleteRole
@@ -16,6 +20,8 @@
  * "message": "Role (manager) Deleted Successfully."
  * }
  */
+
+/** @var Route $router */
 $router->delete('roles/{id}', [
     'as'         => 'api_authorization_delete_role',
     'uses'       => 'Controller@deleteRole',

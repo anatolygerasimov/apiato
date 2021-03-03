@@ -7,12 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UserNotAdminException.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class UserNotAdminException extends Exception
 {
-    public $httpStatusCode = Response::HTTP_FORBIDDEN;
+    public int $httpStatusCode = Response::HTTP_FORBIDDEN;
 
+    /**
+     * @var string
+     */
     public $message = 'This User does not have an Admin permission.';
 }

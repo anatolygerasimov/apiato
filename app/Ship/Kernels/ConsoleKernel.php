@@ -6,11 +6,9 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as LaravelConsoleKernel;
 
 /**
- * Class ConsoleKernel.
+ * Class ConsoleKernel
  *
  * A.K.A (app/Console/Kernel.php)
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class ConsoleKernel extends LaravelConsoleKernel
 {
@@ -26,15 +24,16 @@ class ConsoleKernel extends LaravelConsoleKernel
     ];
 
     /**
+     * @FIXME : change it in prod
      * Define the application's command schedule.
      *
-     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param Schedule $schedule
      *
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // $schedule->command('passport:purge')->hourly();
     }
 
     /**

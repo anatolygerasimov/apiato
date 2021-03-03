@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'require_email_confirmation' => false,
+    'require_email_confirmation' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -24,16 +24,15 @@ return [
     */
 
     'clients' => [
-        'web' => [
-            'admin' => [
-                'id'     => env('CLIENT_WEB_ADMIN_ID'),
-                'secret' => env('CLIENT_WEB_ADMIN_SECRET'),
+        'api'      => [
+            'user' => [
+                'id'     => env('CLIENT_API_USER_ID'),
+                'secret' => env('CLIENT_API_USER_SECRET'),
             ],
         ],
-        'mobile' => [
-            'admin' => [
-                'id'     => env('CLIENT_MOBILE_ADMIN_ID'),
-                'secret' => env('CLIENT_MOBILE_ADMIN_SECRET'),
+        'api_pkce' => [
+            'user' => [
+                'id' => env('CLIENT_PKCE_API_USER_ID'),
             ],
         ],
 
@@ -61,7 +60,7 @@ return [
         |
         | The order determines the order the fields are tested to login (in case multiple fields are submitted!
         |
-        | Example: 'phone' => ['string', 'min:6', 'max:25'],
+        | Example: 'username' => ['string', 'min:2', 'max:100'],
         |
         */
 

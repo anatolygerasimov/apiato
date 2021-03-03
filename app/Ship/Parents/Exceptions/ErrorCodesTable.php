@@ -2,13 +2,12 @@
 
 namespace App\Ship\Parents\Exceptions;
 
-use Apiato\Core\Abstracts\Exceptions\ErrorCodesTable as AbstractErrorCodesTable;
+use App\Ship\Core\Abstracts\Exceptions\ErrorCodesTable as AbstractErrorCodesTable;
 
 /**
- * Class ErrorCodesTable.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
+ * Class ErrorCodesTable
  */
 abstract class ErrorCodesTable extends AbstractErrorCodesTable
 {
+
 }

@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            getRole
@@ -11,6 +15,8 @@
  *
  * @apiUse             RoleSuccessSingleResponse
  */
+
+/** @var Route $router */
 $router->get('roles/{id}', [
     'as'         => 'api_authorization_get_role',
     'uses'       => 'Controller@findRole',

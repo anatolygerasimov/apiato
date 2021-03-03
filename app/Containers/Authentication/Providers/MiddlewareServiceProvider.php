@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authentication\Providers;
 
 use App\Containers\Authentication\Middlewares\WebAuthentication;
@@ -7,18 +9,15 @@ use App\Ship\Parents\Providers\MiddlewareProvider;
 
 /**
  * Class MiddlewareServiceProvider.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class MiddlewareServiceProvider extends MiddlewareProvider
 {
     /**
-     * Register Middleware's.
+     * Register Middlewares.
      *
      * @var array
      */
     protected $middlewares = [
-        // ..
     ];
 
     /**
@@ -28,17 +27,19 @@ class MiddlewareServiceProvider extends MiddlewareProvider
      */
     protected $middlewareGroups = [
         'web' => [
-            // ..
+
         ],
         'api' => [
-            // ..
+
         ],
     ];
 
+    /**
+     * Blocks User Authentication middleware for Web Pages.
+     *
+     * @var array<array-key, string>
+     */
     protected $routeMiddleware = [
-        // apiato User Authentication middleware for Web Pages
         'auth:web' => WebAuthentication::class,
-
-        // ..
     ];
 }

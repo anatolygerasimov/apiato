@@ -3,43 +3,35 @@
 namespace App\Ship\Criterias\Eloquent;
 
 use App\Ship\Parents\Criterias\Criteria;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
  * Class ThisUserCriteria.
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class ThisUserCriteria extends Criteria
 {
-    /**
-     * @var int
-     */
-    private $userId;
+    private ?int $userId = null;
 
-    /**
-     * ThisUserCriteria constructor.
-     *
-     * @param $userId
-     */
-    public function __construct($userId = null)
+    public function __construct(?int $userId = null)
     {
         $this->userId = $userId;
     }
 
     /**
-     * @param                                                   $model
-     * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
+     * @param Builder|Model              $model
+     * @param PrettusRepositoryInterface $repository
      *
      * @return mixed
      */
     public function apply($model, PrettusRepositoryInterface $repository)
     {
-        if (!$this->userId) {
-            $this->userId = Auth::user()->id;
-        }
+        $this->userId ??= Auth::user()->id;
 
-        return $model->where('user_id', '=', $this->userId);
+        $table = $model->getModel()->getTable();
+
+        return $model->where("{$table}.user_id", '=', $this->userId);
     }
 }

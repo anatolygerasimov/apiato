@@ -6,20 +6,23 @@ use App\Containers\Authorization\Models\Role;
 use App\Containers\Authorization\Tests\ApiTestCase;
 use App\Containers\User\Models\User;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class AssignUserToRoleTest.
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class AssignUserToRoleTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'post@v1/roles/assign?include=roles';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-admins-access',
@@ -28,7 +31,7 @@ class AssignUserToRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testAssignUserToRole()
+    public function testAssignUserToRole(): void
     {
         $randomUser = factory(User::class)->create();
 
@@ -55,7 +58,7 @@ class AssignUserToRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testAssignUserToRoleWithRealId()
+    public function testAssignUserToRoleWithRealId(): void
     {
         $randomUser = factory(User::class)->create();
 
@@ -70,7 +73,7 @@ class AssignUserToRoleTest extends ApiTestCase
         $response = $this->makeCall($data);
 
         // assert response status is correct. Note: this will return 200 if `HASH_ID=false` in the .env
-        if (Config::get('apiato.hash-id')) {
+        if (config('apiato.hash-id')) {
             $response->assertStatus(400);
 
             $this->assertResponseContainKeyValue([
@@ -84,7 +87,7 @@ class AssignUserToRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testAssignUserToManyRoles()
+    public function testAssignUserToManyRoles(): void
     {
         $randomUser = factory(User::class)->create();
 

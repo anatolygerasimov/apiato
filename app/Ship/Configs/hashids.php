@@ -1,16 +1,5 @@
 <?php
 
-/*
- * This file is part of Laravel Hashids.
- *
- * (c) Vincent Klaiber <hello@vinkla.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-declare(strict_types=1);
-
 return [
 
     /*
@@ -46,9 +35,9 @@ return [
         ],
 
         'alternative' => [
-            'salt'     => 'your-salt-string',
-            'length'   => 'your-length-integer',
-            'alphabet' => 'your-alphabet-string',
+            'salt'     => '!@#$%^&*',
+            'length'   => env('HASH_ID_LENGTH', 32),
+            'alphabet' => 'tjcy47ptnisxuycvh6utt7n3sc9s5wix',
         ],
 
     ],

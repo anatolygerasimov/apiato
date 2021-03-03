@@ -1,30 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authorization\UI\CLI\Commands;
 
-use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Authorization\Exceptions\RoleNotFoundException;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Commands\ConsoleCommand;
 
 /**
  * Class GiveAllPermissionsToRoleCommand.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class GiveAllPermissionsToRoleCommand extends ConsoleCommand
 {
-    protected $signature = 'apiato:permissions:toRole {role}';
+    /**
+     * @var string
+     */
+    protected $signature = 'blocks:permissions:toRole {role} {guard?}';
 
-    protected $description = 'Give all system Permissions to a specific Role.';
+    /**
+     * @var string
+     */
+    protected $description = 'Give all system Permissions to a specific Role and Guard.';
 
     /**
      * @void
      */
-    public function handle()
+    public function handle(): void
     {
-        $roleName = $this->argument('role');
+        /** @var string $roleName */
+        $roleName  = $this->argument('role');
+        $guardName = $this->argument('guard') ?? config('auth.defaults.guard');
 
-        $allPermissions = Apiato::call('Authorization@GetAllPermissionsTask', [true]);
+        $allPermissions = Apiato::call('Authorization@GetAllPermissionsTask', [true], [['filterByGuard' => [$guardName]]]);
 
         $role = Apiato::call('Authorization@FindRoleTask', [$roleName]);
 
@@ -32,9 +40,12 @@ class GiveAllPermissionsToRoleCommand extends ConsoleCommand
             throw new RoleNotFoundException("Role $roleName is not found!");
         }
 
-        $role->syncPermissions($allPermissionsNames = $allPermissions->pluck('name')->toArray());
+        $allPermissionsNames = $allPermissions->pluck('name')->toArray();
 
-        $this->info('Gave the Role (' . $roleName . ') the following Permissions: ' . implode(' - ',
-                $allPermissionsNames) . '.');
+        $role->syncPermissions($allPermissionsNames);
+
+        $permissionsString = implode(' - ', $allPermissionsNames);
+
+        $this->info("Gave the Role ({$roleName}) the following Permissions: {$permissionsString}.");
     }
 }

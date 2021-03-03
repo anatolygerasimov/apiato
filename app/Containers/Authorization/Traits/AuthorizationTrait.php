@@ -2,17 +2,18 @@
 
 namespace App\Containers\Authorization\Traits;
 
+use App\Containers\User\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AuthorizationTrait.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 trait AuthorizationTrait
 {
     /**
-     * @return \App\Containers\User\Models\User|null
+     * @return Authenticatable|null
      */
     public function getUser()
     {
@@ -20,11 +21,19 @@ trait AuthorizationTrait
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function hasAdminRole()
     {
         return $this->hasRole('admin');
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasUserRole()
+    {
+        return $this->hasRole('user');
     }
 
     /**
@@ -34,6 +43,9 @@ trait AuthorizationTrait
      */
     public function getRoleLevel()
     {
-        return ($role = $this->roles()->orderBy('level', 'DESC')->first()) ? $role->level : 0;
+        /** @var MorphToMany $roles */
+        $roles = $this->roles();
+
+        return ($role = $roles->orderBy('level', 'desc')->first()) ? $role->level : 0;
     }
 }

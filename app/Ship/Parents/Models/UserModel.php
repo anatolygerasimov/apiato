@@ -2,25 +2,29 @@
 
 namespace App\Ship\Parents\Models;
 
-use Apiato\Core\Abstracts\Models\UserModel as AbstractUserModel;
-use Apiato\Core\Traits\HashIdTrait;
-use Apiato\Core\Traits\HasResourceKeyTrait;
+use App\Ship\Core\Abstracts\Models\UserModel as AbstractUserModel;
+use App\Ship\Core\Traits\EagerLoadPivotTrait;
+use App\Ship\Core\Traits\HashIdTrait;
+use App\Ship\Core\Traits\HasResourceKeyTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class UserModel.
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 abstract class UserModel extends AbstractUserModel
 {
-    use HasApiTokens;
-    use HashIdTrait;
-    use HasResourceKeyTrait;
-    use HasRoles;
     use Notifiable;
     use SoftDeletes;
+    use HashIdTrait;
+    use HasRoles;
+    use HasApiTokens;
+    use HasResourceKeyTrait;
+    use HasFactory;
+    use EagerLoadPivotTrait;
+    use HasRelationships;
 }

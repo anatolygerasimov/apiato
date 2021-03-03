@@ -50,13 +50,20 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | The current version of the Apiato API.
+        |--------------------------------------------------------------------------
+        */
+        'version'                         => 'v1',
+
+        /*
+        |--------------------------------------------------------------------------
         | Access Token Expiration
         |--------------------------------------------------------------------------
         |
         | In Minutes. Default to 1,440 minutes = 1 day
         |
         */
-        'expires-in'             => env('API_TOKEN_EXPIRES', 1440),
+        'expires-in'                      => env('API_TOKEN_EXPIRES', 10),
 
         /*
         |--------------------------------------------------------------------------
@@ -66,7 +73,7 @@ return [
         | In Minutes. Default to 43,200 minutes = 30 days
         |
         */
-        'refresh-expires-in'     => env('API_REFRESH_TOKEN_EXPIRES', 43200),
+        'refresh-expires-in'              => env('API_REFRESH_TOKEN_EXPIRES', 14400),
 
         /*
         |--------------------------------------------------------------------------
@@ -84,7 +91,28 @@ return [
         | Enable/Disable Implicit Grant
         |--------------------------------------------------------------------------
         */
-        'enabled-implicit-grant' => env('API_ENABLE_IMPLICIT_GRANT', true),
+        'enabled-implicit-grant'          => env('API_ENABLE_IMPLICIT_GRANT', false),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Enable/Disable Client Secret Hashing
+        |--------------------------------------------------------------------------
+        */
+        'enabled-client-secret-hashing'   => env('API_ENABLE_CLIENT_SECRET_HASHING', false),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Enable/Disable Authorization Code Grant with PKCE for First Party Client
+        |--------------------------------------------------------------------------
+        */
+        'enabled-first-party-pkce-client' => env('API_ENABLE_FIRST_PARTY_PKCE_CLIENT', false),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Enable/Disable Password Grant Client
+        |--------------------------------------------------------------------------
+        */
+        'enabled-password-grant-client'   => env('API_ENABLE_PASSWORD_GRANT_CLIENT', false),
 
         /*
         |--------------------------------------------------------------------------
@@ -97,10 +125,30 @@ return [
         */
         'throttle' => [
             'enabled'  => env('API_RATE_LIMIT_ENABLED', true),
-            'attempts' => env('API_RATE_LIMIT_ATTEMPTS', '30'),
-            'expires'  => env('API_RATE_LIMIT_EXPIRES', '1'),
+            'attempts' => env('API_RATE_LIMIT_ATTEMPTS', 30),
+            'expires'  => env('API_RATE_LIMIT_EXPIRES', 1),
         ],
 
+    ],
+
+    'admin' => [
+        /*
+       |--------------------------------------------------------------------------
+       | Admin URL
+       |--------------------------------------------------------------------------
+       */
+        'url'    => env('ADMIN_URL', 'http://localhost'),
+
+        /*
+        |--------------------------------------------------------------------------
+        | Admin Prefix
+        |--------------------------------------------------------------------------
+        */
+        'prefix' => env('ADMIN_PREFIX', 'admin'),
+    ],
+
+    'frontend' => [
+        'url' => env('APP_FRONTEND_URL', 'https://dev.myblocks.app'),
     ],
 
     'requests' => [
@@ -117,7 +165,9 @@ return [
         | Default: []
         |
         */
-        'allow-roles-to-access-all-routes' => [],
+        'allow-roles-to-access-all-routes'     => [
+            'admin',
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -176,7 +226,20 @@ return [
         | Default Value: true (it is automatically applied to ALL Repositories)
         |
         */
-        'automatically-apply-request-criteria' => env('API_REQUEST_APPLY_REQUEST_CRITERIA', true),
+        'automatically-apply-request-criteria' => env('API_REQUEST_APPLY_REQUEST_CRITERIA', false),
+
+        /*
+        |--------------------------------------------------------------------------
+        |  Override filter in repository.criteria.params.filter
+        |--------------------------------------------------------------------------
+        |
+        | This option describes how we will prefilter using an SQL statement or filtering the response.
+        |
+        | Default Value: true
+        |
+        */
+        'allow-filter-by-response'             => false,
+        'allow-both-filter'                    => true,
     ],
 
     'logging' => [

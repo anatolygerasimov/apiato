@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            revokeRoleFromUser
@@ -19,6 +23,8 @@
  *
  * @apiUse             UserSuccessSingleResponse
  */
+
+/** @var Route $router */
 $router->post('roles/revoke', [
     'as'         => 'api_authorization_revoke_role_from_user',
     'uses'       => 'Controller@revokeRoleFromUser',

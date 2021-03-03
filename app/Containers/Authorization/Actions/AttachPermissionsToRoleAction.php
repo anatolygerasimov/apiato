@@ -2,33 +2,25 @@
 
 namespace App\Containers\Authorization\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\Authorization\Models\Permission;
 use App\Containers\Authorization\Models\Role;
+use App\Containers\Authorization\UI\API\Requests\AttachPermissionToRoleRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
 
 /**
  * Class AttachPermissionsToRoleAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class AttachPermissionsToRoleAction extends Action
 {
-    /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     *
-     * @return \App\Containers\Authorization\Models\Role
-     */
-    public function run(DataTransporter $data): Role
+    public function run(AttachPermissionToRoleRequest $request): Role
     {
-        $role = Apiato::call('Authorization@FindRoleTask', [$data->role_id]);
+        /** @var Role $role */
+        $role = Apiato::call('Authorization@FindRoleTask', [$request->role_id]);
 
-        // convert to array in case single ID was passed
-        $permissionIds = (array)$data->permissions_ids;
+        $permissionIds = $request->permissions_ids;
 
-        $permissions = array_map(function ($permissionId) {
-            return Apiato::call('Authorization@FindPermissionTask', [$permissionId]);
-        }, $permissionIds);
+        $permissions = array_map(fn ($permissionId): ?Permission => Apiato::call('Authorization@FindPermissionTask', [$permissionId]), $permissionIds);
 
         return $role->givePermissionTo($permissions);
     }

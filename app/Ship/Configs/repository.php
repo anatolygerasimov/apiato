@@ -12,14 +12,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Repository Pagination
+    | Repository Pagination Limit Default
     |--------------------------------------------------------------------------
     |
     */
     'pagination' => [
-
-        'limit' => env('PAGINATION_LIMIT_DEFAULT', 15),
-
+        'limit' => env('PAGINATION_LIMIT_DEFAULT', 10),
         // if enabled it allows users to skip pagination by passing `?limit=0`.
         'skip' => env('PAGINATION_SKIP', false),
     ],
@@ -144,7 +142,7 @@ return [
         | 'except'  =>['find'],
         */
         'allowed' => [
-            'only'   => null,
+            'only'   => [],
             'except' => null,
         ],
     ],
@@ -208,15 +206,22 @@ return [
         |   http://prettus.local/?search=lorem&orderBy=id&sortedBy=asc
         |   http://prettus.local/?search=lorem&orderBy=id&sortedBy=desc
         |
+        | - searchJoin: Specifies the search method (AND / OR), by default the
+        |               application searches each parameter with OR
+        |   EX:
+        |   http://prettus.local/?search=lorem&searchJoin=and
+        |   http://prettus.local/?search=lorem&searchJoin=or
+        |
         */
         'params'             => [
             'search'       => 'search',
             'searchFields' => 'searchFields',
-            'filter'       => 'l5_filter', // we will override the filter in apiato
+            'filter'       => 'filter',     // we will override this filter in apiato.requests.allow-filter-by-response
             'orderBy'      => 'orderBy',
             'sortedBy'     => 'sortedBy',
-            'with'         => 'l5_with', // use `include` instead
+            'with'         => 'with',       // sometimes we need use this with `include` (to optimize the request speed)
             'searchJoin'   => 'searchJoin',
+            'withCount'    => 'withCount',
         ],
     ],
     /*
@@ -227,7 +232,7 @@ return [
     */
     'generator'  => [
         'basePath'      => env('SRC_PATH'),
-        'rootNamespace' => env('ROOT_NAMESPACE') . '\\',
+        'rootNamespace' => env('ROOT_NAMESPACE', 'App\\') . '\\',
         'paths'         => [
             'models'       => 'Entities',
             'repositories' => 'Repositories',

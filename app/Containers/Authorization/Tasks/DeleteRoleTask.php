@@ -10,12 +10,10 @@ use Exception;
 
 /**
  * Class DeleteRoleTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class DeleteRoleTask extends Task
 {
-    protected $repository;
+    protected RoleRepository $repository;
 
     public function __construct(RoleRepository $repository)
     {
@@ -24,8 +22,6 @@ class DeleteRoleTask extends Task
 
     /**
      * @param int|Role $role
-     *
-     * @return bool
      *
      * @throws DeleteResourceFailedException
      */
@@ -37,7 +33,7 @@ class DeleteRoleTask extends Task
 
         // delete the record from the roles table.
         try {
-            return $this->repository->delete($role);
+            return (bool)$this->repository->delete($role);
         } catch (Exception $exception) {
             throw new DeleteResourceFailedException();
         }

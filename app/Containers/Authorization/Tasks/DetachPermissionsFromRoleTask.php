@@ -2,24 +2,19 @@
 
 namespace App\Containers\Authorization\Tasks;
 
-use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Authorization\Models\Role;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Tasks\Task;
 
 /**
  * Class DetachPermissionsFromRoleTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class DetachPermissionsFromRoleTask extends Task
 {
     /**
-     * @param \App\Containers\Authorization\Models\Role $role
-     * @param                                           $singleOrMultiplePermissionIds
-     *
-     * @return \App\Containers\Authorization\Models\Role
+     * @param mixed|array $singleOrMultiplePermissionIds
      */
-    public function run(Role $role, $singleOrMultiplePermissionIds): Role
+    public function run(Role $role, array $singleOrMultiplePermissionIds): Role
     {
         if (!is_array($singleOrMultiplePermissionIds)) {
             $singleOrMultiplePermissionIds = [$singleOrMultiplePermissionIds];

@@ -7,7 +7,7 @@ use App\Ship\Parents\Transporters\Transporter;
 /**
  * Class DataTransporter.
  *
- * @author Johannes Schobel <johannes.schobel@googlemail.com>
+ * @extends A<Transporter>
  */
 class DataTransporter extends Transporter
 {
@@ -26,11 +26,11 @@ class DataTransporter extends Transporter
         'properties' => [
             'additionalProperties' => true,
         ],
-        'required' => [// defined Transporter required fields ['first_name', 'last_name'],
-
+        'required'   => [
+            // defined Transporter required fields ['first_name', 'last_name'],
         ],
-        'default' => [
-            //            'foo' => 'bar',
+        'default'    => [
+
         ],
     ];
 }

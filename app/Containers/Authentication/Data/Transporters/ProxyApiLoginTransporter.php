@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authentication\Data\Transporters;
 
 use App\Ship\Parents\Transporters\Transporter;
@@ -7,18 +9,20 @@ use App\Ship\Parents\Transporters\Transporter;
 /**
  * Class ProxyApiLoginTransporter.
  *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * @property-read string $client_ip
+ * @property-read string $password
+ * @property-read string $grant_type
+ * @property-read string $client_id
+ * @property-read string $client_password
+ * @property-read string $scope
  */
 class ProxyApiLoginTransporter extends Transporter
 {
-    /**
-     * @var array
-     */
     protected $schema = [
         'type'       => 'object',
         'properties' => [
             'email',
-            'name',
+            'username',
             'password',
             'client_id',
             'client_password',
@@ -31,7 +35,8 @@ class ProxyApiLoginTransporter extends Transporter
             'client_password',
         ],
         'default'    => [
-            'scope' => '',
+            'scope'      => '',
+            'grant_type' => 'password',
         ],
     ];
 }

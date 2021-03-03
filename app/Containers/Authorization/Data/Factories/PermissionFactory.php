@@ -1,12 +1,14 @@
 <?php
 
-// User
+declare(strict_types=1);
+
 use App\Containers\Authorization\Models\Permission;
+use Faker\Generator;
+use Illuminate\Database\Eloquent\Factory;
 
-$factory->define(Permission::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->slug,
-    ];
-});
-
-// ...
+/**
+ * @var Factory $factory
+ */
+$factory->define(Permission::class, fn (Generator $faker) => [
+    'name' => $faker->slug,
+]);

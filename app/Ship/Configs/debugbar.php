@@ -36,7 +36,7 @@ return [
         'driver'     => 'file', // redis, file, pdo, custom
         'path'       => storage_path('debugbar'), // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
-        'provider'   => '', // Instance of StorageInterface for custom driver
+        'provider'   => '' // Instance of StorageInterface for custom driver
     ],
 
     /*
@@ -67,7 +67,7 @@ return [
      */
 
     'capture_ajax'    => true,
-    'add_ajax_timing' => false,
+    'add_ajax_timing' => true,
 
     /*
      |--------------------------------------------------------------------------
@@ -102,11 +102,11 @@ return [
 
     'collectors' => [
         'phpinfo'         => false,  // Php version
-        'messages'        => true,  // Messages
+        'messages'        => false,  // Messages
         'time'            => true,  // Time Datalogger
-        'memory'          => true,  // Memory usage
-        'exceptions'      => true,  // Exception displayer
-        'log'             => true,  // Logs from Monolog (merged in messages if enabled)
+        'memory'          => false,  // Memory usage
+        'exceptions'      => false,  // Exception displayer
+        'log'             => false,  // Logs from Monolog (merged in messages if enabled)
         'db'              => true,  // Show database (PDO) queries and bindings
         'views'           => false,  // Views with their data
         'route'           => true,  // Current route information
@@ -114,14 +114,14 @@ return [
         'gate'            => true, // Display Laravel Gate checks
         'session'         => true,  // Display session data
         'symfony_request' => true,  // Only one can be enabled..
-        'mail'            => true,  // Catch mail messages
+        'mail'            => false,  // Catch mail messages
         'laravel'         => false, // Laravel version and environment
-        'events'          => false, // All events fired
+        'events'          => true, // All events fired
         'default_request' => false, // Regular or special Symfony request logger
         'logs'            => true, // Add the latest log messages
-        'files'           => false, // Show the included files
+        'files'           => true, // Show the included files
         'config'          => false, // Display config settings
-        'cache'           => false, // Display cache events
+        'cache'           => true, // Display cache events
     ],
 
     /*
@@ -198,4 +198,9 @@ return [
      | To override default domain, specify it as a non-empty value.
      */
     'route_domain' => null,
+
+    'env_db_listen' => [
+        'local',
+//        'testing'
+    ],
 ];

@@ -5,11 +5,9 @@ namespace App\Ship\Middlewares\Http;
 use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
 /**
- * Class TrimStrings.
+ * Class TrimStrings
  *
  * A.K.A app/Http/Middleware/TrimStrings.php
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class TrimStrings extends Middleware
 {

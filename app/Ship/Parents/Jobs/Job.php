@@ -2,7 +2,7 @@
 
 namespace App\Ship\Parents\Jobs;
 
-use Apiato\Core\Abstracts\Jobs\Job as AbstractJob;
+use App\Ship\Core\Abstracts\Jobs\Job as AbstractJob;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -10,11 +10,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class Job.
+ * Class Job
  *
  * A.K.A (app/Jobs/Job.php)
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 abstract class Job extends AbstractJob implements ShouldQueue
 {

@@ -2,7 +2,7 @@
 
 namespace App\Containers\Authentication\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Containers\Authorization\Exceptions\UserNotAdminException;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Transporters\DataTransporter;

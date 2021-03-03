@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            getPermission
@@ -11,6 +15,8 @@
  *
  * @apiUse             PermissionSuccessSingleResponse
  */
+
+/** @var Route $router */
 $router->get('permissions/{id}', [
     'as'         => 'api_authorization_get_permission',
     'uses'       => 'Controller@findPermission',

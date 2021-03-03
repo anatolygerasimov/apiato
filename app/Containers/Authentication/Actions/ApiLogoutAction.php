@@ -1,31 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authentication\Actions;
 
+use App\Containers\Authentication\Exceptions\LogoutFailedException;
+use App\Ship\Core\Traits\AuthenticatedUserTrait;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
-use Lcobucci\JWT\Parser;
 
 /**
  * Class ApiLogoutAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class ApiLogoutAction extends Action
 {
     /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     *
-     * @return bool
+     * @use AuthenticatedUserTrait<\App\Containers\User\Models\User>
      */
-    public function run(DataTransporter $data): bool
+    use AuthenticatedUserTrait;
+
+    public function run(): bool
     {
-        $id = App::make(Parser::class)->parse($data->bearerToken)->getClaim('jti');
+        $user  = $this->getStrictlyAuthUserModel();
+        $token = $user->token();
 
-        DB::table('oauth_access_tokens')->where('id', '=', $id)->update(['revoked' => true]);
+        if (is_null($token)) {
+            throw new LogoutFailedException();
+        }
 
-        return true;
+        return $token->revoke();
     }
 }

@@ -11,13 +11,17 @@ use App\Containers\Authorization\Tests\ApiTestCase;
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class AttachPermissionsToRoleTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'post@v1/permissions/attach';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-roles',
@@ -26,7 +30,7 @@ class AttachPermissionsToRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testAttachSinglePermissionToRole()
+    public function testAttachSinglePermissionToRole(): void
     {
         $roleA       = factory(Role::class)->create();
         $permissionA = factory(Permission::class)->create();
@@ -52,7 +56,7 @@ class AttachPermissionsToRoleTest extends ApiTestCase
         ]);
     }
 
-    public function testAttachMultiplePermissionToRole()
+    public function testAttachMultiplePermissionToRole(): void
     {
         $roleA = factory(Role::class)->create();
 
@@ -72,6 +76,10 @@ class AttachPermissionsToRoleTest extends ApiTestCase
 
         $this->assertDatabaseHas('role_has_permissions', [
             'permission_id' => $permissionA->id,
+            'role_id'       => $roleA->id,
+        ]);
+
+        $this->assertDatabaseHas('role_has_permissions', [
             'permission_id' => $permissionB->id,
             'role_id'       => $roleA->id,
         ]);

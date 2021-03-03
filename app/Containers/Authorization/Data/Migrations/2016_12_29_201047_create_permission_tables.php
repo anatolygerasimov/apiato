@@ -16,7 +16,7 @@ class CreatePermissionTables extends Migration
         $foreignKeys = config('permission.foreign_keys');
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->string('guard_name');
             $table->string('display_name')->nullable();
@@ -25,7 +25,7 @@ class CreatePermissionTables extends Migration
         });
 
         Schema::create($tableNames['roles'], function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->string('guard_name');
             $table->string('display_name')->nullable();
@@ -34,41 +34,32 @@ class CreatePermissionTables extends Migration
         });
 
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames) {
-            $table->integer('permission_id')->unsigned();
-            $table->morphs('model');
-
-            $table->foreign('permission_id')
-                ->references('id')
-                ->on($tableNames['permissions'])
+            $table->foreignId('permission_id')
+                ->constrained($tableNames['permissions'])
                 ->onDelete('cascade');
+
+            $table->morphs('model');
 
             $table->primary(['model_type', 'model_id', 'permission_id']);
         });
 
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames) {
-            $table->integer('role_id')->unsigned();
-            $table->morphs('model');
-
-            $table->foreign('role_id')
-                ->references('id')
-                ->on($tableNames['roles'])
+            $table->foreignId('role_id')
+                ->constrained($tableNames['roles'])
                 ->onDelete('cascade');
+
+            $table->morphs('model');
 
             $table->primary(['model_id', 'role_id', 'model_type']);
         });
 
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
-            $table->integer('permission_id')->unsigned();
-            $table->integer('role_id')->unsigned();
-
-            $table->foreign('permission_id')
-                ->references('id')
-                ->on($tableNames['permissions'])
+            $table->foreignId('permission_id')
+                ->constrained($tableNames['permissions'])
                 ->onDelete('cascade');
 
-            $table->foreign('role_id')
-                ->references('id')
-                ->on($tableNames['roles'])
+            $table->foreignId('role_id')
+                ->constrained($tableNames['roles'])
                 ->onDelete('cascade');
 
             $table->primary(['role_id', 'permission_id']);
@@ -84,10 +75,10 @@ class CreatePermissionTables extends Migration
     {
         $tableNames = config('permission.table_names');
 
-        Schema::drop($tableNames['role_has_permissions']);
-        Schema::drop($tableNames['model_has_roles']);
-        Schema::drop($tableNames['model_has_permissions']);
-        Schema::drop($tableNames['roles']);
-        Schema::drop($tableNames['permissions']);
+        Schema::dropIfExists($tableNames['role_has_permissions']);
+        Schema::dropIfExists($tableNames['model_has_roles']);
+        Schema::dropIfExists($tableNames['model_has_permissions']);
+        Schema::dropIfExists($tableNames['roles']);
+        Schema::dropIfExists($tableNames['permissions']);
     }
 }

@@ -4,28 +4,21 @@ namespace App\Containers\Authorization\UI\API\Transformers;
 
 use App\Containers\Authorization\Models\Role;
 use App\Ship\Parents\Transformers\Transformer;
+use League\Fractal\Resource\Collection;
 
 /**
  * Class RoleTransformer.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class RoleTransformer extends Transformer
 {
-    protected $availableIncludes = [
-
-    ];
-
+    /**
+     * @var string[]
+     */
     protected $defaultIncludes = [
         'permissions',
     ];
 
-    /**
-     * @param \App\Containers\Authorization\Models\Role $role
-     *
-     * @return array
-     */
-    public function transform(Role $role)
+    public function transform(Role $role): array
     {
         return [
             'object'       => 'Role',
@@ -38,9 +31,7 @@ class RoleTransformer extends Transformer
     }
 
     /**
-     * @param \App\Containers\Authorization\Models\Role $role
-     *
-     * @return \League\Fractal\Resource\Collection
+     * @return Collection
      */
     public function includePermissions(Role $role)
     {

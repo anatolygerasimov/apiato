@@ -3,18 +3,18 @@
 namespace App\Ship\Criterias\Eloquent;
 
 use App\Ship\Parents\Criterias\Criteria;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
- * Class OrderByUpdateDateDescendingCriteria.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
+ * Class OrderByUpdateDateDescendingCriteria
  */
 class OrderByUpdateDateDescendingCriteria extends Criteria
 {
     /**
-     * @param                                                   $model
-     * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
+     * @param Builder|Model              $model
+     * @param PrettusRepositoryInterface $repository
      *
      * @return mixed
      */

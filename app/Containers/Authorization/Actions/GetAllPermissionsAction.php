@@ -2,18 +2,18 @@
 
 namespace App\Containers\Authorization\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\Authorization\Models\Permission;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class GetAllPermissionsAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllPermissionsAction extends Action
 {
     /**
-     * @return mixed
+     * @return Collection|array<array-key, Permission>
      */
     public function run()
     {

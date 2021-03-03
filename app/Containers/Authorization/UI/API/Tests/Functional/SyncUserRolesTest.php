@@ -12,13 +12,17 @@ use Illuminate\Support\Arr;
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class SyncUserRolesTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'post@v1/roles/sync?include=roles';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-admins-access',
@@ -27,7 +31,7 @@ class SyncUserRolesTest extends ApiTestCase
     /**
      * @test
      */
-    public function testSyncMultipleRolesOnUser()
+    public function testSyncMultipleRolesOnUser(): void
     {
         $role1 = factory(Role::class)->create(['display_name' => '111']);
         $role2 = factory(Role::class)->create(['display_name' => '222']);

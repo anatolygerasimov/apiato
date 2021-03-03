@@ -2,14 +2,12 @@
 
 namespace App\Ship\Parents\Providers;
 
-use Apiato\Core\Abstracts\Providers\EventsProvider as AbstractEventsProvider;
+use App\Ship\Core\Abstracts\Providers\EventsProvider as AbstractEventsProvider;
 
 /**
- * Class EventsProvider.
+ * Class EventsProvider
  *
  * A.K.A app/Providers/EventsServiceProvider.php
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class EventsProvider extends AbstractEventsProvider
 {
@@ -22,8 +20,9 @@ class EventsProvider extends AbstractEventsProvider
 
     ];
 
+
     /**
-     * Register any other events for your application.
+     * Register any events for your application.
      *
      * @return void
      */

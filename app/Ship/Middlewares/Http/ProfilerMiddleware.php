@@ -5,26 +5,23 @@ namespace App\Ship\Middlewares\Http;
 use App\Ship\Parents\Middlewares\Middleware;
 use Closure;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Config;
 
 /**
- * Class ProfilerMiddleware.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * Class ProfilerMiddleware
  */
 class ProfilerMiddleware extends Middleware
 {
     /**
      * @param          $request
-     * @param \Closure $next
+     * @param Closure  $next
      *
-     * @return mixed
+     * @return  mixed
      */
     public function handle($request, Closure $next)
     {
         $response = $next($request);
 
-        if (!Config::get('debugbar.enabled')) {
+        if (!config('debugbar.enabled')) {
             return $response;
         }
 

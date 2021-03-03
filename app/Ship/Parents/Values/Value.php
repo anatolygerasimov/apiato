@@ -2,13 +2,11 @@
 
 namespace App\Ship\Parents\Values;
 
-use Apiato\Core\Abstracts\Values\Value as AbstractValue;
-use Apiato\Core\Traits\HasResourceKeyTrait;
+use App\Ship\Core\Traits\HasResourceKeyTrait;
+use App\Ship\Core\Abstracts\Values\Value as AbstractValue;
 
 /**
  * Class Value.
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 abstract class Value extends AbstractValue
 {

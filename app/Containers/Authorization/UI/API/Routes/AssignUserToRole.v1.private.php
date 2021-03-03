@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            assignUserToRole
@@ -19,6 +23,8 @@
  *
  * @apiUse             UserSuccessSingleResponse
  */
+
+/** @var Route $router */
 $router->post('roles/assign', [
     'as'         => 'api_authorization_assign_user_to_role',
     'uses'       => 'Controller@assignUserToRole',

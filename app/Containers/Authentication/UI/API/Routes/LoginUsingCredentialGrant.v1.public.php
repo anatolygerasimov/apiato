@@ -16,13 +16,7 @@
  * @apiParam           {String}  grant_type must be `client_credentials`
  * @apiParam           {String}  [scope] you can leave it empty
  *
- * @apiSuccessExample  {json}       Success-Response:
- * HTTP/1.1 200 OK
- * {
- * "token_type": "Bearer",
- * "expires_in": 315360000,
- * "access_token": "eyJ0eXAiOiJKV1QiLCJhbG...",
- * }
+ * @apiUse             AuthLoginCredentialsSuccessResponse
  */
 
 // Implementation in the Laravel Passport package

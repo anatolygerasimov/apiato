@@ -1,32 +1,51 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authorization\Data\Seeders;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\User\Models\User;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Seeders\Seeder;
 
 /**
  * Class AuthorizationDefaultUsersSeeder_3.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class AuthorizationDefaultUsersSeeder_3 extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Add Default Users (with their roles).
      *
      * @return void
      */
     public function run()
     {
-        // Default Users (with their roles) ---------------------------------------------
-        Apiato::call('User@CreateUserByCredentialsTask', [
-            $isClient = false,
+        /** @var User $user */
+        $user = Apiato::call('User@CreateUserByCredentialsTask', [
             'admin@admin.com',
-            'admin',
+            'Q97ZgyvUvwBsuumf9NLdYmgx',
             'Super Admin',
-        ])->assignRole(Apiato::call('Authorization@FindRoleTask', ['admin']));
+            $isClient = false,
+        ]);
 
-        // ...
+        Apiato::call('Authorization@AssignUserToRoleTask', [$user, ['admin']]);
+
+        Apiato::call('User@UpdateUserTask', [['last_login_at' => now()], $user->id]);
+
+        $user->markEmailAsVerified();
+
+        /** @var User $user */
+        $user = Apiato::call('User@CreateUserByCredentialsTask', [
+            'user@user.com',
+            'SWWdxzgP6EeVL3JSYvQfYfTP',
+            'Super User',
+            $isClient = true,
+        ]);
+
+        Apiato::call('Authorization@AssignUserToRoleTask', [$user, ['user']]);
+
+        Apiato::call('User@UpdateUserTask', [['last_login_at' => now()], $user->id]);
+
+        $user->markEmailAsVerified();
     }
 }

@@ -10,13 +10,17 @@ use App\Containers\Authorization\Tests\ApiTestCase;
  *
  * @group authorization
  * @group api
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class DeleteRoleTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'delete@v1/roles/{id}';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-roles',
@@ -25,7 +29,7 @@ class DeleteRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testDeleteExistingRole()
+    public function testDeleteExistingRole(): void
     {
         $role = factory(Role::class)->create();
 

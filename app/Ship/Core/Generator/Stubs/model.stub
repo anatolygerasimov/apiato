@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{container-name}}\Models;
+
+use App\Ship\Parents\Models\Model;
+
+/**
+ * Class {{class-name}}
+ */
+class {{class-name}} extends Model
+{
+    protected $fillable = [
+
+    ];
+
+    protected $attributes = [
+
+    ];
+
+    protected $hidden = [
+
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    /**
+     * A resource key to be used by the the JSON API Serializer responses.
+     */
+    protected $resourceKey = '{{resource-key}}';
+}

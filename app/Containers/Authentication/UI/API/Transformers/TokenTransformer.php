@@ -1,29 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authentication\UI\API\Transformers;
 
 use App\Ship\Parents\Transformers\Transformer;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class TokenTransformer.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class TokenTransformer extends Transformer
 {
     /**
-     * @param $token
-     *
-     * @return array
+     * @psalm-return array{object: string, access_token: string, token_type: string, expires_in: \Illuminate\Config\Repository|mixed}
      */
-    public function transform($token)
+    public function transform(string $token): array
     {
         return [
             'object'       => 'Token',
             'access_token' => $token,
             'token_type'   => 'Bearer',
-            'expires_in'   => Config::get('apiato.api.expires-in'),
+            'expires_in'   => config('apiato.api.expires-in'),
         ];
     }
 }

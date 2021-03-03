@@ -2,13 +2,10 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class CreateJobsTable.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * Class CreateJobsTable
  */
 class CreateJobsTable extends Migration
 {
@@ -19,9 +16,9 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        if (Config::get('queue.default') === 'database') {
+        if(config('queue.default') == 'database'){
             Schema::create('jobs', function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->id();
                 $table->string('queue');
                 $table->longText('payload');
                 $table->tinyInteger('attempts')->unsigned();

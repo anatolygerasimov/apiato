@@ -2,29 +2,24 @@
 
 namespace App\Containers\Authorization\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Authorization\Exceptions\RoleNotFoundException;
 use App\Containers\Authorization\Models\Role;
+use App\Containers\Authorization\UI\API\Requests\FindRoleRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
+use Dto\Exceptions\UnstorableValueException;
 
 /**
  * Class FindRoleAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class FindRoleAction extends Action
 {
     /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     *
-     * @return \App\Containers\Authorization\Models\Role
-     *
-     * @throws RoleNotFoundException
+     * @throws RoleNotFoundException|UnstorableValueException
      */
-    public function run(DataTransporter $data): Role
+    public function run(FindRoleRequest $request): Role
     {
-        $role = Apiato::call('Authorization@FindRoleTask', [$data->id]);
+        $role = Apiato::call('Authorization@FindRoleTask', [$request->id]);
 
         if (!$role) {
             throw new RoleNotFoundException();

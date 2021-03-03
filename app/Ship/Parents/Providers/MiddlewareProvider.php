@@ -2,12 +2,10 @@
 
 namespace App\Ship\Parents\Providers;
 
-use Apiato\Core\Abstracts\Providers\MiddlewareProvider as AbstractMiddlewareProvider;
+use App\Ship\Core\Abstracts\Providers\MiddlewareProvider as AbstractMiddlewareProvider;
 
 /**
- * Class MiddlewareProvider.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * Class MiddlewareProvider
  */
 abstract class MiddlewareProvider extends AbstractMiddlewareProvider
 {

@@ -2,29 +2,24 @@
 
 namespace App\Containers\Authorization\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Authorization\Exceptions\PermissionNotFoundException;
 use App\Containers\Authorization\Models\Permission;
+use App\Containers\Authorization\UI\API\Requests\FindPermissionRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
+use Dto\Exceptions\UnstorableValueException;
 
 /**
  * Class FindPermissionAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class FindPermissionAction extends Action
 {
     /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     *
-     * @return \App\Containers\Authorization\Models\Permission
-     *
-     * @throws PermissionNotFoundException
+     * @throws PermissionNotFoundException|UnstorableValueException
      */
-    public function run(DataTransporter $data): Permission
+    public function run(FindPermissionRequest $request): Permission
     {
-        $permission = Apiato::call('Authorization@FindPermissionTask', [$data->id]);
+        $permission = Apiato::call('Authorization@FindPermissionTask', [$request->id]);
 
         if (!$permission) {
             throw new PermissionNotFoundException();

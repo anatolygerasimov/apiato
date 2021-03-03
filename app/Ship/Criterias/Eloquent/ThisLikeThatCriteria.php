@@ -3,13 +3,12 @@
 namespace App\Ship\Criterias\Eloquent;
 
 use App\Ship\Parents\Criterias\Criteria;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\RepositoryInterface as PrettusRepositoryInterface;
 
 /**
- * Class ThisLikeThatCriteria.
- *
- * @author Fabian Widmann <fabian.widmann@gmail.com>
+ * Class ThisLikeThatCriteria
  *
  * Retrieves all entities where $field contains one or more of the given items in $valueString.
  */
@@ -21,12 +20,12 @@ class ThisLikeThatCriteria extends Criteria
     private $field;
 
     /**
-     * @var string contains values separated by
+     * @var string contains values separated by $separator
      */
     private $valueString;
 
     /**
-     * @var string separates separate items in the given string. Default is csv.
+     * @var string separates separate items in the given $values string. Default is csv.
      */
     private $separator;
 
@@ -44,10 +43,11 @@ class ThisLikeThatCriteria extends Criteria
     }
 
     /**
-     * Applies the criteria - if more than one value is separated by the configured separator we will "OR" all the params.
+     * Applies the criteria - if more than one value is separated by the configured separator
+     * we will "OR" all the params.
      *
-     * @param Builder                                           $model
-     * @param \Prettus\Repository\Contracts\RepositoryInterface $repository
+     * @param Builder|Model              $model
+     * @param PrettusRepositoryInterface $repository
      *
      * @return mixed
      */
@@ -56,7 +56,7 @@ class ThisLikeThatCriteria extends Criteria
         return $model->where(function ($query) {
             $values = explode($this->separator, $this->valueString);
             $query->where($this->field, 'LIKE', str_replace($this->wildcard, '%', array_shift($values)));
-            foreach ($values as $value) {
+            foreach ($values as $value)
                 $query->orWhere($this->field, 'LIKE', str_replace($this->wildcard, '%', $value));
             }
         });

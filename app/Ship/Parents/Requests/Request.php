@@ -2,13 +2,11 @@
 
 namespace App\Ship\Parents\Requests;
 
-use Apiato\Core\Abstracts\Requests\Request as AbstractRequest;
+use App\Ship\Core\Abstracts\Requests\Request as AbstractRequest;
 use App\Ship\Transporters\DataTransporter;
 
 /**
- * Class Request.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * Class Request
  */
 abstract class Request extends AbstractRequest
 {

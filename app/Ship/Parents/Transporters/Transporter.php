@@ -2,13 +2,12 @@
 
 namespace App\Ship\Parents\Transporters;
 
-use Apiato\Core\Abstracts\Transporters\Transporter as AbstractTransporter;
+use App\Ship\Core\Abstracts\Transporters\Transporter as AbstractTransporter;
 
 /**
- * Class Transporter.
- *
- * @author Johannes Schobel <johannes.schobel@googlemail.com>
+ * Class Transporter
  */
 abstract class Transporter extends AbstractTransporter
 {
+
 }

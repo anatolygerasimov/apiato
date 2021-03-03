@@ -5,9 +5,7 @@ namespace App\Ship\Seeders;
 use App\Ship\Parents\Seeders\Seeder;
 
 /**
- * Class SeedTestingData.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
+ * Class SeedTestingData
  */
 class SeedTestingData extends Seeder
 {
@@ -18,6 +16,6 @@ class SeedTestingData extends Seeder
      */
     public function run()
     {
-        // Create Testing data for live tests
+
     }
 }

@@ -1,24 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authorization\UI\API\Tests\Functional;
 
 use App\Containers\Authorization\Models\Role;
 use App\Containers\Authorization\Tests\ApiTestCase;
 use App\Containers\User\Models\User;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class RevokeUserFromRoleTest.
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class RevokeUserFromRoleTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'post@v1/roles/revoke';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-admins-access',
@@ -27,7 +32,7 @@ class RevokeUserFromRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRevokeUserFromRole()
+    public function testRevokeUserFromRole(): void
     {
         $roleA = factory(Role::class)->create();
 
@@ -58,7 +63,7 @@ class RevokeUserFromRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRevokeUserFromRoleWithRealId()
+    public function testRevokeUserFromRoleWithRealId(): void
     {
         $roleA = factory(Role::class)->create();
 
@@ -74,7 +79,7 @@ class RevokeUserFromRoleTest extends ApiTestCase
         $response = $this->makeCall($data);
 
         // assert response status is correct. Note: this will return 200 if `HASH_ID=false` in the .env
-        if (Config::get('apiato.hash-id')) {
+        if (config('apiato.hash-id')) {
             $response->assertStatus(400);
 
             $this->assertResponseContainKeyValue([
@@ -88,7 +93,7 @@ class RevokeUserFromRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRevokeUserFromManyRoles()
+    public function testRevokeUserFromManyRoles(): void
     {
         $roleA = factory(Role::class)->create();
         $roleB = factory(Role::class)->create();

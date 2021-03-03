@@ -9,13 +9,17 @@ use App\Containers\Authorization\Tests\ApiTestCase;
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllRolesTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'get@v1/roles';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-roles',
@@ -24,7 +28,7 @@ class GetAllRolesTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllRoles()
+    public function testGetAllRoles(): void
     {
         $this->getTestingUser();
 

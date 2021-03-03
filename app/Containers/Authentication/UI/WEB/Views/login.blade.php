@@ -113,8 +113,8 @@
     <div class="login-page">
         <h1 class="center">Login</h1>
         <div class="form">
-            <form class="login-form" action="{{route('post_admin_login_form')}}" method="post">
-                {{ csrf_field() }}
+            <form class="login-form" action="{{route('post_login_form')}}" method="post">
+                @csrf
                 @if(session('status'))
                     <div class="text-red">{{ session('status') }}</div>
                 @endif
@@ -123,7 +123,7 @@
                 <input type="password" placeholder="password" id="password" name="password"/>
                 <span class="text-red">{{ $errors->first('password') }}</span>
 
-                <button>login</button>
+                <button>Login</button>
             </form>
         </div>
     </div>

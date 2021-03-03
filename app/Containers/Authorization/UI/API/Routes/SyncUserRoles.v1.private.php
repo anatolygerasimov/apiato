@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            syncUserRoles
@@ -17,6 +21,8 @@
  *
  * @apiUse             UserSuccessSingleResponse
  */
+
+/** @var Route $router */
 $router->post('roles/sync', [
     'as'         => 'api_authorization_sync_user_roles',
     'uses'       => 'Controller@syncUserRoles',

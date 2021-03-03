@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           RolePermission
  * @apiName            detachPermissionFromRole
@@ -19,6 +23,8 @@
  *
  * @apiUse             RoleSuccessSingleResponse
  */
+
+/** @var Route $router */
 $router->post('permissions/detach', [
     'as'         => 'api_authorization_detach_permission_from_role',
     'uses'       => 'Controller@detachPermissionFromRole',

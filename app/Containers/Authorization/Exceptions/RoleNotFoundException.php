@@ -7,12 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class RoleNotFoundException.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class RoleNotFoundException extends Exception
 {
-    public $httpStatusCode = Response::HTTP_NOT_FOUND;
+    public int $httpStatusCode = Response::HTTP_NOT_FOUND;
 
+    /**
+     * @var string
+     */
     public $message = 'The requested Role was not found.';
 }

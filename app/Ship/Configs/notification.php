@@ -11,8 +11,8 @@ return [
      |
      */
     'channels' => [
-        'database',
-        //        'mail',
-    ],
+//        'database',
+        'mail',
+    ]
 
 ];

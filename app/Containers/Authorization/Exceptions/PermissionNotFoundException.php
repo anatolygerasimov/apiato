@@ -7,12 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class RoleNotFoundException.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class PermissionNotFoundException extends Exception
 {
-    public $httpStatusCode = Response::HTTP_NOT_FOUND;
+    public int $httpStatusCode = Response::HTTP_NOT_FOUND;
 
+    /**
+     * @var string
+     */
     public $message = 'The requested Permission was not found.';
 }

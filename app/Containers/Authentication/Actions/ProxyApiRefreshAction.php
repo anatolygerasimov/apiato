@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authentication\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Authentication\Data\Transporters\ProxyRefreshTransporter;
 use App\Containers\Authentication\Exceptions\RefreshTokenMissedException;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
 
 /**
@@ -13,9 +15,7 @@ use App\Ship\Parents\Actions\Action;
 class ProxyApiRefreshAction extends Action
 {
     /**
-     * @param \App\Containers\Authentication\Data\Transporters\ProxyRefreshTransporter $data
-     *
-     * @return array
+     * @return array{response_content: mixed, refresh_cookie: mixed}
      */
     public function run(ProxyRefreshTransporter $data): array
     {
@@ -24,11 +24,11 @@ class ProxyApiRefreshAction extends Action
         }
 
         $requestData = [
-            'grant_type'    => $data->grant_type ?? 'refresh_token',
+            'grant_type'    => $data->grant_type,
             'refresh_token' => $data->refresh_token,
             'client_id'     => $data->client_id,
             'client_secret' => $data->client_password,
-            'scope'         => $data->scope ?? '',
+            'scope'         => $data->scope,
         ];
 
         $responseContent = Apiato::call('Authentication@CallOAuthServerTask', [$requestData]);
@@ -36,8 +36,8 @@ class ProxyApiRefreshAction extends Action
         $refreshCookie = Apiato::call('Authentication@MakeRefreshCookieTask', [$responseContent['refresh_token']]);
 
         return [
-            'response-content' => $responseContent,
-            'refresh-cookie'   => $refreshCookie,
+            'response_content' => $responseContent,
+            'refresh_cookie'   => $refreshCookie,
         ];
     }
 }

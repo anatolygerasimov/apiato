@@ -7,9 +7,7 @@ use Exception;
 use ReflectionClass;
 
 /**
- * Class ErrorCodeManager.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
+ * Class ErrorCodeManager
  */
 class ErrorCodeManager
 {
@@ -44,7 +42,7 @@ class ErrorCodeManager
     }
 
     /**
-     * Returns the value for a given key in the array or a default value.
+     * Returns the value for a given key in the array or a default value
      *
      * @param array $error
      * @param       $key
@@ -58,43 +56,45 @@ class ErrorCodeManager
     }
 
     /**
-     * Returns all "defined" CodeTables.
+     * Returns all "defined" CodeTables
      *
      * @return array
      */
     public static function getCodeTables()
     {
-        return [
+        $codeTables = [
             ApplicationErrorCodesTable::class,
             CustomErrorCodesTable::class,
         ];
+
+        return $codeTables;
     }
 
     /**
-     * Get all arrays for this one error code table.
+     * Get all arrays for this one error code table
      *
      * @param $codeTable
      *
      * @return array
-     *
      * @throws InternalErrorException
      */
     public static function getErrorsForCodeTable($codeTable)
     {
         try {
-            $class = new $codeTable();
+            $class = new $codeTable;
         } catch (Exception $exception) {
             throw new InternalErrorException();
         }
 
         // now we need to get all errors (i.e., constants) from this class!
         $reflectionClass = new ReflectionClass($class);
+        $constants       = $reflectionClass->getConstants();
 
-        return $reflectionClass->getConstants();
+        return $constants;
     }
 
     /**
-     * Get all errors across all defined error code tables.
+     * Get all errors across all defined error code tables
      *
      * @return array
      */

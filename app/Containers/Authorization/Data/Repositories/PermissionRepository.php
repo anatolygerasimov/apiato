@@ -6,17 +6,13 @@ use App\Ship\Parents\Repositories\Repository;
 
 /**
  * Class PermissionRepository.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class PermissionRepository extends Repository
 {
     /**
-     * the container name. Must be set when the model has different name than the container.
-     *
-     * @var string
+     * The container name. Must be set when the model has different name than the container.
      */
-    protected $container = 'Authorization';
+    protected string $container = 'Authorization';
 
     /**
      * @var array

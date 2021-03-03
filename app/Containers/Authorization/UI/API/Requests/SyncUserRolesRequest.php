@@ -7,26 +7,23 @@ use App\Ship\Parents\Requests\Request;
 /**
  * Class SyncUserRolesRequest.
  *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
+ * @property-read array $roles_ids
+ * @property-read int $user_id
  */
 class SyncUserRolesRequest extends Request
 {
     /**
      * Define which Roles and/or Permissions has access to this request.
-     *
-     * @var array
      */
-    protected $access = [
+    protected array $access = [
         'roles'       => '',
         'permissions' => 'manage-admins-access',
     ];
 
     /**
      * Id's that needs decoding before applying the validation rules.
-     *
-     * @var array
      */
-    protected $decode = [
+    protected array $decode = [
         'user_id',
         'roles_ids.*',
     ];
@@ -34,10 +31,8 @@ class SyncUserRolesRequest extends Request
     /**
      * Defining the URL parameters (`/stores/999/items`) allows applying
      * validation rules on them and allows accessing them like request data.
-     *
-     * @var array
      */
-    protected $urlParameters = [
+    protected array $urlParameters = [
 
     ];
 

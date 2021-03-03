@@ -2,18 +2,18 @@
 
 namespace App\Containers\Authorization\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\Authorization\Models\Role;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class GetAllRolesAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllRolesAction extends Action
 {
     /**
-     * @return mixed
+     * @return Collection|array<array-key, Role>
      */
     public function run()
     {

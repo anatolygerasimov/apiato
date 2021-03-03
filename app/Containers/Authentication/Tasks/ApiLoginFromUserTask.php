@@ -1,21 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authentication\Tasks;
 
 use App\Containers\User\Models\User;
 use App\Ship\Parents\Tasks\Task;
+use Laravel\Passport\PersonalAccessTokenResult;
 
 /**
  * Class ApiLoginFromUserTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class ApiLoginFromUserTask extends Task
 {
     /**
-     * @param \App\Containers\User\Models\User $user
-     *
-     * @return \Laravel\Passport\PersonalAccessTokenResult
+     * @return PersonalAccessTokenResult
      */
     public function run(User $user)
     {

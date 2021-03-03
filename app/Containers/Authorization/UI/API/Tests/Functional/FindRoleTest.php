@@ -10,13 +10,17 @@ use App\Containers\Authorization\Tests\ApiTestCase;
  *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class FindRoleTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'get@v1/roles/{id}';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'manage-roles',
@@ -25,7 +29,7 @@ class FindRoleTest extends ApiTestCase
     /**
      * @test
      */
-    public function testFindRoleById()
+    public function testFindRoleById(): void
     {
         $roleA = factory(Role::class)->create();
 

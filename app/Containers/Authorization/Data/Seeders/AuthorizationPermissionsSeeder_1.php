@@ -2,13 +2,11 @@
 
 namespace App\Containers\Authorization\Data\Seeders;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Seeders\Seeder;
 
 /**
  * Class AuthorizationPermissionsSeeder_1.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class AuthorizationPermissionsSeeder_1 extends Seeder
 {
@@ -24,7 +22,5 @@ class AuthorizationPermissionsSeeder_1 extends Seeder
         Apiato::call('Authorization@CreatePermissionTask', ['create-admins', 'Create new Users (Admins) from the dashboard.']);
         Apiato::call('Authorization@CreatePermissionTask', ['manage-admins-access', 'Assign users to Roles.']);
         Apiato::call('Authorization@CreatePermissionTask', ['access-dashboard', 'Access the admins dashboard.']);
-
-        // ...
     }
 }

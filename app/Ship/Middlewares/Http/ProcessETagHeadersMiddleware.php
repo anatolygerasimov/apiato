@@ -2,24 +2,22 @@
 
 namespace App\Ship\Middlewares\Http;
 
+use App;
 use App\Ship\Parents\Middlewares\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 /**
- * Class ProcessETagHeadersMiddleware.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
+ * Class ProcessETagHeadersMiddleware
  */
 class ProcessETagHeadersMiddleware extends Middleware
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param Request $request
+     * @param Closure $next
      *
      * @return mixed
-     *
      * @throws PreconditionFailedHttpException
      */
     public function handle(Request $request, Closure $next)
@@ -40,7 +38,7 @@ class ProcessETagHeadersMiddleware extends Middleware
         // check, if an "if-none-match" header is supplied
         if ($request->hasHeader('if-none-match')) {
             // check, if the request method is GET or HEAD
-            if (! ($request->method() === 'GET' || $request->method() === 'HEAD')) {
+            if (!($request->method() == 'GET' || $request->method() == 'HEAD')) {
                 throw new PreconditionFailedHttpException('HTTP Header IF-None-Match is only allowed for GET and HEAD Requests.');
             }
         }
@@ -57,7 +55,7 @@ class ProcessETagHeadersMiddleware extends Middleware
         // now, lets check, if the request contains a "if-none-match" http header field
         if ($request->hasHeader('if-none-match')) {
             // now check, if the if-none-match etag is the same as the calculated etag!
-            if ($request->header('if-none-match') === $etag) {
+            if ($request->header('if-none-match') == $etag) {
                 $response->setStatusCode(304);
             }
         }

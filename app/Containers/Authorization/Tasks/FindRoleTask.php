@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Authorization\Tasks;
 
 use App\Containers\Authorization\Data\Repositories\RoleRepository;
@@ -8,12 +10,10 @@ use App\Ship\Parents\Tasks\Task;
 
 /**
  * Class FindRoleTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class FindRoleTask extends Task
 {
-    protected $repository;
+    protected RoleRepository $repository;
 
     public function __construct(RoleRepository $repository)
     {
@@ -21,14 +21,12 @@ class FindRoleTask extends Task
     }
 
     /**
-     * @param $roleNameOrId
-     *
-     * @return \App\Containers\Authorization\Models\Role
+     * @param int|string $roleNameOrId
      */
-    public function run($roleNameOrId): Role
+    public function run($roleNameOrId): ?Role
     {
-        $query = is_numeric($roleNameOrId) ? ['id' => $roleNameOrId] : ['name' => $roleNameOrId];
+        $field = is_numeric($roleNameOrId) ? 'id' : 'name';
 
-        return $this->repository->findWhere($query)->first();
+        return $this->repository->findWhere([$field => $roleNameOrId])->first();
     }
 }
