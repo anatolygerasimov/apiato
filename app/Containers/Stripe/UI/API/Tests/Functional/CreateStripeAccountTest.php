@@ -9,13 +9,17 @@ use App\Containers\Stripe\Tests\ApiTestCase;
  *
  * @group stripe
  * @group api
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class CreateStripeAccountTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'post@v1/user/payments/accounts/stripe';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'permissions' => '',
         'roles'       => '',
@@ -24,11 +28,11 @@ class CreateStripeAccountTest extends ApiTestCase
     /**
      * @test
      */
-    public function testCreateStripeAccount()
+    public function testCreateStripeAccount(): void
     {
         $userDetails = [
-            'name'     => 'Mahmoud Zalt',
-            'email'    => 'mahmoud@testttt.test',
+            'username' => 'User Test',
+            'email'    => 'user@testttt.test',
             'password' => 'passssssssssss',
         ];
         // get the logged in user (create one if no one is logged in)

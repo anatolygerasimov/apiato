@@ -1,42 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Requests;
 
 use App\Ship\Parents\Requests\Request;
+use Illuminate\Validation\Rule;
 
 /**
  * Class UpdateUserRequest.
  *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
+ * @property-read int    $id
+ * @property string      $password
+ * @property-read string $password_confirmation
+ * @property-read string $username
+ * @property-read string $first_name
+ * @property-read string $last_name
+ * @property-read string $avatar
+ * @property-read string $company_name
+ * @property-read string $data_source
  */
 class UpdateUserRequest extends Request
 {
     /**
      * Define which Roles and/or Permissions has access to this request.
-     *
-     * @var array
      */
-    protected $access = [
-        'permissions' => 'update-users',
+    protected array $access = [
+        'permissions' => '',
         'roles'       => '',
     ];
 
     /**
      * Id's that needs decoding before applying the validation rules.
-     *
-     * @var array
      */
-    protected $decode = [
+    protected array $decode = [
         'id',
     ];
 
     /**
      * Defining the URL parameters (`/stores/999/items`) allows applying
      * validation rules on them and allows accessing them like request data.
-     *
-     * @var array
      */
-    protected $urlParameters = [
+    protected array $urlParameters = [
         'id',
     ];
 
@@ -46,21 +51,24 @@ class UpdateUserRequest extends Request
     public function rules()
     {
         return [
-            'email'    => 'email|unique:users,email',
-            'id'       => 'required|exists:users,id',
-            'password' => 'min:6|max:40',
-            'name'     => 'min:2|max:50',
+            'id'           => 'required|exists:users,id',
+            'username'     => 'string|min:2|max:100|unique:users,username',
+            'first_name'   => 'string|min:2|max:100',
+            'last_name'    => 'string|min:2|max:100',
+            'avatar'       => 'url',
+            'company_name' => 'string|min:2|max:100',
+            'data_source'  => Rule::in(array_keys(config('init-container.data_sources'))),
         ];
     }
 
     /**
+     * Is this an admin who has access to permission `update-users`
+     * or the user is updating his own object (is the owner).
+     *
      * @return bool
      */
     public function authorize()
     {
-        // is this an admin who has access to permission `update-users`
-        // or the user is updating his own object (is the owner).
-
         return $this->check([
             'hasAccess|isOwner',
         ]);

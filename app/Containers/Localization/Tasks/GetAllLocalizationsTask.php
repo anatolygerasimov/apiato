@@ -5,21 +5,19 @@ namespace App\Containers\Localization\Tasks;
 use App\Containers\Localization\Values\Localization;
 use App\Ship\Parents\Tasks\Task;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class GetAllLocalizationsTask.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class GetAllLocalizationsTask extends Task
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
     public function run(): Collection
     {
-        $supported_localizations = Config::get('localization-container.supported_languages');
+        $supported_localizations = config('localization-container.supported_languages');
+
+        if (!is_array($supported_localizations)) {
+            return collect();
+        }
 
         $localizations = new Collection();
 

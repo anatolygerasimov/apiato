@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Tests\Functional;
 
 use App\Containers\User\Tests\ApiTestCase;
@@ -9,13 +11,17 @@ use App\Containers\User\Tests\ApiTestCase;
  *
  * @group user
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class FindUserTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'get@v1/users/{id}';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'search-users',
@@ -24,7 +30,7 @@ class FindUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testFindUser()
+    public function testFindUser(): void
     {
         $admin = $this->getTestingUser();
 
@@ -36,35 +42,37 @@ class FindUserTest extends ApiTestCase
 
         $responseContent = $this->getResponseContentObject();
 
-        $this->assertEquals($admin->name, $responseContent->data->name);
+        $this->assertEquals($admin->username, $responseContent->data->username);
     }
 
     /**
      * @test
      */
-    public function testFindFilteredUserResponse()
+    public function testFindFilteredUserResponse(): void
     {
         $admin = $this->getTestingUser();
 
         // send the HTTP request
-        $response = $this->injectId($admin->id)->endpoint($this->endpoint . '?filter=email;name')->makeCall();
+        $response = $this->injectId($admin->id)->endpoint($this->endpoint . '?filter=email;username')->makeCall();
 
         // assert response status is correct
         $response->assertStatus(200);
 
         $responseContent = $this->getResponseContentObject();
 
-        // todo: to fix
-//        $this->assertEquals($admin->name, $responseContent->data->name);
-//        $this->assertEquals($admin->email, $responseContent->data->email);
+        $this->assertEquals($admin->username, $responseContent->data->username);
+        $this->assertEquals($admin->email, $responseContent->data->email);
 
-        $this->assertNotContains('id', json_decode($response->getContent(), true));
+        // convert response to array
+        $responseArray = $response->json();
+
+        $this->assertNotContains('id', $responseArray);
     }
 
     /**
      * @test
      */
-    public function testFindUserWithRelation()
+    public function testFindUserWithRelation(): void
     {
         $admin = $this->getTestingUser();
 

@@ -3,27 +3,21 @@
 namespace App\Containers\Stripe\Tasks;
 
 use App\Containers\Stripe\Data\Repositories\StripeAccountRepository;
+use App\Containers\Stripe\Models\StripeAccount;
 use App\Ship\Exceptions\CreateResourceFailedException;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 class CreateStripeAccountTask extends Task
 {
-    protected $repository;
+    protected StripeAccountRepository $repository;
 
     public function __construct(StripeAccountRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return mixed
-     *
-     * @throws CreateResourceFailedException
-     */
-    public function run(array $data)
+    public function run(array $data): StripeAccount
     {
         try {
             return $this->repository->create($data);

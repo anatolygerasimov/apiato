@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Payment
  * @apiName            getPaymentAccounts
@@ -18,6 +22,8 @@
  * // Insert the response of the request here...
  * }
  */
+
+/** @var Route $router */
 $router->get('user/paymentaccounts', [
     'as'         => 'api_payment_get_payment_accounts',
     'uses'       => 'Controller@getAllPaymentAccounts',

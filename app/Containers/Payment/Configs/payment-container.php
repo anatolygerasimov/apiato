@@ -1,5 +1,7 @@
 <?php
 
+use App\Containers\Stripe\Tasks\ChargeWithStripeTask;
+
 return [
 
     /*
@@ -8,23 +10,18 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    /*
-     * The default currency if no currency is passed
+    /**
+     * The default currency if no currency is passed.
+     *
+     * @example add new gateway 'paypal' => [],
      */
     'currency' => 'USD',
 
     'gateways' => [
-
         'stripe' => [
             'container'   => 'Stripe',
-            'charge_task' => App\Containers\Stripe\Tasks\ChargeWithStripeTask::class,
+            'charge_task' => ChargeWithStripeTask::class,
         ],
-
-        'paypal' => [
-            // ...
-        ],
-
-        // ...
     ],
 
 ];

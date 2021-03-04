@@ -5,24 +5,21 @@ use Illuminate\Database\Schema\Blueprint;
 
 /**
  * Class CreatePaymentAccountsTable.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class CreatePaymentAccountsTable extends Migration
 {
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('payment_accounts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name')->nullable();
 
             $table->morphs('accountable');
 
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained();
 
             $table->timestamps();
             $table->softDeletes();
@@ -32,8 +29,8 @@ class CreatePaymentAccountsTable extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
-        Schema::drop('payment_accounts');
+        Schema::dropIfExists('payment_accounts');
     }
 }

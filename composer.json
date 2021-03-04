@@ -4,17 +4,24 @@
   "description": "Uinno starter kit.",
   "require": {
     "php": "^7.4",
+    "ext-bcmath": "*",
+    "ext-gd": "*",
+    "ext-intl": "*",
+    "ext-json": "*",
     "ext-mbstring": "*",
     "ext-openssl": "*",
     "ext-pdo": "*",
+    "ext-redis": "*",
     "ext-tokenizer": "*",
+    "ext-http": "*",
     "laravel/framework": "^8.12",
     "doctrine/dbal": "^2.6",
     "fideloper/proxy": "^4.4",
     "guzzlehttp/guzzle": "^7.0.1",
     "laravel/tinker": "^2.5",
     "fruitcake/laravel-cors": "^2.0",
-    "wikimedia/composer-merge-plugin": "^2.0.1"
+    "wikimedia/composer-merge-plugin": "^2.0.1",
+    "dto/dto": "^3.2"
   },
   "require-dev": {
     "facade/ignition": "^2.5",

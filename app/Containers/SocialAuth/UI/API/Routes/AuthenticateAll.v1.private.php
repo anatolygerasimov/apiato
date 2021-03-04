@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           SocialAuth
  * @apiName            socialAuthTw
@@ -22,9 +26,8 @@
  * "data": {
  * "object": "User",
  * "id": "eqwja3vw94kzmxr0",
- * "name": "Mahmoud Zalt",
+ * "username": "Test User",
  * "email": null,
- * "confirmed": false,
  * "nickname": null,
  * "gender": null,
  * "birth": null,
@@ -80,9 +83,8 @@
  * "data": {
  * "object": "User",
  * "id": "eqwja3vw94kzmxr1",
- * "name": "Mahmoud Zalt",
+ * "username": "Test User",
  * "email": null,
- * "confirmed": false,
  * "nickname": null,
  * "gender": null,
  * "birth": null,
@@ -116,6 +118,8 @@
  * }
  * }
  */
+
+/** @var Route $router */
 $router->post('auth/{provider}', [
     'as'   => 'api_socialauth_social_auth',
     'uses' => 'Controller@authenticateAll',

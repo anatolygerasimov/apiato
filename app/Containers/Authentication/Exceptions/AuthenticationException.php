@@ -16,9 +16,12 @@ class AuthenticationException extends LaravelAuthenticationException
      */
     public $message = 'An Exception occurred when trying to authenticate the User.';
 
-    /**
-     * Create a new authentication exception.
-     */
+  /**
+   * Create a new authentication exception.
+   * @param string|null $message
+   * @param array $guards
+   * @param string|null $redirectTo
+   */
     public function __construct(?string $message = null, array $guards = [], ?string $redirectTo = null)
     {
         parent::__construct($message ?? $this->message, $guards, $redirectTo);

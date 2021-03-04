@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Tasks;
 
 use App\Containers\User\Data\Repositories\UserRepository;
@@ -10,26 +12,17 @@ use Exception;
 
 /**
  * Class FindUserByEmailTask.
- *
- * @author  Sebastian Weckend
  */
 class FindUserByEmailTask extends Task
 {
-    protected $repository;
+    protected UserRepository $repository;
 
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param string $email
-     *
-     * @return User
-     *
-     * @throws NotFoundException
-     */
-    public function run(string $email): User
+    public function run(string $email): ?User
     {
         try {
             return $this->repository->findByField('email', $email)->first();

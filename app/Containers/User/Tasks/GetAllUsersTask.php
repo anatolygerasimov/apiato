@@ -1,57 +1,49 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Tasks;
 
-use App\Containers\User\Data\Criterias\AdminsCriteria;
-use App\Containers\User\Data\Criterias\ClientsCriteria;
 use App\Containers\User\Data\Criterias\RoleCriteria;
 use App\Containers\User\Data\Repositories\UserRepository;
+use App\Containers\User\Models\User;
 use App\Ship\Criterias\Eloquent\OrderByCreationDateDescendingCriteria;
 use App\Ship\Parents\Tasks\Task;
+use Illuminate\Database\Eloquent\Collection;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 /**
  * Class GetAllUsersTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllUsersTask extends Task
 {
-    /**
-     * @var \App\Containers\User\Data\Repositories\UserRepository
-     */
-    protected $repository;
+    protected UserRepository $repository;
 
-    /**
-     * GetAllUsersTask constructor.
-     *
-     * @param \App\Containers\User\Data\Repositories\UserRepository $repository
-     */
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * @return User[]|Collection
+     */
     public function run()
     {
-        return $this->repository->paginate();
+        return $this->repository->all();
     }
 
-    public function clients()
-    {
-        $this->repository->pushCriteria(new ClientsCriteria());
-    }
-
-    public function admins()
-    {
-        $this->repository->pushCriteria(new AdminsCriteria());
-    }
-
-    public function ordered()
+    /**
+     * @throws RepositoryException
+     */
+    public function ordered(): void
     {
         $this->repository->pushCriteria(new OrderByCreationDateDescendingCriteria());
     }
 
-    public function withRole($roles)
+    /**
+     * @throws RepositoryException
+     */
+    public function withRole(string $roles): void
     {
         $this->repository->pushCriteria(new RoleCriteria($roles));
     }

@@ -13,7 +13,7 @@ use App\Ship\Parents\Providers\AuthProvider as ParentAuthProvider;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Passport;
 use Laravel\Passport\RouteRegistrar;
-use Route;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Class AuthProvider.
@@ -114,12 +114,13 @@ class AuthProvider extends ParentAuthProvider
         });
     }
 
-    /**
-     * Register Personal Client routes.
-     *
-     *
-     * @return void
-     */
+  /**
+   * Register Personal Client routes.
+   *
+   *
+   * @param RouteRegistrar $router
+   * @return void
+   */
     private function registerPersonalClientRoutes(RouteRegistrar $router)
     {
         if (config('blocks.api.enabled-password-grant-client')) {

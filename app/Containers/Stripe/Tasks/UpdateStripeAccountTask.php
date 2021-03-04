@@ -10,22 +10,14 @@ use Exception;
 
 class UpdateStripeAccountTask extends Task
 {
-    protected $repository;
+    protected StripeAccountRepository $repository;
 
     public function __construct(StripeAccountRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param \App\Containers\Stripe\Models\StripeAccount $account
-     * @param array                                       $data
-     *
-     * @return mixed
-     *
-     * @throws UpdateResourceFailedException
-     */
-    public function run(StripeAccount $account, array $data)
+    public function run(StripeAccount $account, array $data): StripeAccount
     {
         try {
             return $this->repository->update($data, $account->id);

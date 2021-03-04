@@ -22,8 +22,6 @@ class PaymentAccountTransformer extends Transformer
     ];
 
     /**
-     * @param PaymentAccount $entity
-     *
      * @return array
      */
     public function transform(PaymentAccount $entity)

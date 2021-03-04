@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Stripe
  * @apiName            createStripeAccount
@@ -26,6 +30,8 @@
  * "stripe_account_id":1
  * }
  */
+
+/** @var Route $router */
 $router->post('/user/payments/accounts/stripe', [
     'as'         => 'api_stripe_create_stripe_account',
     'uses'       => 'Controller@createStripeAccount',

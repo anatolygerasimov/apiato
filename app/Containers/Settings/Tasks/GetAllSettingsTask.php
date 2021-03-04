@@ -1,22 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\Tasks;
 
 use App\Containers\Settings\Data\Criterias\OrderByKeyAscendingCriteria;
 use App\Containers\Settings\Data\Repositories\SettingRepository;
+use App\Containers\Settings\Models\Setting;
 use App\Ship\Parents\Tasks\Task;
+use Illuminate\Database\Eloquent\Collection;
+use Prettus\Repository\Exceptions\RepositoryException;
 
 class GetAllSettingsTask extends Task
 {
-    /**
-     * @var SettingRepository
-     */
-    protected $repository;
+    protected SettingRepository $repository;
 
     /**
      * GetAllSettingsTask constructor.
-     *
-     * @param SettingRepository $repository
      */
     public function __construct(SettingRepository $repository)
     {
@@ -24,7 +24,7 @@ class GetAllSettingsTask extends Task
     }
 
     /**
-     * @return mixed
+     * @return Setting[]|Collection
      */
     public function run()
     {
@@ -32,9 +32,9 @@ class GetAllSettingsTask extends Task
     }
 
     /**
-     * @return SettingRepository
+     * @throws RepositoryException
      */
-    public function ordered()
+    public function ordered(): SettingRepository
     {
         return $this->repository->pushCriteria(new OrderByKeyAscendingCriteria());
     }

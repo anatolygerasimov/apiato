@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Users
  * @apiName            deleteUser
@@ -16,6 +20,8 @@
  * "message": "User (4) Deleted Successfully."
  * }
  */
+
+/** @var Route $router */
 $router->delete('users/{id}', [
     'as'         => 'api_user_delete_user',
     'uses'       => 'Controller@deleteUser',

@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Localization
  * @apiName            getAllLocalizations
@@ -14,10 +18,10 @@
  *
  * @apiSuccessExample  {json}  Success-Response:
  * HTTP/1.1 200 OK
- * {
- * // TODO..
- * }
+ * {}
  */
+
+/** @var Route $router */
 $router->get('localizations', [
     'as'         => 'api_localization_get_all_localizations',
     'uses'       => 'Controller@getAllLocalizations',

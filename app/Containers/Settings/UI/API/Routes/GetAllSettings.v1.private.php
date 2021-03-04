@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Settings
  * @apiName            getAllSettings
@@ -40,6 +44,8 @@
  * }
  * }
  */
+
+/** @var Route $router */
 $router->get('settings', [
     'as'         => 'api_settings_get_all_settings',
     'uses'       => 'Controller@getAllSettings',

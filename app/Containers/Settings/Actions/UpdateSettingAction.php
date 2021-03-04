@@ -1,30 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\Settings\Models\Setting;
+use App\Containers\Settings\UI\API\Requests\UpdateSettingRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
 
 /**
  * Class UpdateSettingAction.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class UpdateSettingAction extends Action
 {
-    /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     *
-     * @return mixed
-     */
-    public function run(DataTransporter $data)
+    public function run(UpdateSettingRequest $request): Setting
     {
-        $sanitizedData = $data->sanitizeInput([
+        $sanitizedData = $request->sanitizeInput([
             'key',
             'value',
         ]);
 
-        return Apiato::call('Settings@UpdateSettingTask', [$data->id, $sanitizedData]);
+        return Apiato::call('Settings@UpdateSettingTask', [$request->id, $sanitizedData]);
     }
 }

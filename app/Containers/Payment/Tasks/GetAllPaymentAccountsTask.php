@@ -3,24 +3,24 @@
 namespace App\Containers\Payment\Tasks;
 
 use App\Containers\Payment\Data\Repositories\PaymentAccountRepository;
-use App\Containers\User\Models\User;
+use App\Containers\Payment\Models\PaymentAccount;
+use App\Ship\Core\Traits\TaskTraits\FilterByUserRepositoryTrait;
 use App\Ship\Criterias\Eloquent\OrderByCreationDateDescendingCriteria;
-use App\Ship\Criterias\Eloquent\ThisUserCriteria;
+use App\Ship\Parents\Repositories\Repository;
 use App\Ship\Parents\Tasks\Task;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class GetAllPaymentAccountsTask.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class GetAllPaymentAccountsTask extends Task
 {
-    protected $repository;
+    use FilterByUserRepositoryTrait;
+
+    protected PaymentAccountRepository $repository;
 
     /**
      * GetAllPaymentAccountsTask constructor.
-     *
-     * @param \App\Containers\Payment\Data\Repositories\PaymentAccountRepository $repository
      */
     public function __construct(PaymentAccountRepository $repository)
     {
@@ -28,28 +28,15 @@ class GetAllPaymentAccountsTask extends Task
     }
 
     /**
-     * @return mixed
+     * @return Collection|array<array-key, PaymentAccount>
      */
     public function run()
     {
         return $this->repository->paginate();
     }
 
-    /**
-     * @return mixed
-     */
-    public function ordered()
+    public function ordered(): Repository
     {
         return $this->repository->pushCriteria(new OrderByCreationDateDescendingCriteria());
-    }
-
-    /**
-     * @param \App\Containers\User\Models\User $user
-     *
-     * @return mixed
-     */
-    public function filterByUser(User $user)
-    {
-        return $this->repository->pushCriteria(new ThisUserCriteria($user->id));
     }
 }

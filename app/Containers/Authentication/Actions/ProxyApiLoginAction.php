@@ -15,11 +15,12 @@ use Dto\Exceptions\InvalidDataTypeException;
  */
 class ProxyApiLoginAction extends Action
 {
-    /**
-     * @return array{response_content: mixed, refresh_cookie: mixed}
-     *
-     * @throws InvalidDataTypeException
-     */
+  /**
+   * @param ProxyApiLoginTransporter $data
+   * @return array{response_content: mixed, refresh_cookie: mixed}
+   *
+   * @throws InvalidDataTypeException
+   */
     public function run(ProxyApiLoginTransporter $data): array
     {
         $loginCustomAttribute = Apiato::call('Authentication@ExtractLoginCustomAttributeTask', [$data]);

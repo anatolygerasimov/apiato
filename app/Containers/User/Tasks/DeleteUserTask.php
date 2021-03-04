@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Tasks;
 
 use App\Containers\User\Data\Repositories\UserRepository;
@@ -10,29 +12,20 @@ use Exception;
 
 /**
  * Class DeleteUserTask.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class DeleteUserTask extends Task
 {
-    protected $repository;
+    protected UserRepository $repository;
 
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param User $user
-     *
-     * @return bool
-     *
-     * @throws DeleteResourceFailedException
-     */
-    public function run(User $user)
+    public function run(User $user): bool
     {
         try {
-            return $this->repository->delete($user->id);
+            return (bool)$this->repository->delete($user->id);
         } catch (Exception $exception) {
             throw new DeleteResourceFailedException();
         }

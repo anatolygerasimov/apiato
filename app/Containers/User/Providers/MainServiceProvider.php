@@ -1,36 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Providers;
 
+use App\Containers\User\Contracts\UserRepositoryInterface;
+use App\Containers\User\Data\Repositories\UserRepository;
 use App\Ship\Parents\Providers\MainProvider;
 
 /**
  * Class MainServiceProvider.
- *
- * The Main Service Provider of this container, it will be automatically registered in the framework.
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class MainServiceProvider extends MainProvider
 {
     /**
      * Container Service Providers.
-     *
-     * @var array
      */
-    public $serviceProviders = [
-        // InternalServiceProviderExample::class,
-        // ...
+    public array $serviceProviders = [
+        EventServiceProvider::class,
     ];
 
     /**
-     * Container Aliases.
-     *
-     * @var array
+     * Perform post-registration booting of services.
      */
-    public $aliases = [
-
-    ];
+    public function boot()
+    {
+        parent::boot();
+    }
 
     /**
      * Register anything in the container.
@@ -39,7 +35,6 @@ class MainServiceProvider extends MainProvider
     {
         parent::register();
 
-        // do your binding here..
-        // $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 }

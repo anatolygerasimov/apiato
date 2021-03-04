@@ -4,8 +4,6 @@ namespace App\Containers\Payment\Contracts;
 
 /**
  * Interface PaymentGatewayAccount.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 interface PaymentGatewayAccountInterface
 {
@@ -27,7 +25,6 @@ interface PaymentGatewayAccountInterface
     /**
      * Checks, if required fields are set (i.e., they are NOT NULL).
      *
-     * @param array $fields
      *
      * @return bool
      */

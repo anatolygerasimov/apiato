@@ -4,27 +4,23 @@ namespace App\Containers\Stripe\Tasks;
 
 use App\Containers\Stripe\Exceptions\StripeApiErrorException;
 use App\Ship\Parents\Tasks\Task;
+use Cartalyst\Stripe\Api\Customers;
 use Cartalyst\Stripe\Stripe;
 use Exception;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class CreateStripeCustomerTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class CreateStripeCustomerTask extends Task
 {
-    private $stripe;
+    private Stripe $stripe;
 
     /**
      * StripeApi constructor.
-     *
-     * @param \Cartalyst\Stripe\Stripe $stripe
      */
     public function __construct(Stripe $stripe)
     {
-        $this->stripe = $stripe->make(Config::get('settings.stripe.secret'), Config::get('settings.stripe.version'));
+        $this->stripe = $stripe->make(config('settings.stripe.secret'), config('settings.stripe.version'));
     }
 
     /**
@@ -38,7 +34,9 @@ class CreateStripeCustomerTask extends Task
     public function run($email, $description = '')
     {
         try {
-            $response = $this->stripe->customers()->create([
+            /** @var Customers $customers */
+            $customers = $this->stripe->customers();
+            $response  = $customers->create([
                 'email'       => $email,
                 'description' => $description,
             ]);

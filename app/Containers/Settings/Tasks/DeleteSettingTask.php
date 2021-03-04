@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\Tasks;
 
 use App\Containers\Settings\Data\Repositories\SettingRepository;
@@ -10,7 +12,7 @@ use Exception;
 
 class DeleteSettingTask extends Task
 {
-    protected $repository;
+    protected SettingRepository $repository;
 
     public function __construct(SettingRepository $repository)
     {
@@ -18,16 +20,12 @@ class DeleteSettingTask extends Task
     }
 
     /**
-     * @param Setting $setting
-     *
-     * @return int
-     *
      * @throws DeleteResourceFailedException
      */
-    public function run(Setting $setting)
+    public function run(Setting $setting): bool
     {
         try {
-            return $this->repository->delete($setting->id);
+            return (bool)$this->repository->delete($setting->id);
         } catch (Exception $exception) {
             throw new DeleteResourceFailedException();
         }

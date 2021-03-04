@@ -4,17 +4,16 @@ namespace App\Containers\SocialAuth\Tasks;
 
 use App\Containers\SocialAuth\Exceptions\AccountFailedException;
 use App\Containers\User\Data\Repositories\UserRepository;
+use App\Containers\User\Models\User;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 /**
  * Class CreateUserBySocialProfileTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class CreateUserBySocialProfileTask extends Task
 {
-    protected $repository;
+    protected UserRepository $repository;
 
     public function __construct(UserRepository $repository)
     {
@@ -22,19 +21,19 @@ class CreateUserBySocialProfileTask extends Task
     }
 
     /**
-     * @param      $provider
-     * @param null $token
-     * @param null $socialId
-     * @param null $nickname
-     * @param null $name
-     * @param null $email
-     * @param null $avatar
-     * @param null $tokenSecret
-     * @param null $expiresIn
-     * @param null $refreshToken
-     * @param null $avatar_original
+     * @param string      $provider
+     * @param string|null $token
+     * @param string|null $socialId
+     * @param string|null $nickname
+     * @param string|null $username
+     * @param string|null $email
+     * @param string|null $avatar
+     * @param string|null $tokenSecret
+     * @param string|null $expiresIn
+     * @param string|null $refreshToken
+     * @param string|null $avatar_original
      *
-     * @return mixed
+     * @return User
      *
      * @throws AccountFailedException
      */
@@ -43,7 +42,7 @@ class CreateUserBySocialProfileTask extends Task
         $token = null,
         $socialId = null,
         $nickname = null,
-        $name = null,
+        $username = null,
         $email = null,
         $avatar = null,
         $tokenSecret = null,
@@ -62,7 +61,7 @@ class CreateUserBySocialProfileTask extends Task
             'social_avatar'          => $avatar,
             'social_avatar_original' => $avatar_original,
             'email'                  => $email,
-            'name'                   => $name,
+            'username'               => $username,
         ];
 
         try {

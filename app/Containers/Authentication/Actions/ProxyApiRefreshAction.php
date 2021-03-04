@@ -14,9 +14,10 @@ use App\Ship\Parents\Actions\Action;
  */
 class ProxyApiRefreshAction extends Action
 {
-    /**
-     * @return array{response_content: mixed, refresh_cookie: mixed}
-     */
+  /**
+   * @param ProxyRefreshTransporter $data
+   * @return array{response_content: mixed, refresh_cookie: mixed}
+   */
     public function run(ProxyRefreshTransporter $data): array
     {
         if (!$data->refresh_token) {

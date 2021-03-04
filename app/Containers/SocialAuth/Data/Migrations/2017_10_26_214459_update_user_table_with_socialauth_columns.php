@@ -6,29 +6,30 @@ use Illuminate\Database\Schema\Blueprint;
 class UpdateUserTableWithSocialauthColumns extends Migration
 {
     /**
+     * @FIXME : temporary disabled it
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('social_provider')->nullable();
-            $table->string('social_nickname')->nullable();
-            $table->string('social_id')->nullable();
-            $table->longText('social_token')->nullable();
-            $table->longText('social_token_secret')->nullable();
-            $table->longText('social_refresh_token')->nullable();
-            $table->string('social_expires_in')->nullable();
-            $table->string('social_avatar')->nullable();
-            $table->string('social_avatar_original')->nullable();
-        });
+//        Schema::table('users', function (Blueprint $table) {
+//            $table->string('social_provider')->nullable();
+//            $table->string('social_nickname')->nullable();
+//            $table->string('social_id')->nullable();
+//            $table->longText('social_token')->nullable();
+//            $table->longText('social_token_secret')->nullable();
+//            $table->longText('social_refresh_token')->nullable();
+//            $table->string('social_expires_in')->nullable();
+//            $table->string('social_avatar')->nullable();
+//            $table->string('social_avatar_original')->nullable();
+//        });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+//        Schema::table('users', function (Blueprint $table) {
 //            $table->dropColumn('social_provider');
 //            $table->dropColumn('social_nickname');
 //            $table->dropColumn('social_id');
@@ -38,6 +39,6 @@ class UpdateUserTableWithSocialauthColumns extends Migration
 //            $table->dropColumn('social_expires_in');
 //            $table->dropColumn('social_avatar');
 //            $table->dropColumn('social_avatar_original');
-        });
+//        });
     }
 }

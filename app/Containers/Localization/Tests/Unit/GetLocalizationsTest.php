@@ -6,7 +6,6 @@ use App\Containers\Localization\Tasks\GetAllLocalizationsTask;
 use App\Containers\Localization\Tests\TestCase;
 use App\Containers\Localization\Values\Localization;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class GetLocalizationsTest.
@@ -19,12 +18,12 @@ class GetLocalizationsTest extends TestCase
     /**
      * @test
      */
-    public function testIfAllSupportedLanguagesAreReturned()
+    public function testIfAllSupportedLanguagesAreReturned(): void
     {
         $class         = App::make(GetAllLocalizationsTask::class);
         $localizations = $class->run();
 
-        $configuredLocalizations = Config::get('localization-container.supported_languages', []);
+        $configuredLocalizations = config('localization-container.supported_languages', []);
 
         // assert that they have the same amount of fields
         $this->assertEquals(count($configuredLocalizations), $localizations->count());
@@ -32,7 +31,7 @@ class GetLocalizationsTest extends TestCase
         // now we check all localizations in particular
     }
 
-    public function testIfSpecificLocaleIsReturned()
+    public function testIfSpecificLocaleIsReturned(): void
     {
         $class         = App::make(GetAllLocalizationsTask::class);
         $localizations = $class->run();
@@ -42,7 +41,7 @@ class GetLocalizationsTest extends TestCase
         $this->assertContainsEquals($unsupportedLocale, $localizations);
     }
 
-    public function testIfSpecificLocaleWithRegionsIsReturned()
+    public function testIfSpecificLocaleWithRegionsIsReturned(): void
     {
         $class         = App::make(GetAllLocalizationsTask::class);
         $localizations = $class->run();
@@ -52,7 +51,7 @@ class GetLocalizationsTest extends TestCase
         $this->assertContainsEquals($unsupportedLocale, $localizations);
     }
 
-    public function testIfWrongLocaleIsNotReturned()
+    public function testIfWrongLocaleIsNotReturned(): void
     {
         $class         = App::make(GetAllLocalizationsTask::class);
         $localizations = $class->run();

@@ -7,20 +7,15 @@ use App\Containers\User\Models\User;
 use App\Ship\Exceptions\CreateResourceFailedException;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class AssignPaymentAccountToUserTask.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class AssignPaymentAccountToUserTask extends Task
 {
     /**
-     * @param \App\Containers\Payment\Models\AbstractPaymentAccount $account
-     * @param \App\Containers\User\Models\User                      $user
-     * @param string|null                                           $paymentNickName
-     *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      *
      * @throws CreateResourceFailedException
      */

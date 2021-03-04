@@ -4,27 +4,27 @@ namespace App\Containers\Debugger\Values;
 
 use App\Ship\Parents\Values\Value;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 /**
  * Class RequestsLogger.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class RequestsLogger extends Value
 {
     public const TESTING_ENV = 'testing';
 
-    protected $debuggingEnabled;
+    protected bool $debuggingEnabled;
 
+    /**
+     * @var null|bool|string
+     */
     protected $environment;
 
-    protected $logger;
+    protected ?Logger $logger = null;
 
-    protected $logFile;
+    protected string $logFile;
 
     /**
      * RequestsLogger constructor.
@@ -35,30 +35,21 @@ class RequestsLogger extends Value
         $this->prepareLogger();
     }
 
-    /**
-     * @param \App\Containers\Debugger\Value\Output $output
-     */
-    public function releaseOutput(Output $output)
+    public function releaseOutput(Output $output): void
     {
-        if ($this->environment !== self::TESTING_ENV && $this->debuggingEnabled === true) {
+        if ($this->environment !== self::TESTING_ENV && $this->debuggingEnabled === true && $this->logger) {
             $this->logger->info($output->get());
         }
     }
 
-    /**
-     * @void
-     */
-    private function prepareConfigs()
+    private function prepareConfigs(): void
     {
         $this->environment      = App::environment();
-        $this->debuggingEnabled = Config::get('debugger.requests.debug');
-        $this->logFile          = Config::get('debugger.requests.log_file');
+        $this->debuggingEnabled = (bool)config('debugger.requests.debug');
+        $this->logFile          = config('debugger.requests.log_file');
     }
 
-    /**
-     * @void
-     */
-    private function prepareLogger()
+    private function prepareLogger(): void
     {
         $handler = new StreamHandler(storage_path('logs/' . $this->logFile));
         $handler->setFormatter(new LineFormatter(null, null, true, true));

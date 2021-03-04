@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Tests\Functional;
 
 use App\Containers\User\Models\User;
@@ -10,13 +12,17 @@ use App\Containers\User\Tests\ApiTestCase;
  *
  * @group user
  * @group api
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class DeleteUserTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'delete@v1/users/{id}';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'delete-users',
@@ -25,7 +31,7 @@ class DeleteUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testDeleteExistingUser()
+    public function testDeleteExistingUser(): void
     {
         $user = $this->getTestingUser();
 
@@ -39,7 +45,7 @@ class DeleteUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testDeleteAnotherExistingUser()
+    public function testDeleteAnotherExistingUser(): void
     {
         // make the call form the user token who has no access
         $this->getTestingUserWithoutAccess();

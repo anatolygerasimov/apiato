@@ -12,7 +12,7 @@ use http\Client\Response;
  */
 class LogoutFailedException extends Exception
 {
-    public $httpStatusCode = Response::HTTP_BAD_REQUEST;
+  public $httpStatusCode = Response::HTTP_BAD_REQUEST;
 
     /**
      * @var string

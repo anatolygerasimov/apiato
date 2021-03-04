@@ -1,43 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
-use App\Containers\User\Mails\UserForgotPasswordMail;
-use App\Ship\Exceptions\NotFoundException;
+use App\Containers\User\UI\API\Requests\ForgotPasswordRequest;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 
 /**
  * Class ForgotPasswordAction.
- *
- * @author  Sebastian Weckend
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class ForgotPasswordAction extends Action
 {
-    /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     */
-    public function run(DataTransporter $data): void
+    public function run(ForgotPasswordRequest $forgotPasswordData): string
     {
-        $user = Apiato::call('User@FindUserByEmailTask', [$data->email]);
+        $input = $forgotPasswordData->sanitizeInput([
+            'email',
+        ]);
 
-        // generate token
-        $token = Apiato::call('User@CreatePasswordResetTask', [$user]);
+        $status = Password::broker()->sendResetLink($input);
 
-        // get last segment of the URL
-        $resetUrl    = $data->reseturl;
-        $url         = explode('/', $resetUrl);
-        $lastSegment = $url[count($url) - 1];
-
-        // validate the allowed endpoint is being used
-        if (!in_array($lastSegment, config('user-container.allowed-reset-password-urls'))) {
-            throw new NotFoundException("The URL is not allowed ($resetUrl)");
-        }
-
-        // send email
-        Mail::send(new UserForgotPasswordMail($user, $token, $resetUrl));
+        return (string)trans($status);
     }
 }

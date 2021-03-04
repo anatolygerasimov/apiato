@@ -1,22 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Tests\Functional;
 
 use App\Containers\User\Models\User;
 use App\Containers\User\Tests\ApiTestCase;
+use App\Ship\Core\Foundation\Facades\Apiato;
 
 /**
  * Class GetAllUsersTest.
  *
  * @group user
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllAdminsTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'get@v1/admins';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'list-users',
@@ -25,13 +32,15 @@ class GetAllAdminsTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllAdmins()
+    public function testGetAllAdmins(): void
     {
         // create some non-admin users
-        $users = factory(User::class, 2)->create();
+        factory(User::class, 2)->create();
 
         // should not be returned
-        factory(User::class)->states('client')->create();
+        $user = factory(User::class)->states('client')->create();
+
+        Apiato::call('Authorization@AssignUserToRoleTask', [$user, ['admin']]);
 
         // send the HTTP request
         $response = $this->makeCall();
@@ -43,14 +52,14 @@ class GetAllAdminsTest extends ApiTestCase
         $responseContent = $this->getResponseContentObject();
 
         // assert the returned data size is correct
-        $this->assertCount(4,
-            $responseContent->data); // 2 (fake in this test) + 1 (that is logged in) + 1 (seeded super admin)
+        // 1 (fake in this test) + 1 (seeded super user/admin)
+        $this->assertCount(2, $responseContent->data);
     }
 
     /**
      * @test
      */
-    public function testGetAllAdminsByNonAdmin()
+    public function testGetAllAdminsByNonAdmin(): void
     {
         $this->getTestingUserWithoutAccess();
 

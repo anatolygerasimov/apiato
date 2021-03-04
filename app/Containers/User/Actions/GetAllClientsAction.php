@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\User\Models\User;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class GetAllClientsAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllClientsAction extends Action
 {
     /**
-     * @return mixed
+     * @return User[]|Collection
      */
     public function run()
     {
@@ -21,7 +23,7 @@ class GetAllClientsAction extends Action
             [],
             [
                 'addRequestCriteria',
-                'clients',
+                ['withRole' => ['user']],
                 'ordered',
             ]
         );

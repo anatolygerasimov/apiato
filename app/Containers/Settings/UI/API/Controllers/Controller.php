@@ -1,29 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\UI\API\Controllers;
 
-use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Settings\UI\API\Requests\CreateSettingRequest;
 use App\Containers\Settings\UI\API\Requests\DeleteSettingRequest;
 use App\Containers\Settings\UI\API\Requests\GetAllSettingsRequest;
 use App\Containers\Settings\UI\API\Requests\UpdateSettingRequest;
 use App\Containers\Settings\UI\API\Transformers\SettingTransformer;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Controllers\ApiController;
 use App\Ship\Transporters\DataTransporter;
+use Illuminate\Http\JsonResponse;
 
 /**
  * Class Controller.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Controller extends ApiController
 {
     /**
      * Get All application settings.
      *
-     * @param GetAllSettingsRequest $request
-     *
-     * @return mixed
+     * @return array
      */
     public function getAllSettings(GetAllSettingsRequest $request)
     {
@@ -33,11 +32,9 @@ class Controller extends ApiController
     }
 
     /**
-     * create a new setting.
+     * Create a new setting.
      *
-     * @param CreateSettingRequest $request
-     *
-     * @return mixed
+     * @return array
      */
     public function createSetting(CreateSettingRequest $request)
     {
@@ -49,13 +46,11 @@ class Controller extends ApiController
     /**
      * Updates an existing setting.
      *
-     * @param UpdateSettingRequest $request
-     *
-     * @return mixed
+     * @return array
      */
     public function updateSetting(UpdateSettingRequest $request)
     {
-        $setting = Apiato::call('Settings@UpdateSettingAction', [new DataTransporter($request)]);
+        $setting = Apiato::call('Settings@UpdateSettingAction', [$request]);
 
         return $this->transform($setting, SettingTransformer::class);
     }
@@ -63,13 +58,11 @@ class Controller extends ApiController
     /**
      * Removes a setting.
      *
-     * @param DeleteSettingRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function deleteSetting(DeleteSettingRequest $request)
     {
-        Apiato::call('Settings@DeleteSettingAction', [new DataTransporter($request)]);
+        Apiato::call('Settings@DeleteSettingAction', [$request]);
 
         return $this->noContent();
     }

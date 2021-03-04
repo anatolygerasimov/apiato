@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Settings
  * @apiName            updateSetting
@@ -27,6 +31,8 @@
  * }
  * }
  */
+
+/** @var Route $router */
 $router->patch('settings/{id}', [
     'as'         => 'api_settings_update_setting',
     'uses'       => 'Controller@updateSetting',

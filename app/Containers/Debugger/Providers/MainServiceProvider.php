@@ -4,34 +4,27 @@ namespace App\Containers\Debugger\Providers;
 
 use App\Containers\Debugger\Tasks\QueryDebuggerTask;
 use App\Ship\Parents\Providers\MainProvider;
+use Illuminate\Database\DatabaseManager;
 use Jenssegers\Agent\AgentServiceProvider;
 use Jenssegers\Agent\Facades\Agent;
 
 /**
  * Class MainServiceProvider.
- *
- * The Main Service Provider of this container, it will be automatically registered in the framework.
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class MainServiceProvider extends MainProvider
 {
     /**
      * Container Service Providers.
-     *
-     * @var array
      */
-    public $serviceProviders = [
+    public array $serviceProviders = [
         AgentServiceProvider::class,
         MiddlewareServiceProvider::class,
     ];
 
     /**
      * Container Aliases.
-     *
-     * @var array
      */
-    public $aliases = [
+    public array $aliases = [
         'Agent' => Agent::class,
     ];
 
@@ -43,5 +36,19 @@ class MainServiceProvider extends MainProvider
         parent::register();
 
         (new QueryDebuggerTask())->run();
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        parent::boot();
+
+        if (config('app.debug')) {
+            $this->app->get(DatabaseManager::class)->enableQueryLog();
+        }
     }
 }

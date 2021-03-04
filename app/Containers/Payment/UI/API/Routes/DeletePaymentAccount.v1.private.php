@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Payment
  * @apiName            deletePaymentAccount
@@ -19,6 +23,8 @@
  * // ...
  * }
  */
+
+/** @var Route $router */
 $router->delete('user/paymentaccounts/{id}', [
     'as'         => 'api_payment_delete_payment_account',
     'uses'       => 'Controller@deletePaymentAccount',

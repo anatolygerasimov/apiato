@@ -7,8 +7,6 @@ use App\Ship\Parents\Transformers\Transformer;
 
 /**
  * Class LocalizationTransformer.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class LocalizationTransformer extends Transformer
 {
@@ -26,12 +24,7 @@ class LocalizationTransformer extends Transformer
 
     ];
 
-    /**
-     * @param Localization $entity
-     *
-     * @return array
-     */
-    public function transform(Localization $entity)
+    public function transform(Localization $entity): array
     {
         $response = [
             'object' => 'Localization',

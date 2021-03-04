@@ -17,7 +17,7 @@ use App\Ship\Parents\Transporters\Transporter;
  */
 class LoginTransporter extends Transporter
 {
-    protected $schema = [
+  protected $schema = [
         'type'       => 'object',
         'properties' => [
             'email'           => ['type' => 'string'],

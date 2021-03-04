@@ -3,24 +3,15 @@
 namespace App\Containers\Debugger\Providers;
 
 use App\Containers\Debugger\Middlewares\RequestsMonitorMiddleware;
+use App\Ship\Middlewares\Http\QueryStatsHeaders;
 use App\Ship\Parents\Providers\MiddlewareProvider;
+use Illuminate\Contracts\Http\Kernel;
 
 /**
  * Class MiddlewareServiceProvider.
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class MiddlewareServiceProvider extends MiddlewareProvider
 {
-    /**
-     * Register Middleware's.
-     *
-     * @var array
-     */
-    protected $middlewares = [
-        RequestsMonitorMiddleware::class,
-    ];
-
     /**
      * Register Container Middleware Groups.
      *
@@ -35,12 +26,16 @@ class MiddlewareServiceProvider extends MiddlewareProvider
         ],
     ];
 
-    /**
-     * Register Route Middleware's.
-     *
-     * @var array
-     */
-    protected $routeMiddleware = [
-        // ..
-    ];
+    public function boot()
+    {
+        parent::boot();
+
+        if (config('app.debug')) {
+            $this->app->make(Kernel::class)->appendMiddlewareToGroup('api', QueryStatsHeaders::class);
+        }
+
+        if (config('debugger.requests.debug')) {
+            $this->app->make(Kernel::class)->prependMiddleware(RequestsMonitorMiddleware::class);
+        }
+    }
 }

@@ -7,12 +7,13 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 /**
  * Class UnsupportedLanguageException.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class UnsupportedLanguageException extends Exception
 {
-    public $httpStatusCode = SymfonyResponse::HTTP_PRECONDITION_FAILED;
+    public int $httpStatusCode = SymfonyResponse::HTTP_PRECONDITION_FAILED;
 
+    /**
+     * @var string
+     */
     public $message = 'Unsupported Language.';
 }

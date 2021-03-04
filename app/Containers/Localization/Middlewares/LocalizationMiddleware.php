@@ -8,21 +8,15 @@ use ArrayIterator;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
 /**
  * Class LocalizationMiddleware.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class LocalizationMiddleware extends Middleware
 {
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     *
-     * @return mixed
+     * @psalm-return mixed
      */
     public function handle(Request $request, Closure $next)
     {
@@ -43,68 +37,62 @@ class LocalizationMiddleware extends Middleware
     }
 
     /**
-     * @param $request_languages
-     *
-     * @return string
+     * Be sure to check $lang of the format 'de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4'
+     * this means:
+     *  1) give me de-DE if it is available
+     *  2) otherwise, give me de
+     *  3) otherwise, give me en-US
+     *  4) if all fails, give me en.
      *
      * @throws UnsupportedLanguageException
      */
-    private function validateLanguage($request_languages)
+    private function validateLanguage(string $requestLanguages): string
     {
-        /*
-         * be sure to check $lang of the format "de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4"
-         * this means:
-         *  1) give me de-DE if it is available
-         *  2) otherwise, give me de
-         *  3) otherwise, give me en-US
-         *  4) if all fails, give me en
-         */
-
         // split it up by ","
-        $languages = explode(',', $request_languages);
+        $languages = explode(',', $requestLanguages);
 
         // we need an ArrayIterator because we will be extending the FOREACH below dynamically!
-        $language_iterator = new ArrayIterator($languages);
+        $languageIterator = new ArrayIterator($languages);
 
-        $supported_languages = $this->getSupportedLanguages();
+        $supportedLanguages = $this->getSupportedLanguages();
 
-        foreach ($language_iterator as $language) {
+        foreach ($languageIterator as $language) {
             // split it up by ";"
             $locale = explode(';', $language);
 
-            $current_locale = $locale[0];
+            $currentLocale = $locale[0];
 
             // now check, if this locale is "supported"
-            if (array_search($current_locale, $supported_languages) !== false) {
-                return $current_locale;
+            if (array_search($currentLocale, $supportedLanguages) !== false) {
+                return $currentLocale;
             }
 
             // now check, if the language to be checked is in the form of de-DE
-            if (Str::contains($current_locale, '-')) {
+            if (Str::contains($currentLocale, '-')) {
                 // extract the "main" part ("de") and append it to the end of the languages to be checked
-                $base                = explode('-', $current_locale);
-                $language_iterator[] = $base[0];
+                $base                = explode('-', $currentLocale);
+                $languageIterator->append($base[0]);
             }
         }
 
-        // we have not found any language that is supported
-        throw new UnsupportedLanguageException();
+        if (config('localization-container.force-valid-locale', true)) {
+            // we have not found any language that is supported
+            throw new UnsupportedLanguageException();
+        }
+
+        return config('app.fallback_locale');
     }
 
-    /**
-     * @param $request
-     *
-     * @return string
-     */
-    private function findLanguage($request)
+    private function findLanguage(Request $request): string
     {
         /*
          * read the accept-language from the request
          * if the header is missing, use the default local language
          */
-        $language = Config::get('app.locale');
+        $language = config('app.locale');
 
         if ($request->hasHeader('Accept-Language')) {
+            /** @var string $language */
             $language = $request->header('Accept-Language');
         }
 
@@ -112,13 +100,17 @@ class LocalizationMiddleware extends Middleware
     }
 
     /**
-     * @return array
+     * @psalm-return list<mixed>
      */
-    private function getSupportedLanguages()
+    private function getSupportedLanguages(): array
     {
         $supported_locales = [];
 
-        $locales = Config::get('localization-container.supported_languages');
+        $locales = config('localization-container.supported_languages');
+
+        if (!is_array($locales)) {
+            return [];
+        }
 
         foreach ($locales as $key => $value) {
             // it is a "simple" language code (e.g., "en")!

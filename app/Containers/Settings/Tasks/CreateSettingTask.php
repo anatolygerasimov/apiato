@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\Tasks;
 
 use App\Containers\Settings\Data\Repositories\SettingRepository;
@@ -10,7 +12,7 @@ use Exception;
 
 class CreateSettingTask extends Task
 {
-    protected $repository;
+    protected SettingRepository $repository;
 
     public function __construct(SettingRepository $repository)
     {
@@ -18,10 +20,6 @@ class CreateSettingTask extends Task
     }
 
     /**
-     * @param array $data
-     *
-     * @return Setting
-     *
      * @throws CreateResourceFailedException
      */
     public function run(array $data): Setting

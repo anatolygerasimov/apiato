@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Users
  * @apiName            getAllUsers
@@ -10,9 +14,9 @@
  *
  * @apiVersion         1.0.0
  * @apiPermission      Authenticated User
- *
- * @apiUse             GeneralSuccessMultipleResponse
  */
+
+/** @var Route $router */
 $router->get('users', [
     'as'         => 'api_user_get_all_users',
     'uses'       => 'Controller@getAllUsers',

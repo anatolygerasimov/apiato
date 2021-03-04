@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Tests\Functional;
 
-use App\Containers\User\Models\User;
 use App\Containers\User\Tests\ApiTestCase;
 
 /**
@@ -10,13 +11,17 @@ use App\Containers\User\Tests\ApiTestCase;
  *
  * @group user
  * @group api
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class CreateAdminTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'post@v1/admins';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'permissions' => 'create-admins',
         'roles'       => '',
@@ -25,12 +30,13 @@ class CreateAdminTest extends ApiTestCase
     /**
      * @test
      */
-    public function testCreateAdmin()
+    public function testCreateAdmin(): void
     {
         $data = [
-            'email'    => 'apiato@admin.test',
-            'name'     => 'admin',
-            'password' => 'secret',
+            'email'                 => $this->faker->unique()->email,
+            'username'              => $this->faker->unique()->userName,
+            'password'              => 'secret',
+            'password_confirmation' => 'secret',
         ];
 
         // send the HTTP request
@@ -40,18 +46,14 @@ class CreateAdminTest extends ApiTestCase
         $response->assertStatus(200);
 
         $this->assertResponseContainKeyValue([
-            'email' => $data['email'],
-            'name'  => $data['name'],
+            'email'    => $data['email'],
+            'username' => $data['username'],
         ]);
 
         // assert response contain the token
         $this->assertResponseContainKeys(['id']);
 
         // assert the data is stored in the database
-        $this->assertDatabaseHas('users', ['email' => $data['email']]);
-
-        $user = User::where(['email' => $data['email']])->first();
-
-        $this->assertEquals($user->is_client, false);
+        $this->assertDatabaseHas('users', ['email' => $data['email'], 'is_client' => false]);
     }
 }

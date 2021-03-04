@@ -5,21 +5,18 @@ use Illuminate\Database\Schema\Blueprint;
 
 /**
  * Class CreatePaymentTransactionsTable.
- *
- * @author Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class CreatePaymentTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('payment_transactions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
 
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id');
 
             $table->string('gateway');
             $table->string('transaction_id');
@@ -41,8 +38,8 @@ class CreatePaymentTransactionsTable extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
-        Schema::drop('payment_transactions');
+        Schema::dropIfExists('payment_transactions');
     }
 }

@@ -1,25 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\Settings\UI\API\Requests\DeleteSettingRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
 
 /**
  * Class DeleteSettingAction.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class DeleteSettingAction extends Action
 {
-    /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     */
-    public function run(DataTransporter $data): void
+    public function run(DeleteSettingRequest $request): void
     {
-        $setting = Apiato::call('Settings@FindSettingByIdTask', [$data->id]);
+        $setting = Apiato::call('Settings@FindSettingByIdTask', [$request->id]);
 
-        Apiato::call('Settings@DeleteSettingTask', [$setting]);
+      Apiato::call('Settings@DeleteSettingTask', [$setting]);
     }
 }

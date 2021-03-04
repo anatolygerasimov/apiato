@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Settings
  * @apiName            createSetting
@@ -27,6 +31,8 @@
  * }
  * }
  */
+
+/** @var Route $router */
 $router->post('settings', [
     'as'         => 'api_settings_create_setting',
     'uses'       => 'Controller@createSetting',

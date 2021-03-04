@@ -10,13 +10,10 @@ use Exception;
 
 /**
  * Class FindPaymentAccountByIdTask.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class FindPaymentAccountByIdTask extends Task
 {
-    protected $repository;
+    protected PaymentAccountRepository $repository;
 
     public function __construct(PaymentAccountRepository $repository)
     {
@@ -24,13 +21,11 @@ class FindPaymentAccountByIdTask extends Task
     }
 
     /**
-     * @param $id
-     *
      * @return mixed
      *
      * @throws NotFoundException
      */
-    public function run($id): PaymentAccount
+    public function run(?int $id): PaymentAccount
     {
         try {
             $paymentAccount = $this->repository->find($id);

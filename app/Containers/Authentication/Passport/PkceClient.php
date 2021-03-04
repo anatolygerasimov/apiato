@@ -11,7 +11,7 @@ class PkceClient extends BaseClient
     /**
      * @inheritdoc
      */
-    public function skipsAuthorization()
+    public function skipsAuthorization(): bool
     {
         return $this->firstParty();
     }

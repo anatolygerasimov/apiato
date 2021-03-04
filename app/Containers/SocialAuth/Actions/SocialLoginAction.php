@@ -2,14 +2,13 @@
 
 namespace App\Containers\SocialAuth\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\SocialAuth\Data\Transporters\ApiAuthenticateTransporter;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
+use Dto\Exceptions\InvalidDataTypeException;
 
 /**
  * Class SocialLoginAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class SocialLoginAction extends Action
 {
@@ -19,13 +18,11 @@ class SocialLoginAction extends Action
      * ----- if has no social profile
      * --------- [C] create new record.
      *
-     * @param \App\Ship\Transporters\DataTransporter $data
+     * @return array<string, mixed>
      *
-     * @return mixed
-     *
-     * @throws \Dto\Exceptions\InvalidDataTypeException
+     * @throws InvalidDataTypeException
      */
-    public function run(DataTransporter $data)
+    public function run(ApiAuthenticateTransporter $data)
     {
         // fetch the user data from the support platforms
         $socialUserProfile = Apiato::call('SocialAuth@FindUserSocialProfileTask', [$data->provider, $data->toArray()]);
@@ -64,7 +61,7 @@ class SocialLoginAction extends Action
                 $socialUserProfile->token,
                 $socialUserProfile->id,
                 $socialUserProfile->nickname,
-                $socialUserProfile->name,
+                $socialUserProfile->username,
                 $socialUserProfile->email,
                 $socialUserProfile->avatar,
                 $tokenSecret,

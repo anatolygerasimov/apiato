@@ -3,19 +3,19 @@
 namespace App\Containers\SocialAuth\UI\WEB\Controllers;
 
 use App\Ship\Parents\Controllers\WebController;
+use Laravel\Socialite\Contracts\User;
 use Laravel\Socialite\Facades\Socialite;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class Controller.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Controller extends WebController
 {
     /**
-     * @param $provider
+     * @param string $provider
      *
-     * @return mixed
+     * @return RedirectResponse
      */
     public function redirectAll($provider)
     {
@@ -23,9 +23,9 @@ class Controller extends WebController
     }
 
     /**
-     * @param $provider
+     * @param string $provider
      *
-     * @return mixed
+     * @return User
      */
     public function handleCallbackAll($provider)
     {

@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Settings
  * @apiName            deleteSetting
@@ -13,10 +17,12 @@
  * @apiParam           {String}  parameters here..
  *
  * @apiSuccessExample  {json}  Success-Response:
- * HTTP/1.1 204 OK
+ * HTTP/1.1 204 No Content
  * {
  * }
  */
+
+/** @var Route $router */
 $router->delete('settings/{id}', [
     'as'         => 'api_settings_delete_setting',
     'uses'       => 'Controller@deleteSetting',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Tests\Functional;
 
 use App\Containers\User\Tests\ApiTestCase;
@@ -9,13 +11,17 @@ use App\Containers\User\Tests\ApiTestCase;
  *
  * @group user
  * @group api
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class UpdateUserTest extends ApiTestCase
 {
-    protected $endpoint = 'put@v1/users/{id}';
+    /**
+     * @var string
+     */
+    protected $endpoint = 'patch@v1/users/{id}';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'update-users',
@@ -24,13 +30,12 @@ class UpdateUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testUpdateExistingUser()
+    public function testUpdateExistingUser(): void
     {
         $user = $this->getTestingUser();
 
         $data = [
-            'name'     => 'Updated Name',
-            'password' => 'updated#Password',
+            'username' => 'Updated username',
         ];
 
         // send the HTTP request
@@ -41,22 +46,22 @@ class UpdateUserTest extends ApiTestCase
 
         // assert returned user is the updated one
         $this->assertResponseContainKeyValue([
-            'object' => 'User',
-            'email'  => $user->email,
-            'name'   => $data['name'],
+            'object'   => 'User',
+            'email'    => $user->email,
+            'username' => $data['username'],
         ]);
 
         // assert data was updated in the database
-        $this->assertDatabaseHas('users', ['name' => $data['name']]);
+        $this->assertDatabaseHas('users', ['username' => $data['username']]);
     }
 
     /**
      * @test
      */
-    public function testUpdateNonExistingUser()
+    public function testUpdateNonExistingUser(): void
     {
         $data = [
-            'name' => 'Updated Name',
+            'username' => 'Updated Username',
         ];
 
         $fakeUserId = 7777;
@@ -75,7 +80,7 @@ class UpdateUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testUpdateExistingUserWithoutData()
+    public function testUpdateExistingUserWithoutData(): void
     {
         // send the HTTP request
         $response = $this->makeCall();
@@ -91,23 +96,25 @@ class UpdateUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testUpdateExistingUserWithEmptyValues()
+    public function testUpdateExistingUserWithEmptyValues(): void
     {
+        $user = $this->getTestingUser();
+
         $data = [
-            'name'     => '',
-            'password' => '',
+            'username'   => '1',
+            'first_name' => '1',
         ];
 
         // send the HTTP request
-        $response = $this->makeCall($data);
+        $response = $this->injectId($user->id)->makeCall($data);
 
         // assert response status is correct
         $response->assertStatus(422);
 
         $this->assertValidationErrorContain([
             // messages should be updated after modifying the validation rules, to pass this test
-            'password' => 'The password must be at least 6 characters.',
-            'name'     => 'The name must be at least 2 characters.',
+            'username'   => 'The username must be at least 2 characters.',
+            'first_name' => 'The first name must be at least 2 characters.',
         ]);
     }
 }

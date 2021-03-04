@@ -3,38 +3,26 @@
 namespace App\Containers\Localization\Values;
 
 use App\Ship\Parents\Values\Value;
-use Illuminate\Support\Facades\Config;
 use Locale;
 
 /**
  * Class Localization.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Localization extends Value
 {
-    /**
-     * @var null
-     */
-    private $language = null;
+    private string $language;
 
-    /**
-     * @var array
-     */
-    private $regions = [];
+    private array $regions = [];
 
     /**
      * A resource key to be used by the the JSON API Serializer responses.
      */
-    protected $resourceKey = 'localizations';
+    protected string $resourceKey = 'localizations';
 
     /**
      * Localization constructor.
-     *
-     * @param       $language
-     * @param array $regions
      */
-    public function __construct($language, array $regions = [])
+    public function __construct(string $language, array $regions = [])
     {
         $this->language = $language;
 
@@ -48,7 +36,7 @@ class Localization extends Value
      */
     public function getDefaultName()
     {
-        return Locale::getDisplayLanguage($this->language, Config::get('app.locale'));
+        return Locale::getDisplayLanguage($this->language, config('app.locale'));
     }
 
     /**
@@ -60,7 +48,7 @@ class Localization extends Value
     }
 
     /**
-     * @return null
+     * @return string|null
      */
     public function getLanguage()
     {

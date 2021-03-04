@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\Tasks;
 
 use App\Containers\Settings\Data\Repositories\SettingRepository;
@@ -10,22 +12,14 @@ use Exception;
 
 class UpdateSettingTask extends Task
 {
-    protected $repository;
+    protected SettingRepository $repository;
 
     public function __construct(SettingRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param $id
-     * @param $data
-     *
-     * @return Setting
-     *
-     * @throws UpdateResourceFailedException
-     */
-    public function run($id, $data): Setting
+    public function run(int $id, array $data): Setting
     {
         try {
             return $this->repository->update($data, $id);

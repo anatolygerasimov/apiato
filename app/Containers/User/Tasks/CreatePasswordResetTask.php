@@ -1,30 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Tasks;
 
 use App\Containers\User\Models\User;
 use App\Ship\Exceptions\InternalErrorException;
 use App\Ship\Parents\Exceptions\Exception;
 use App\Ship\Parents\Tasks\Task;
+use Illuminate\Auth\Passwords\PasswordBroker;
+use Illuminate\Support\Facades\Password;
 
 /**
  * Class CreatePasswordResetTask.
- *
- * @author  Sebastian Weckend
  */
 class CreatePasswordResetTask extends Task
 {
-    /**
-     * @param \App\Containers\User\Models\User $user
-     *
-     * @return mixed
-     *
-     * @throws InternalErrorException
-     */
-    public function run(User $user)
+    public function run(User $user): string
     {
         try {
-            return app('auth.password.broker')->createToken($user);
+            /** @var PasswordBroker $broker */
+            $broker = Password::broker();
+
+            return $broker->createToken($user);
         } catch (Exception $e) {
             throw new InternalErrorException();
         }

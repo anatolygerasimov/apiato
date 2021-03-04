@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Tasks;
 
 use App\Containers\User\Data\Repositories\UserRepository;
@@ -10,34 +12,22 @@ use Exception;
 
 /**
  * Class FindUserByIdTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class FindUserByIdTask extends Task
 {
-    protected $repository;
+    protected UserRepository $repository;
 
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param $userId
-     *
-     * @return User
-     *
-     * @throws NotFoundException
-     */
-    public function run($userId): User
+    public function run(int $userId): ?User
     {
-        // find the user by its id
         try {
-            $user = $this->repository->find($userId);
+            return $this->repository->find($userId);
         } catch (Exception $e) {
             throw new NotFoundException();
         }
-
-        return $user;
     }
 }

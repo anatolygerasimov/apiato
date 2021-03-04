@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Tasks;
 
 use App\Containers\User\Data\Repositories\UserRepository;
@@ -11,52 +13,32 @@ use Illuminate\Support\Facades\Hash;
 
 /**
  * Class CreateUserByCredentialsTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class CreateUserByCredentialsTask extends Task
 {
-    protected $repository;
+    protected UserRepository $repository;
 
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param bool        $isClient
-     * @param string      $email
-     * @param string      $password
-     * @param string|null $name
-     * @param string|null $gender
-     * @param string|null $birth
-     *
-     * @return mixed
-     *
-     * @throws CreateResourceFailedException
-     */
     public function run(
-        bool $isClient = true,
         string $email,
         string $password,
-        string $name = null,
-        string $gender = null,
-        string $birth = null
+        string $username,
+        bool $isClient = true
     ): User {
         try {
             // create new user
-            $user = $this->repository->create([
+            return $this->repository->create([
                 'password'  => Hash::make($password),
                 'email'     => $email,
-                'name'      => $name,
-                'gender'    => $gender,
-                'birth'     => $birth,
+                'username'  => $username,
                 'is_client' => $isClient,
             ]);
         } catch (Exception $e) {
             throw (new CreateResourceFailedException())->debug($e);
         }
-
-        return $user;
     }
 }

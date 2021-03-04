@@ -3,153 +3,101 @@
 namespace App\Containers\Debugger\Values;
 
 use App\Ship\Parents\Values\Value;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Http\Request;
 use Jenssegers\Agent\Facades\Agent;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class Output.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class Output extends Value
 {
-    /**
-     * @var string
-     */
-    public $output = '';
+    public string $output = '';
 
-    /**
-     * @var
-     */
-    private $request;
+    private Request $request;
 
-    /**
-     * @var
-     */
-    private $response;
+    private Response $response;
 
-    /**
-     * @var
-     */
-    protected $responseDataCut;
+    protected int $responseDataCut;
 
-    /**
-     * @var
-     */
-    protected $tokenDataCut;
+    protected int $tokenDataCut;
 
     /**
      * Output constructor.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request  $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function __construct(Request $request, Response $response)
     {
         $this->request  = $request;
         $this->response = $response;
 
-        $this->responseDataCut = Config::get('debugger.requests.response_show_first');
-        $this->tokenDataCut    = Config::get('debugger.requests.token_show_first');
+        $this->responseDataCut = config('debugger.requests.response_show_first');
+        $this->tokenDataCut    = config('debugger.requests.token_show_first');
     }
 
-    /**
-     * @param $text
-     *
-     * @return string
-     */
-    protected function set($text)
+    protected function set(string $text): string
     {
         return $this->output = $text;
     }
 
-    /**
-     * @return string
-     */
-    public function get()
+    public function get(): string
     {
         return $this->output;
     }
 
-    /**
-     * @void
-     */
-    public function clear()
+    public function clear(): void
     {
         $this->set('');
     }
 
     /**
      * Add header.
-     *
-     * @param $name
      */
-    public function header($name)
+    public function header(string $name): void
     {
         $this->append("$name: \n");
     }
 
     /**
      * Add line to indicate new request.
-     *
-     * @void
      */
-    public function newRequest()
+    public function newRequest(): void
     {
         $this->append('----------------- NEW REQUEST -----------------');
     }
 
     /**
      * Add empty line.
-     *
-     * @void
      */
-    public function spaceLine()
+    public function spaceLine(): void
     {
         $this->append("\n \n");
     }
 
-    /**
-     * @void
-     */
-    public function endpoint()
+    public function endpoint(): void
     {
         $this->append(' * Endpoint: ' . $this->request->fullUrl() . "\n");
         $this->append(' * Method: ' . $this->request->getMethod() . "\n");
     }
 
-    /**
-     * @void
-     */
-    public function version()
+    public function version(): void
     {
         if (method_exists($this->request, 'version')) {
             $this->append(' * Version: ' . $this->request->version() . "\n");
         }
     }
 
-    /**
-     * @void
-     */
-    public function ip()
+    public function ip(): void
     {
-        $this->append(' * IP: ' . $this->request->ip() . ' (Port: ' . $this->request->getPort() . ") \n");
+        $ip = $this->request->ip() ?? '';
+        $this->append(' * IP: ' . $ip . ' (Port: ' . $this->request->getPort() . ") \n");
     }
 
-    /**
-     * @void
-     */
-    public function format()
+    public function format(): void
     {
         $this->append(' * Format: ' . $this->request->format() . "\n");
     }
 
-    /**
-     * @void
-     */
-    public function userInfo()
+    public function userInfo(): void
     {
         // Auth Header
         $authHeader = $this->request->header('Authorization');
@@ -158,18 +106,16 @@ class Output extends Value
         // Browser
         $browser = Agent::browser();
 
-        $this->append(' * Access Token: ' . substr($authHeader, 0,
-                $this->tokenDataCut) . (!is_null($authHeader) ? '...' : 'N/A') . "\n");
+        $cutTokenString = is_string($authHeader) ? substr($authHeader, 0, $this->tokenDataCut) : '';
+
+        $this->append(' * Access Token: ' . $cutTokenString . (!is_null($authHeader) ? '...' : 'N/A') . "\n");
         $this->append(' * User: ' . $user . "\n");
         $this->append(' * Device: ' . Agent::device() . ' (Platform: ' . Agent::platform() . ") \n");
         $this->append(' * Browser: ' . $browser . ' (Version: ' . Agent::version($browser) . ") \n");
         $this->append(' * Languages: ' . implode(', ', Agent::languages()) . "\n");
     }
 
-    /**
-     * @void
-     */
-    public function requestData()
+    public function requestData(): void
     {
         // Request Data
         $requestData = $this->request->all() ? http_build_query($this->request->all(), '', ' + ') : 'N/A';
@@ -177,24 +123,15 @@ class Output extends Value
         $this->append(' * ' . $requestData . "\n");
     }
 
-    /**
-     * @void
-     */
-    public function responseData()
+    public function responseData(): void
     {
         // Response Data
-        $responseContent = ($this->response && method_exists($this->response,
-                'content')) ? $this->response->content() : 'N/A';
+        $responseContent = (method_exists($this->response, 'content')) ? $this->response->content() : 'N/A';
 
         $this->append(' * ' . substr($responseContent, 0, $this->responseDataCut) . '...' . "\n");
     }
 
-    /**
-     * @param $output
-     *
-     * @return string
-     */
-    private function append($output)
+    private function append(string $output): string
     {
         return $this->output .= $output;
     }

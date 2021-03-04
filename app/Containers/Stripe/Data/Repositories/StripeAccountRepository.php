@@ -7,8 +7,6 @@ use App\Ship\Parents\Repositories\Repository;
 
 /**
  * Class StripeAccountRepository.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class StripeAccountRepository extends Repository
 {

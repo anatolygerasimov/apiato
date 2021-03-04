@@ -10,27 +10,17 @@ use Exception;
 
 /**
  * Class UpdatePaymentAccountTask.
- *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
  */
 class UpdatePaymentAccountTask extends Task
 {
-    protected $repository;
+    protected PaymentAccountRepository $repository;
 
     public function __construct(PaymentAccountRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param \App\Containers\Payment\Models\PaymentAccount $account
-     * @param array                                         $data
-     *
-     * @return mixed
-     *
-     * @throws UpdateResourceFailedException
-     */
-    public function run(PaymentAccount $account, array $data)
+    public function run(PaymentAccount $account, array $data): PaymentAccount
     {
         try {
             return $this->repository->update($data, $account->id);

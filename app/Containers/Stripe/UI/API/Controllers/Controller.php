@@ -2,23 +2,20 @@
 
 namespace App\Containers\Stripe\UI\API\Controllers;
 
-use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Stripe\UI\API\Requests\CreateStripeAccountRequest;
 use App\Containers\Stripe\UI\API\Requests\UpdateStripeAccountRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Controllers\ApiController;
 use App\Ship\Transporters\DataTransporter;
+use Illuminate\Http\JsonResponse;
 
 /**
  * Class Controller.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class Controller extends ApiController
 {
     /**
-     * @param \App\Containers\Stripe\UI\API\Requests\CreateStripeAccountRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function createStripeAccount(CreateStripeAccountRequest $request)
     {
@@ -31,13 +28,11 @@ class Controller extends ApiController
     }
 
     /**
-     * @param \App\Containers\Stripe\UI\API\Requests\UpdateStripeAccountRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function updateStripeAccount(UpdateStripeAccountRequest $request)
     {
-        $stripeAccount = Apiato::call('Stripe@UpdateStripeAccountAction', [new DataTransporter($request)]);
+        $stripeAccount = Apiato::call('Stripe@UpdateStripeAccountAction', [$request]);
 
         return $this->accepted([
             'message'           => 'Stripe account updated successfully.',

@@ -7,7 +7,6 @@ use App\Ship\Core\Traits\EagerLoadPivotTrait;
 use App\Ship\Core\Traits\HashIdTrait;
 use App\Ship\Core\Traits\HasResourceKeyTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class Model.
@@ -18,5 +17,4 @@ abstract class Model extends AbstractModel
     use HasResourceKeyTrait;
     use HasFactory;
     use EagerLoadPivotTrait;
-    use HasRelationships;
 }

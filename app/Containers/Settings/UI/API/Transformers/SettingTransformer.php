@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\UI\API\Transformers;
 
 use App\Containers\Settings\Models\Setting;
@@ -20,8 +22,6 @@ class SettingTransformer extends Transformer
     ];
 
     /**
-     * @param Setting $entity
-     *
      * @return array
      */
     public function transform(Setting $entity)
@@ -36,7 +36,7 @@ class SettingTransformer extends Transformer
         ];
 
         return $this->ifAdmin([
-            'real_id'    => $entity->id,
+            'real_id' => $entity->id,
         ], $response);
     }
 }

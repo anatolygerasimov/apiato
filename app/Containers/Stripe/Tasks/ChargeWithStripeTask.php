@@ -9,36 +9,28 @@ use App\Containers\Payment\Models\PaymentTransaction;
 use App\Containers\Stripe\Exceptions\StripeAccountNotFoundException;
 use App\Containers\Stripe\Exceptions\StripeApiErrorException;
 use App\Ship\Parents\Tasks\Task;
+use Cartalyst\Stripe\Api\Charges;
 use Cartalyst\Stripe\Stripe;
 use Exception;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class ChargeWithStripeTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class ChargeWithStripeTask extends Task implements PaymentChargerInterface
 {
-    private $stripe;
+    private Stripe $stripe;
 
     /**
      * ChargeWithStripeTask constructor.
-     *
-     * @param \Cartalyst\Stripe\Stripe $stripe
      */
     public function __construct(Stripe $stripe)
     {
-        $this->stripe = $stripe->make(Config::get('settings.stripe.secret'), Config::get('settings.stripe.version'));
+        $this->stripe = $stripe->make(config('services.stripe.secret'), config('services.stripe.version'));
     }
 
     /**
-     * @param \App\Containers\Payment\Contracts\ChargeableInterface $user
-     * @param \App\Containers\Payment\Models\AbstractPaymentAccount $account
-     * @param float                                                 $amount
-     * @param string                                                $currency
-     *
-     * @return PaymentTransaction
+     * @param float  $amount
+     * @param string $currency
      *
      * @throws StripeAccountNotFoundException
      * @throws StripeApiErrorException
@@ -51,15 +43,17 @@ class ChargeWithStripeTask extends Task implements PaymentChargerInterface
         $valid = $account->checkIfPaymentDataIsSet(['customer_id', 'card_id', 'card_funding', 'card_last_digits', 'card_fingerprint']);
 
         if ($valid === false) {
-            throw new StripeAccountNotFoundException('We could not find your credit card information. 
-            For security reasons, we do not store your credit card information on our server. 
-            So please login to our Web App and enter your credit card information directly into Stripe, 
-            then try to purchase the credits again. 
+            throw new StripeAccountNotFoundException('We could not find your credit card information.
+            For security reasons, we do not store your credit card information on our server.
+            So please login to our Web App and enter your credit card information directly into Stripe,
+            then try to purchase the credits again.
             Thanks.');
         }
 
         try {
-            $response = $this->stripe->charges()->create([
+            /** @var Charges $charges */
+            $charges  = $this->stripe->charges();
+            $response = $charges->create([
                 'customer' => $account->customer_id,
                 'currency' => $currency,
                 'amount'   => $amount,

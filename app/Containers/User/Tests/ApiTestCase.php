@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Tests;
 
 use App\Containers\User\Tests\TestCase as BaseTestCase;

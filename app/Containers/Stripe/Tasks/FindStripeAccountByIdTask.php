@@ -3,27 +3,21 @@
 namespace App\Containers\Stripe\Tasks;
 
 use App\Containers\Stripe\Data\Repositories\StripeAccountRepository;
+use App\Containers\Stripe\Models\StripeAccount;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Tasks\Task;
 use Exception;
 
 class FindStripeAccountByIdTask extends Task
 {
-    protected $repository;
+    protected StripeAccountRepository $repository;
 
     public function __construct(StripeAccountRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /**
-     * @param $id
-     *
-     * @return mixed
-     *
-     * @throws NotFoundException
-     */
-    public function run($id)
+    public function run(int $id): ?StripeAccount
     {
         try {
             return $this->repository->find($id);

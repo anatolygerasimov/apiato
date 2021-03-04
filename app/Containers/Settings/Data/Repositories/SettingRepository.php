@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\Settings\Data\Repositories;
 
 use App\Containers\Settings\Models\Setting;
@@ -7,8 +9,6 @@ use App\Ship\Parents\Repositories\Repository;
 
 /**
  * Class SettingsRepository.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class SettingRepository extends Repository
 {
@@ -20,6 +20,9 @@ class SettingRepository extends Repository
         'key' => '=',
     ];
 
+    /**
+     * @return void
+     */
     public function boot()
     {
         parent::boot();
@@ -27,7 +30,7 @@ class SettingRepository extends Repository
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function model()
     {

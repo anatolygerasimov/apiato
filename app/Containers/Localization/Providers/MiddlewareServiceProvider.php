@@ -7,8 +7,6 @@ use App\Ship\Parents\Providers\MiddlewareProvider;
 
 /**
  * Class MiddlewareServiceProvider.
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class MiddlewareServiceProvider extends MiddlewareProvider
 {
@@ -41,6 +39,6 @@ class MiddlewareServiceProvider extends MiddlewareProvider
      * @var array
      */
     protected $routeMiddleware = [
-        // ..
+
     ];
 }

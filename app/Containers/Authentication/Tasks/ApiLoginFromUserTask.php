@@ -13,10 +13,11 @@ use Laravel\Passport\PersonalAccessTokenResult;
  */
 class ApiLoginFromUserTask extends Task
 {
-    /**
-     * @return PersonalAccessTokenResult
-     */
-    public function run(User $user)
+  /**
+   * @param User $user
+   * @return PersonalAccessTokenResult
+   */
+    public function run(User $user): PersonalAccessTokenResult
     {
         return $user->createToken('social');
     }

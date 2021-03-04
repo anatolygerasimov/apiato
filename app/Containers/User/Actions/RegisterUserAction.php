@@ -1,48 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
-use App\Containers\User\Events\UserRegisteredEvent;
-use App\Containers\User\Mails\UserRegisteredMail;
 use App\Containers\User\Models\User;
-use App\Containers\User\Notifications\UserRegisteredNotification;
+use App\Containers\User\UI\API\Requests\RegisterUserRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
-use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Events\Registered;
 
 /**
  * Class RegisterUserAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class RegisterUserAction extends Action
 {
-    /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     *
-     * @return \App\Containers\User\Models\User
-     */
-    public function run(DataTransporter $data): User
+    public function run(RegisterUserRequest $userData): User
     {
-        // create user record in the database and return it.
+        /**
+         * Create user record in the database and return it.
+         *
+         * @var User $user
+         */
         $user = Apiato::call('User@CreateUserByCredentialsTask', [
-            $isClient = true,
-            $data->email,
-            $data->password,
-            $data->name,
-            $data->gender,
-            $data->birth,
+            $userData->email,
+            $userData->password,
+            $userData->username,
         ]);
 
-        Mail::send(new UserRegisteredMail($user));
+        // assign a base role to user
+        Apiato::call('Authorization@AssignUserToRoleTask', [$user, ['user']]);
 
-        Notification::send($user, new UserRegisteredNotification($user));
-
-        App::make(Dispatcher::class)->dispatch(new UserRegisteredEvent($user));
+        /** Upon this event, newly registered users will automatically be sent an email containing an email verification link. */
+        event(new Registered($user));
 
         return $user;
     }

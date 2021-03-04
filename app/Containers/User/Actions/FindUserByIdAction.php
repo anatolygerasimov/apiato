@@ -1,28 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\User\Models\User;
+use App\Containers\User\UI\API\Requests\FindUserByIdRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
 
 /**
  * Class FindUserByIdAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class FindUserByIdAction extends Action
 {
-    /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     *
-     * @return \App\Containers\User\Models\User
-     */
-    public function run(DataTransporter $data): User
+    public function run(FindUserByIdRequest $userData): User
     {
-        $user = Apiato::call('User@FindUserByIdTask', [$data->id]);
+        $user = Apiato::call('User@FindUserByIdTask', [$userData->id]);
 
         if (!$user) {
             throw new NotFoundException();

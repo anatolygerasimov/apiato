@@ -1,22 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Tests\Functional;
 
 use App\Containers\User\Models\User;
 use App\Containers\User\Tests\ApiTestCase;
+use App\Ship\Core\Foundation\Facades\Apiato;
 
 /**
  * Class GetAllUsersTest.
  *
  * @group user
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllClientsTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'get@v1/clients';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => 'list-users',
@@ -25,13 +32,15 @@ class GetAllClientsTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllClientsByAdmin()
+    public function testGetAllClientsByAdmin(): void
     {
         // should be returned
         factory(User::class, 3)->states('client')->create();
 
         // should not be returned
-        factory(User::class)->create();
+        $user = factory(User::class)->create();
+
+        Apiato::call('Authorization@AssignUserToRoleTask', [$user, ['user']]);
 
         // send the HTTP request
         $response = $this->makeCall();
@@ -43,13 +52,14 @@ class GetAllClientsTest extends ApiTestCase
         $responseContent = $this->getResponseContentObject();
 
         // assert the returned data size is correct
-        $this->assertCount(3, $responseContent->data);
+        // 1 (fake in this test) + 1 (seeded user)
+        $this->assertCount(2, $responseContent->data);
     }
 
     /**
      * @test
      */
-    public function testGetAllClientsByNonAdmin()
+    public function testGetAllClientsByNonAdmin(): void
     {
         // prepare a user without any roles or permissions
         $this->getTestingUserWithoutAccess();

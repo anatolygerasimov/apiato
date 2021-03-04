@@ -1,26 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Actions;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\User\UI\API\Requests\DeleteUserRequest;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Actions\Action;
-use App\Ship\Transporters\DataTransporter;
 
 /**
  * Class DeleteUserAction.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class DeleteUserAction extends Action
 {
-    /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     */
-    public function run(DataTransporter $data): void
+    public function run(DeleteUserRequest $userData): void
     {
-        $user = $data->id ?
-            Apiato::call('User@FindUserByIdTask',
-                [$data->id]) : Apiato::call('Authentication@GetAuthenticatedUserTask');
+        $user = $userData->id ?
+          Apiato::call('User@FindUserByIdTask', [$userData->id])
+            :
+          Apiato::call('Authentication@GetAuthenticatedUserTask');
 
         Apiato::call('User@DeleteUserTask', [$user]);
     }

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Tests\Functional;
 
+use App\Containers\SystemStatus\Exceptions\FallbackRouteNotFoundException;
 use App\Containers\User\Tests\ApiTestCase;
 
 /**
@@ -9,15 +12,22 @@ use App\Containers\User\Tests\ApiTestCase;
  *
  * @group user
  * @group api
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class RegisterUserTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'post@v1/register';
 
+    /**
+     * @var bool
+     */
     protected $auth = false;
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => '',
         'permissions' => '',
@@ -26,28 +36,31 @@ class RegisterUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRegisterNewUserWithCredentials()
+    public function testRegisterNewUserWithCredentials(): void
     {
         $data = [
-            'email'    => 'apiato@mail.test',
-            'name'     => 'Apiato',
-            'password' => 'secretpass',
+            'email'                 => 'apiato@mail.test',
+            'username'              => 'Apiato',
+            'password'              => 'secretpass',
+            'password_confirmation' => 'secretpass',
         ];
 
         // send the HTTP request
         $response = $this->makeCall($data);
 
+        $withConfirmEmail = config('authentication-container.require_email_confirmation');
+
         // assert response status is correct
-        $response->assertStatus(200);
+        $response->assertStatus($withConfirmEmail ? 202 : 200);
 
-        $this->assertResponseContainKeyValue([
-            'email' => $data['email'],
-            'name'  => $data['name'],
-        ]);
-
-        $responseContent = $this->getResponseContentObject();
-
-        $this->assertNotEmpty($responseContent->data);
+        if ($withConfirmEmail) {
+            $this->assertResponseContainKeys(['message']);
+        } else {
+            $this->assertResponseContainKeyValue([
+                'email'    => $data['email'],
+                'username' => $data['username'],
+            ]);
+        }
 
         // assert the data is stored in the database
         $this->assertDatabaseHas('users', ['email' => $data['email']]);
@@ -56,33 +69,34 @@ class RegisterUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRegisterNewUserUsingGetVerb()
+    public function testRegisterNewUserUsingGetVerb(): void
     {
         $data = [
             'email'    => 'apiato@mail.test',
-            'name'     => 'Apiato',
+            'username' => 'Apiato',
             'password' => 'secret',
         ];
 
         // send the HTTP request
         $response = $this->endpoint('get@v1/register')->makeCall($data);
 
-        // assert response status is correct
-        $response->assertStatus(405);
+        $message = (new FallbackRouteNotFoundException())->getMessage();
+        $code    = (new FallbackRouteNotFoundException())->getStatusCode();
 
-        $this->assertResponseContainKeyValue([
-            'message' => 'The GET method is not supported for this route. Supported methods: POST.',
-        ]);
+        // assert response status is correct
+        $response->assertStatus($code);
+
+        $this->assertResponseContainKeyValue(['message' => $message]);
     }
 
     /**
      * @test
      */
-    public function testRegisterExistingUser()
+    public function testRegisterExistingUser(): void
     {
         $userDetails = [
             'email'    => 'apiato@mail.test',
-            'name'     => 'Apiato',
+            'username' => 'Apiato',
             'password' => 'secret',
         ];
 
@@ -91,7 +105,7 @@ class RegisterUserTest extends ApiTestCase
 
         $data = [
             'email'    => $userDetails['email'],
-            'name'     => $userDetails['name'],
+            'username' => $userDetails['username'],
             'password' => $userDetails['password'],
         ];
 
@@ -109,10 +123,10 @@ class RegisterUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRegisterNewUserWithoutEmail()
+    public function testRegisterNewUserWithoutEmail(): void
     {
         $data = [
-            'name'     => 'Apiato',
+            'username' => 'Apiato',
             'password' => 'secret',
         ];
 
@@ -131,7 +145,7 @@ class RegisterUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRegisterNewUserWithoutName()
+    public function testRegisterNewUserWithoutName(): void
     {
         $data = [
             'email'    => 'apiato@mail.test',
@@ -146,18 +160,18 @@ class RegisterUserTest extends ApiTestCase
 
         // assert response contain the correct message
         $this->assertValidationErrorContain([
-            'name' => 'The name field is required.',
+            'username' => 'The username field is required.',
         ]);
     }
 
     /**
      * @test
      */
-    public function testRegisterNewUserWithoutPassword()
+    public function testRegisterNewUserWithoutPassword(): void
     {
         $data = [
-            'email' => 'apiato@mail.test',
-            'name'  => 'Apiato',
+            'email'    => 'apiato@mail.test',
+            'username' => 'Apiato',
         ];
 
         $response = $this->makeCall($data);
@@ -174,11 +188,11 @@ class RegisterUserTest extends ApiTestCase
     /**
      * @test
      */
-    public function testRegisterNewUserWithInvalidEmail()
+    public function testRegisterNewUserWithInvalidEmail(): void
     {
         $data = [
             'email'    => 'missing-at.test',
-            'name'     => 'Apiato',
+            'username' => 'Apiato',
             'password' => 'secret',
         ];
 

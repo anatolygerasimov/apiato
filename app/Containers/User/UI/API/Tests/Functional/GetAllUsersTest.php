@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Tests\Functional;
 
 use App\Containers\User\Models\User;
@@ -10,13 +12,17 @@ use App\Containers\User\Tests\ApiTestCase;
  *
  * @group user
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
 class GetAllUsersTest extends ApiTestCase
 {
+    /**
+     * @var string
+     */
     protected $endpoint = 'get@v1/users';
 
+    /**
+     * @var array
+     */
     protected $access = [
         'roles'       => 'admin',
         'permissions' => 'list-users',
@@ -25,10 +31,13 @@ class GetAllUsersTest extends ApiTestCase
     /**
      * @test
      */
-    public function testGetAllUsersByAdmin()
+    public function testGetAllUsersByAdmin(): void
     {
         // create some non-admin users who are clients
         factory(User::class, 2)->create();
+
+        $user = $this->getTestingUser();
+        $user->assignRole($this->access['roles']);
 
         // send the HTTP request
         $response = $this->makeCall();
@@ -40,13 +49,13 @@ class GetAllUsersTest extends ApiTestCase
         $responseContent = $this->getResponseContentObject();
 
         // assert the returned data size is correct
-        $this->assertCount(4, $responseContent->data);
+        $this->assertCount(5, $responseContent->data);
     }
 
     /**
      * @test
      */
-    public function testGetAllUsersByNonAdmin()
+    public function testGetAllUsersByNonAdmin(): void
     {
         $this->getTestingUserWithoutAccess();
 
@@ -67,24 +76,26 @@ class GetAllUsersTest extends ApiTestCase
     /**
      * @test
      */
-    public function testSearchUsersByName()
+    public function testSearchUsersByName(): void
     {
         $user = $this->getTestingUser([
-            'name' => 'mahmoudzzz',
+            'username' => 'usersszzz',
         ]);
+
+        $user->assignRole($this->access['roles']);
 
         // 3 random users
         factory(User::class, 3)->create();
 
         // send the HTTP request
-        $response = $this->endpoint($this->endpoint . '?search=name:mahmoudzzz')->makeCall();
+        $response = $this->endpoint($this->endpoint . '?search=username:usersszzz')->makeCall();
 
         // assert response status is correct
         $response->assertStatus(200);
 
         $responseArray = $response->decodeResponseJson();
 
-        $this->assertEquals($user->name, $responseArray['data'][0]['name']);
+        $this->assertEquals($user->username, $responseArray['data'][0]['username']);
 
         // assert only single user was returned
         $this->assertCount(1, $responseArray['data']);

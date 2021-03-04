@@ -3,17 +3,17 @@
 namespace App\Containers\SocialAuth\Tasks;
 
 use App\Containers\User\Data\Repositories\UserRepository;
+use App\Containers\User\Models\User;
 use App\Ship\Exceptions\UpdateResourceFailedException;
 use App\Ship\Parents\Tasks\Task;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class UpdateUserSocialProfileTask.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class UpdateUserSocialProfileTask extends Task
 {
-    protected $repository;
+    protected UserRepository $repository;
 
     public function __construct(UserRepository $repository)
     {
@@ -21,22 +21,22 @@ class UpdateUserSocialProfileTask extends Task
     }
 
     /**
-     * @param      $userId
-     * @param null $token
-     * @param null $expiresIn
-     * @param null $refreshToken
-     * @param null $tokenSecret
-     * @param null $provider
-     * @param null $avatar
-     * @param null $avatar_original
-     * @param null $socialId
-     * @param null $nickname
-     * @param null $name
-     * @param null $email
+     * @param int         $userId
+     * @param string|null $token
+     * @param string|null $expiresIn
+     * @param string|null $refreshToken
+     * @param string|null $tokenSecret
+     * @param string|null $provider
+     * @param string|null $avatar
+     * @param string|null $avatarOriginal
+     * @param string|null $socialId
+     * @param string|null $nickname
+     * @param string|null $username
+     * @param string|null $email
      *
      * @return mixed
      *
-     * @throws UpdateResourceFailedException
+     * @throws UpdateResourceFailedException|ValidatorException
      */
     public function run(
         $userId,
@@ -45,13 +45,13 @@ class UpdateUserSocialProfileTask extends Task
         $refreshToken = null,
         $tokenSecret = null,
         $avatar = null,
-        $avatar_original = null,
+        $avatarOriginal = null,
         $provider = null,
         $socialId = null,
         $nickname = null,
-        $name = null,
+        $username = null,
         $email = null
-    ) {
+    ): User {
         $attributes = [];
 
         if ($token) {
@@ -78,8 +78,8 @@ class UpdateUserSocialProfileTask extends Task
             $attributes['social_avatar'] = $avatar;
         }
 
-        if ($avatar_original) {
-            $attributes['social_avatar_original'] = $avatar_original;
+        if ($avatarOriginal) {
+            $attributes['social_avatar_original'] = $avatarOriginal;
         }
 
         if ($socialId) {
@@ -90,8 +90,8 @@ class UpdateUserSocialProfileTask extends Task
             $attributes['social_nickname'] = $nickname;
         }
 
-        if ($name) {
-            $attributes['name'] = $name;
+        if ($username) {
+            $attributes['username'] = $username;
         }
 
         if ($email) {

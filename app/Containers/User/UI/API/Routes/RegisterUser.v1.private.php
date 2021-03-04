@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Users
  * @apiName            registerUser
@@ -12,13 +16,11 @@
  *
  * @apiParam           {String}  email (required)
  * @apiParam           {String}  password (required)
- * @apiParam           {String}  name (optional)
- * @apiParam           {String}  gender (optional)
- * @apiParam           {String}  birth (optional)
- *
- * @apiUse             UserSuccessSingleResponse
+ * @apiParam           {String}  username (optional)
  */
+
+/** @var Route $router */
 $router->post('/register', [
-    'as'    => 'api_user_register_user',
-    'uses'  => 'Controller@registerUser',
+    'as'   => 'api_user_register_user',
+    'uses' => 'Controller@registerUser',
 ]);

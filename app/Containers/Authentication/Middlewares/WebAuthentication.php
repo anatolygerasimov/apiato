@@ -8,7 +8,10 @@ use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Middlewares\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 /**
  * Class WebAuthentication.
@@ -20,19 +23,22 @@ class WebAuthentication extends Middleware
      */
     protected Guard $auth;
 
-    /**
-     * WebAuthentication constructor.
-     */
+  /**
+   * WebAuthentication constructor.
+   * @param Guard $auth
+   */
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
     }
 
-    /**
-     * Handle an incoming request.
-     *
-     * @psalm-return mixed
-     */
+  /**
+   * Handle an incoming request.
+   *
+   * @param Request $request
+   * @param Closure $next
+   * @return Application|RedirectResponse|Redirector|mixed
+   */
     public function handle(Request $request, Closure $next)
     {
         if ($this->auth->guest()) {

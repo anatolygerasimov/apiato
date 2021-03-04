@@ -2,9 +2,10 @@
 
 namespace App\Containers\Stripe\Tests\Unit;
 
+use App\Containers\Payment\Models\PaymentTransaction;
 use App\Containers\Payment\Tasks\AssignPaymentAccountToUserTask;
-use App\Containers\Payment\Traits\MockablePaymentsTrait;
 use App\Containers\Stripe\Models\StripeAccount;
+use App\Containers\Stripe\Tasks\ChargeWithStripeTask;
 use App\Containers\User\Tests\TestCase;
 use Illuminate\Support\Facades\App;
 
@@ -13,17 +14,13 @@ use Illuminate\Support\Facades\App;
  *
  * @group stripe
  * @group unit
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
 class ChargeUserWithStripeTest extends TestCase
 {
-    use MockablePaymentsTrait;
-
     /**
      * @test
      */
-    public function testChargeUserWithStripe()
+    public function testChargeUserWithStripe(): void
     {
         // Mock the payments
         $this->mockPayments();
@@ -45,5 +42,33 @@ class ChargeUserWithStripeTest extends TestCase
         $transaction = $user->charge($account, $amount);
 
         $this->assertEquals($transaction->gateway, 'Stripe');
+    }
+
+    public function mockPayments(): void
+    {
+        // Mock Stripe charging
+        if (class_exists($chargeWithStripeTask = ChargeWithStripeTask::class)) {
+
+            /** @var array<array-key, mixed> $paymentTransaction */
+            $paymentTransaction = new PaymentTransaction([
+                'user_id' => 1,
+
+                'gateway'        => 'Stripe',
+                'transaction_id' => 'tx_1234567890',
+                'status'         => 'success',
+                'is_successful'  => true,
+
+                'amount'   => '100',
+                'currency' => 'USD',
+
+                'data'   => [],
+                'custom' => [],
+            ]);
+
+            /** @psalm-suppress UndefinedMagicMethod */
+            $this->mockIt($chargeWithStripeTask)
+                ->shouldReceive('charge')
+                ->andReturn($paymentTransaction);
+        }
     }
 }

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 </head>
 <body>
-<h3>Welcome {{$name}}</h3>
+<h3>Welcome {{$username}}</h3>
 <div>
     Thank you for signing up.
 </div>

@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Transformers;
 
 use App\Containers\Authorization\UI\API\Transformers\RoleTransformer;
 use App\Containers\User\Models\User;
 use App\Ship\Parents\Transformers\Transformer;
+use Illuminate\Support\Carbon;
+use League\Fractal\Resource\Collection;
 
 /**
  * Class UserTransformer.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class UserTransformer extends Transformer
 {
@@ -20,49 +22,33 @@ class UserTransformer extends Transformer
         'roles',
     ];
 
-    /**
-     * @var array
-     */
-    protected $defaultIncludes = [
-
-    ];
-
-    /**
-     * @param \App\Containers\User\Models\User $user
-     *
-     * @return array
-     */
-    public function transform(User $user)
+    public function transform(User $user): array
     {
-        $response = [
-            'object'               => 'User',
-            'id'                   => $user->getHashedKey(),
-            'name'                 => $user->name,
-            'email'                => $user->email,
-            'confirmed'            => $user->confirmed,
-            'nickname'             => $user->nickname,
-            'gender'               => $user->gender,
-            'birth'                => $user->birth,
+        /** @var Carbon|null $updateAt */
+        $updateAt = $user->updated_at;
 
-            'social_auth_provider' => $user->social_provider,
-            'social_id'            => $user->social_id,
-            'social_avatar'        => [
-                'avatar'   => $user->social_avatar,
-                'original' => $user->social_avatar_original,
-            ],
-
-            'created_at'           => $user->created_at,
-            'updated_at'           => $user->updated_at,
-            'readable_created_at'  => $user->created_at === null ? '' : $user->created_at->diffForHumans(),
-            'readable_updated_at'  => $user->updated_at === null ? '' : $user->updated_at->diffForHumans(),
+        return [
+            'object'              => 'User',
+            'id'                  => $user->getHashedKey(),
+            'username'            => $user->username,
+            'email'               => $user->email,
+            'avatar'              => $user->avatar_url,
+            'default_process_id'  => $user->getHashedKey('default_process_id'),
+            'default_screen_id'   => $user->getHashedKey('default_screen_id'),
+            'company_id'          => $user->getHashedKey('company_id'),
+            'first_name'          => $user->first_name,
+            'last_name'           => $user->last_name,
+            'data_source'         => $user->data_source,
+            'is_client'           => $user->is_client,
+            'is_email_confirmed'  => $user->hasVerifiedEmail(),
+            'updated_at'          => $updateAt,
+            'readable_updated_at' => $updateAt ? $updateAt->diffForHumans() : null,
         ];
-
-        return $this->ifAdmin([
-            'real_id'    => $user->id,
-            'deleted_at' => $user->deleted_at,
-        ], $response);
     }
 
+    /**
+     * @return Collection
+     */
     public function includeRoles(User $user)
     {
         return $this->collection($user->roles, new RoleTransformer());

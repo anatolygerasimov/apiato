@@ -26,4 +26,18 @@ return [
         'fr',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Force Valid Locale
+    |--------------------------------------------------------------------------
+    |
+    | By default, we validate users Language. However, the user may
+    | still request an invalid (i.e., not available) Language. This flag
+    | determines, how to proceed in such a case:
+    | When set to true, a PHP Exception will be thrown (default)
+    | When set to false, this invalid Language will be skipped and set to fallback_locale
+    |
+    */
+    'force-valid-locale' => false,
+
 ];

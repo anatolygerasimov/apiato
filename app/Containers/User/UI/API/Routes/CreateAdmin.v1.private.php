@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Users
  * @apiName            createAdmin
@@ -12,10 +16,10 @@
  *
  * @apiParam           {String}  email
  * @apiParam           {String}  password
- * @apiParam           {String}  name
- *
- * @apiUse             UserSuccessSingleResponse
+ * @apiParam           {String}  username
  */
+
+/** @var Route $router */
 $router->post('admins', [
     'as'         => 'api_user_create_admin',
     'uses'       => 'Controller@createAdmin',

@@ -2,28 +2,25 @@
 
 namespace App\Containers\SocialAuth\UI\API\Controllers;
 
-use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\SocialAuth\Data\Transporters\ApiAuthenticateTransporter;
 use App\Containers\SocialAuth\UI\API\Requests\ApiAuthenticateRequest;
 use App\Containers\User\UI\API\Transformers\UserTransformer;
+use App\Ship\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Controllers\ApiController;
-use App\Ship\Transporters\DataTransporter;
 
 /**
  * Class Controller.
- *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
  */
 class Controller extends ApiController
 {
     /**
-     * @param \App\Containers\SocialAuth\UI\API\Requests\ApiAuthenticateRequest $request
-     * @param                                                                   $providerUrlInput
+     * @param string $providerUrlInput
      *
      * @return array
      */
     public function authenticateAll(ApiAuthenticateRequest $request, $providerUrlInput)
     {
-        $dataTransporter           = new DataTransporter($request);
+        $dataTransporter           = new ApiAuthenticateTransporter($request);
         $dataTransporter->provider = $providerUrlInput;
 
         $data = Apiato::call('SocialAuth@SocialLoginAction', [$dataTransporter]);

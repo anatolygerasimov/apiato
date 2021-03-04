@@ -7,36 +7,35 @@ use App\Ship\Parents\Requests\Request;
 /**
  * Class UpdateStripeAccountRequest.
  *
- * @author  Johannes Schobel <johannes.schobel@googlemail.com>
+ * @property-read int    $id
+ * @property-read string $customer_id
+ * @property-read string $card_id
+ * @property-read string $card_funding
+ * @property-read int    $card_last_digits
+ * @property-read string $card_fingerprint
  */
 class UpdateStripeAccountRequest extends Request
 {
     /**
      * Define which Roles and/or Permissions has access to this request.
-     *
-     * @var array
      */
-    protected $access = [
+    protected array $access = [
         'roles'       => '',
         'permissions' => '',
     ];
 
     /**
      * Id's that needs decoding before applying the validation rules.
-     *
-     * @var array
      */
-    protected $decode = [
+    protected array $decode = [
         'id',
     ];
 
     /**
      * Defining the URL parameters (`/stores/999/items`) allows applying
      * validation rules on them and allows accessing them like request data.
-     *
-     * @var array
      */
-    protected $urlParameters = [
+    protected array $urlParameters = [
         'id',
     ];
 
@@ -48,13 +47,12 @@ class UpdateStripeAccountRequest extends Request
     public function rules()
     {
         return [
-            'id'                => 'required|exists:stripe_accounts,id',
-
-            'customer_id'       => 'sometimes|min:3',
-            'card_id'           => 'sometimes|min:3',
-            'card_funding'      => 'sometimes',
-            'card_last_digits'  => 'sometimes|integer|min:0|max:9999',
-            'card_fingerprint'  => 'sometimes|string',
+            'id'               => 'required|exists:stripe_accounts,id',
+            'customer_id'      => 'sometimes|min:3',
+            'card_id'          => 'sometimes|min:3',
+            'card_funding'     => 'sometimes',
+            'card_last_digits' => 'sometimes|integer|min:0|max:9999',
+            'card_fingerprint' => 'sometimes|string',
         ];
     }
 

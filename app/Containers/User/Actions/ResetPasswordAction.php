@@ -1,46 +1,54 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\Actions;
 
+use App\Containers\User\Exceptions\ResetPasswordException;
+use App\Containers\User\Models\User;
+use App\Containers\User\UI\API\Requests\ResetPasswordRequest;
 use App\Ship\Exceptions\InternalErrorException;
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Exceptions\Exception;
-use App\Ship\Transporters\DataTransporter;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
 /**
  * Class ResetPasswordAction.
- *
- * * @author  Sebastian Weckend
  */
 class ResetPasswordAction extends Action
 {
-    /**
-     * @param \App\Ship\Transporters\DataTransporter $data
-     */
-    public function run(DataTransporter $data): void
+    public function run(ResetPasswordRequest $resetPasswordData): string
     {
-        $data = [
-            'email'                 => $data->email,
-            'token'                 => $data->token,
-            'password'              => $data->password,
-            'password_confirmation' => $data->password,
-        ];
+        $input = $resetPasswordData->sanitizeInput([
+            'email',
+            'token',
+            'password',
+            'password_confirmation',
+        ]);
 
         try {
-            Password::broker()->reset(
-                $data,
-                function ($user, $password) {
+            $status = Password::broker()->reset(
+                $input,
+                function (User $user, string $password) {
                     $user->forceFill([
                         'password'       => Hash::make($password),
                         'remember_token' => Str::random(60),
                     ])->save();
+
+                    event(new PasswordReset($user));
                 }
             );
         } catch (Exception $e) {
             throw new InternalErrorException();
         }
+
+        if ($status !== Password::PASSWORD_RESET) {
+            throw new ResetPasswordException(trans($status));
+        }
+
+        return (string)trans($status);
     }
 }

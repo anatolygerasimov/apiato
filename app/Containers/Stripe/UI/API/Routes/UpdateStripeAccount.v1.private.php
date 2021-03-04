@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+
 /**
  * @apiGroup           Stripe
  * @apiName            updateStripeAccount
@@ -18,6 +22,8 @@
  * // Insert the response of the request here...
  * }
  */
+
+/** @var Route $router */
 $router->patch('user/payments/accounts/stripe/{id}', [
     'as'         => 'api_stripe_update_stripe_account',
     'uses'       => 'Controller@updateStripeAccount',

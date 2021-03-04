@@ -3,7 +3,6 @@
 namespace App\Containers\Localization\UI\API\Tests\Functional;
 
 use App\Containers\Localization\Tests\ApiTestCase;
-use Illuminate\Support\Facades\Config;
 
 /**
  * Class CheckLocalizationMiddlewareTest.
@@ -13,10 +12,14 @@ use Illuminate\Support\Facades\Config;
  */
 class CheckLocalizationMiddlewareTest extends ApiTestCase
 {
-    // the endpoint to be called within this test (e.g., get@v1/users)
+    /**
+     * @var string
+     */
     protected $endpoint = 'get@v1/localizations';
 
-    // fake some access rights
+    /**
+     * @var array
+     */
     protected $access = [
         'permissions' => '',
         'roles'       => '',
@@ -25,7 +28,7 @@ class CheckLocalizationMiddlewareTest extends ApiTestCase
     /**
      * @test
      */
-    public function testIfMiddlewareSetsDefaultAppLanguage()
+    public function testIfMiddlewareSetsDefaultAppLanguage(): void
     {
         $data           = [];
         $requestHeaders = [];
@@ -36,13 +39,13 @@ class CheckLocalizationMiddlewareTest extends ApiTestCase
         // assert the response status
         $response->assertStatus(200);
 
-        $defaultLanguage = Config::get('app.locale');
+        $defaultLanguage = config('app.locale');
 
         // check if the header is properly set
         $response->assertHeader('content-language', $defaultLanguage);
     }
 
-    public function testIfMiddlewareSetsCustomLanguage()
+    public function testIfMiddlewareSetsCustomLanguage(): void
     {
         $language = 'fr';
 
@@ -61,7 +64,7 @@ class CheckLocalizationMiddlewareTest extends ApiTestCase
         $response->assertHeader('content-language', $language);
     }
 
-    public function testIfMiddlewareThrowsErrorOnWrongLanguage()
+    public function testIfMiddlewareThrowsErrorOnWrongLanguage(): void
     {
         $language = 'xxx';
 

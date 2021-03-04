@@ -12,33 +12,37 @@ use Illuminate\Support\Facades\Cache;
  */
 class UserObserver
 {
-    /**
-     * @return void
-     */
+  /**
+   * @param User $user
+   * @return void
+   */
     public function saved(User $user)
     {
         Cache::put("user.{$user->id}", $user, 60);
     }
 
-    /**
-     * @return void
-     */
+  /**
+   * @param User $user
+   * @return void
+   */
     public function deleted(User $user)
     {
         Cache::forget("user.{$user->id}");
     }
 
-    /**
-     * @return void
-     */
+  /**
+   * @param User $user
+   * @return void
+   */
     public function restored(User $user)
     {
         Cache::put("user.{$user->id}", $user, 60);
     }
 
-    /**
-     * @return void
-     */
+  /**
+   * @param User $user
+   * @return void
+   */
     public function retrieved(User $user)
     {
         Cache::add("user.{$user->id}", $user, 60);

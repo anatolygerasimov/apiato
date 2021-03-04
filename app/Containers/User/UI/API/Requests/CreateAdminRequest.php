@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Containers\User\UI\API\Requests;
 
 use App\Ship\Parents\Requests\Request;
@@ -7,37 +9,19 @@ use App\Ship\Parents\Requests\Request;
 /**
  * Class CreateAdminRequest.
  *
- * @author Mahmoud Zalt <mahmoud@zalt.me>
+ * @property-read string $email
+ * @property-read string $password
+ * @property-read string $password_confirmation
+ * @property-read string $username
  */
 class CreateAdminRequest extends Request
 {
     /**
      * Define which Roles and/or Permissions has access to this request.
-     *
-     * @var array
      */
-    protected $access = [
+    protected array $access = [
         'permissions' => 'create-admins',
         'roles'       => '',
-    ];
-
-    /**
-     * Id's that needs decoding before applying the validation rules.
-     *
-     * @var array
-     */
-    protected $decode = [
-
-    ];
-
-    /**
-     * Defining the URL parameters (`/stores/999/items`) allows applying
-     * validation rules on them and allows accessing them like request data.
-     *
-     * @var array
-     */
-    protected $urlParameters = [
-
     ];
 
     /**
@@ -46,9 +30,9 @@ class CreateAdminRequest extends Request
     public function rules()
     {
         return [
-            'email'    => 'required|email|max:40|unique:users,email',
-            'password' => 'required|min:3|max:30',
-            'name'     => 'min:2|max:50',
+            'email'    => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|confirmed|min:6|max:30',
+            'username' => 'required|min:2|max:100|unique:users,username',
         ];
     }
 

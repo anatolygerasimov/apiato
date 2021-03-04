@@ -16,9 +16,9 @@ use Illuminate\Contracts\Auth\Authenticatable;
 class WebAdminLoginAction extends Action
 {
     /**
-     * @param \App\Ship\Transporters\DataTransporter $data
+     * @param DataTransporter $data
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable
+     * @return Authenticatable
      */
     public function run(DataTransporter $data): Authenticatable
     {
